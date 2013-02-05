@@ -8,8 +8,8 @@ goog.provide('cargo.base');
 
 goog.require('goog.dom');
 
-cargo.base.init = function() {
+cargo.base.main = function() {
   var node = goog.dom.createTextNode("Hello, World!");
-  goog.dom.appendChild(document.body, node);
+  goog.dom.appendChild(goog.dom.getDocument().body, node);
 };
-goog.exportSymbol('init', cargo.base.init);
+goog.exportSymbol('main', cargo.base.main);

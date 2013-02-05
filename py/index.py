@@ -9,6 +9,6 @@ index = markup.page()
 index.init(
     title = "Cargo-Not: Educational Cargo-Bot",
     script = sys.argv[1:])
-index.script('init();')
+index.script('main();')
 
 print index
