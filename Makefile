@@ -34,11 +34,10 @@ dry-run:
 	$(CC) --output_mode compiled > /dev/null
 
 lint:
-	gjslint --exclude_files $(SHADER_OUTPUT),$(OBJ_OUTPUT) \
-		--unix_mode -r cidev/
+	gjslint --strict --unix_mode -r $(PROJECT)
 
 clean:
-	rm -f $(JS_OUTPUT)
+	rm -f $(JS_OUTPUT) $(INDEX_OUTPUT)
 
 server:
 	python -m SimpleHTTPServer
