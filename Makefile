@@ -27,7 +27,8 @@ debug:
 	py/index.py `$(CC) --output_mode list` > $(INDEX_OUTPUT)
 
 release:
-	$(CC) --output_mode compiled > $(JS_OUTPUT)
+	$(CC) --compiler_flags "--compilation_level=ADVANCED_OPTIMIZATIONS" \
+		--output_mode compiled > $(JS_OUTPUT)
 	py/index.py $(JS_OUTPUT) > $(INDEX_OUTPUT)
 
 dry-run:
