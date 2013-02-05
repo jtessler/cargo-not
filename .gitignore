@@ -1,0 +1,8 @@
+*.swp
+*.pwc
+
+/closure/
+
+# Ignore generated files.
+/index.html
+/cargo-not-min.js
