@@ -20,3 +20,5 @@ Initial Setup
 1. Download the [Google Closure][closure] library and compiler: `make closure`
 1. Compile all JavaScript files and HTML templates: `make release`
 1. Open `index.html` in any web browser
+
+[closure]: https://developers.google.com/closure/
