@@ -1,5 +1,5 @@
 # Project variables.
-PROJECT = cargo
+PROJECT = cn
 JS_OUTPUT = cargo-not-min.js
 INDEX_OUTPUT = index.html
 

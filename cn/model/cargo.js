@@ -4,7 +4,7 @@
  * @author joseph@cs.utexas.edu (Joe Tessler)
  */
 
-goog.provide('cargo.model.Cargo');
+goog.provide('cn.model.Cargo');
 
 goog.require('goog.color');
 
@@ -14,7 +14,7 @@ goog.require('goog.color');
  * @param {!goog.color.Rgb} color The cargo box's color.
  * @constructor
  */
-cargo.model.Cargo = function(color) {
+cn.model.Cargo = function(color) {
 
   /**
    * @type {!goog.color.Rgb}
