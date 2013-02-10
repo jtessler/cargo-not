@@ -6,6 +6,8 @@
 
 goog.provide('cargo.base');
 
+goog.require('cargo.model.Bot');
+goog.require('cargo.model.Cargo');
 goog.require('goog.graphics');
 
 
@@ -20,5 +22,8 @@ cargo.base.main = function() {
   canvas.render();
   canvas.drawText(
       'Hello, World!', 200, 240, 100, 20, 'left', 'top', font, stroke, fill);
+
+  var bot = new cargo.model.Bot();
+  bot.cargo = new cargo.model.Cargo([0, 0, 0]);
 };
 goog.exportSymbol('main', cargo.base.main);
