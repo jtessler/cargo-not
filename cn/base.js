@@ -16,12 +16,20 @@ goog.require('goog.graphics');
  */
 cn.base.main = function() {
   var canvas = new goog.graphics.CanvasGraphics(500, 500);
-  var font = new goog.graphics.Font(40, 'Arial');
-  var stroke = new goog.graphics.Stroke(1, 'black');
-  var fill = new goog.graphics.SolidFill('black');
   canvas.render();
-  canvas.drawText(
-      'Hello, World!', 200, 240, 100, 20, 'left', 'top', font, stroke, fill);
+
+  var stroke = new goog.graphics.Stroke(2, 'black');
+  var fill = new goog.graphics.SolidFill('blue');
+  var path = new goog.graphics.Path();
+  path.moveTo(0, 0)
+      .lineTo(2, 0)
+      .lineTo(2, 2)
+      .lineTo(1, 1)
+      .lineTo(0, 2)
+      .lineTo(0, 0);
+  path.transform(goog.graphics.AffineTransform.getScaleInstance(50, 50));
+  path.transform(goog.graphics.AffineTransform.getTranslateInstance(100, 100));
+  canvas.drawPath(path, stroke, fill);
 
   var bot = new cn.model.Bot();
   bot.cargo = new cn.model.Cargo([0, 0, 0]);
