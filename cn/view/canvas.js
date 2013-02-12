@@ -14,6 +14,7 @@ goog.provide('cn.view.canvas');
  */
 cn.view.canvas.tx_ = goog.graphics.AffineTransform();
 
+
 /**
  * @param {!goog.graphics.CanvasGraphics} canvas The graphics context.
  * @param {!cn.model.Bot} bot The bot to draw.

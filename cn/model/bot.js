@@ -6,25 +6,39 @@
 
 goog.provide('cn.model.Bot');
 
+goog.require('goog.graphics.Path');
+
 
 
 /**
  * @constructor
  */
 cn.model.Bot = function() {
-
-  /**
-   * The bot's current cargo slot position.
-   * @type {number}
-   */
-  this.position = 0;
-
-  /**
-   * The bot's currently held cargo. Can be empty.
-   * @type {?cn.model.Cargo}
-   */
   this.cargo = null;
+  this.path = new goog.graphics.Path;
+  this.position = 0;
 };
+
+
+/**
+ * The bot's currently held cargo. Can be empty (null).
+ * @type {?cn.model.Cargo}
+ */
+cn.model.Bot.prototype.cargo;
+
+
+/**
+ * The bot's path representation.
+ * @type {!goog.graphics.Path}
+ */
+cn.model.Bot.prototype.path;
+
+
+/**
+ * The bot's current cargo slot position.
+ * @type {number}
+ */
+cn.model.Bot.prototype.position;
 
 
 /**
