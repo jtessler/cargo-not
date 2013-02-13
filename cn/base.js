@@ -7,7 +7,8 @@
 goog.provide('cn.base');
 
 goog.require('cn.model.Bot');
-goog.require('cn.view.canvas');
+goog.require('cn.view.Canvas');
+goog.require('goog.fx.anim');
 goog.require('goog.graphics.CanvasGraphics');
 
 
@@ -15,10 +16,10 @@ goog.require('goog.graphics.CanvasGraphics');
  * Sets up the UI and initializes all game code.
  */
 cn.base.main = function() {
-  var canvas = new goog.graphics.CanvasGraphics(500, 500);
-  canvas.render();
+  var canvas = new cn.view.Canvas();
   var bot = new cn.model.Bot();
 
-  cn.view.canvas.init(canvas, bot);
+  canvas.render(bot);
+  goog.fx.anim.registerAnimation(canvas);
 };
 goog.exportSymbol('main', cn.base.main);

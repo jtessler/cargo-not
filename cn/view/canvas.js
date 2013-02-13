@@ -4,11 +4,33 @@
  * @author joseph@cs.utexas.edu (Joe Tessler)
  */
 
-goog.provide('cn.view.canvas');
+goog.provide('cn.view.Canvas');
 
+goog.require('goog.fx.anim.Animated');
 goog.require('goog.graphics.AffineTransform');
+goog.require('goog.graphics.CanvasGraphics');
 goog.require('goog.graphics.SolidFill');
 goog.require('goog.graphics.Stroke');
+
+
+
+/**
+ * @constructor
+ * @implements {goog.fx.anim.Animated}
+ */
+cn.view.Canvas = function() {
+  this.canvas_ = new goog.graphics.CanvasGraphics(500, 500);
+  this.tx_ = new goog.graphics.AffineTransform();
+  this.stroke_ = new goog.graphics.Stroke(2, 'black');
+  this.fill_ = new goog.graphics.SolidFill('yellow');
+};
+
+
+/**
+ * The underlying graphics implementation.
+ * @type {!goog.graphics.CanvasGraphics}
+ */
+cn.view.Canvas.prototype.canvas_;
 
 
 /**
@@ -16,7 +38,7 @@ goog.require('goog.graphics.Stroke');
  * @type {!goog.graphics.AffineTransform}
  * @private
  */
-cn.view.canvas.tx_ = new goog.graphics.AffineTransform();
+cn.view.Canvas.prototype.tx_;
 
 
 /**
@@ -24,7 +46,7 @@ cn.view.canvas.tx_ = new goog.graphics.AffineTransform();
  * @type {!goog.graphics.Stroke}
  * @private
  */
-cn.view.canvas.stroke_ = new goog.graphics.Stroke(2, 'black');
+cn.view.Canvas.prototype.stroke_;
 
 
 /**
@@ -32,29 +54,26 @@ cn.view.canvas.stroke_ = new goog.graphics.Stroke(2, 'black');
  * @type {!goog.graphics.Fill}
  * @private
  */
-cn.view.canvas.fill_ = new goog.graphics.SolidFill('yellow');
+cn.view.Canvas.prototype.fill_;
 
 
 /**
  * Initializes the given canvas by scaling and drawing the game models at the
  * appropriate positions.
- * @param {!goog.graphics.CanvasGraphics} canvas The graphics context.
  * @param {!cn.model.Bot} bot The bot to draw.
  */
-cn.view.canvas.init = function(canvas, bot) {
-  canvas.clear();
+cn.view.Canvas.prototype.render = function(bot) {
+  this.canvas_.render();
 
-  var tx = cn.view.canvas.tx_;
-  bot.path.transform(tx.setToScale(10, 10));
-  bot.path.transform(tx.setToTranslation(100, 100));
-  canvas.drawPath(bot.path, cn.view.canvas.stroke_, cn.view.canvas.fill_);
+  this.bot = bot;
+  bot.path.transform(this.tx_.setToScale(10, 10).translate(10, 10));
+  this.canvas_.drawPath(bot.path, this.stroke_, this.fill_);
 };
 
 
 /**
- * @param {!goog.graphics.CanvasGraphics} canvas The graphics context.
- * @param {!cn.model.Bot} bot The bot to draw.
+ * @inheritDoc
  */
-cn.view.canvas.drawBot = function(canvas, bot) {
-  canvas.redraw();
+cn.view.Canvas.prototype.onAnimationFrame = function(now) {
+  this.canvas_.redraw();
 };
