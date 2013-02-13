@@ -14,17 +14,18 @@ goog.require('goog.graphics.Path');
  * @constructor
  */
 cn.model.Bot = function() {
-  this.cargo = null;
-  this.path = new goog.graphics.Path;
+  this.path = new goog.graphics.Path();
+  this.path.moveTo(0, 0)
+           .lineTo(4, 0)
+           .lineTo(4, 3)
+           .lineTo(3, 3)
+           .lineTo(3, 1)
+           .lineTo(1, 1)
+           .lineTo(1, 3)
+           .lineTo(0, 3)
+           .lineTo(0, 0);
   this.position = 0;
 };
-
-
-/**
- * The bot's currently held cargo. Can be empty (null).
- * @type {?cn.model.Cargo}
- */
-cn.model.Bot.prototype.cargo;
 
 
 /**
@@ -39,11 +40,3 @@ cn.model.Bot.prototype.path;
  * @type {number}
  */
 cn.model.Bot.prototype.position;
-
-
-/**
- * @return {boolean} True if the bot is currently holding cargo.
- */
-cn.model.Bot.prototype.isHoldingCargo = function() {
-  return goog.isDefAndNotNull(this.cargo);
-};
