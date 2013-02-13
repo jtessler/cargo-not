@@ -1,10 +1,10 @@
 /**
- * @fileoverview The canvas view control.
+ * @fileoverview The canvas graphics wrapper and all drawing logic.
  *
  * @author joseph@cs.utexas.edu (Joe Tessler)
  */
 
-goog.provide('cn.view.Canvas');
+goog.provide('cn.view.Scene');
 
 goog.require('goog.fx.anim.Animated');
 goog.require('goog.graphics.AffineTransform');
@@ -18,7 +18,7 @@ goog.require('goog.graphics.Stroke');
  * @constructor
  * @implements {goog.fx.anim.Animated}
  */
-cn.view.Canvas = function() {
+cn.view.Scene = function() {
   this.canvas_ = new goog.graphics.CanvasGraphics(500, 500);
   this.tx_ = new goog.graphics.AffineTransform();
   this.stroke_ = new goog.graphics.Stroke(2, 'black');
@@ -30,7 +30,7 @@ cn.view.Canvas = function() {
  * The underlying graphics implementation.
  * @type {!goog.graphics.CanvasGraphics}
  */
-cn.view.Canvas.prototype.canvas_;
+cn.view.Scene.prototype.canvas_;
 
 
 /**
@@ -38,7 +38,7 @@ cn.view.Canvas.prototype.canvas_;
  * @type {!goog.graphics.AffineTransform}
  * @private
  */
-cn.view.Canvas.prototype.tx_;
+cn.view.Scene.prototype.tx_;
 
 
 /**
@@ -46,7 +46,7 @@ cn.view.Canvas.prototype.tx_;
  * @type {!goog.graphics.Stroke}
  * @private
  */
-cn.view.Canvas.prototype.stroke_;
+cn.view.Scene.prototype.stroke_;
 
 
 /**
@@ -54,7 +54,7 @@ cn.view.Canvas.prototype.stroke_;
  * @type {!goog.graphics.Fill}
  * @private
  */
-cn.view.Canvas.prototype.fill_;
+cn.view.Scene.prototype.fill_;
 
 
 /**
@@ -62,7 +62,7 @@ cn.view.Canvas.prototype.fill_;
  * appropriate positions.
  * @param {!cn.model.Bot} bot The bot to draw.
  */
-cn.view.Canvas.prototype.render = function(bot) {
+cn.view.Scene.prototype.render = function(bot) {
   this.canvas_.render();
 
   this.bot = bot;
@@ -74,6 +74,6 @@ cn.view.Canvas.prototype.render = function(bot) {
 /**
  * @inheritDoc
  */
-cn.view.Canvas.prototype.onAnimationFrame = function(now) {
+cn.view.Scene.prototype.onAnimationFrame = function(now) {
   this.canvas_.redraw();
 };
