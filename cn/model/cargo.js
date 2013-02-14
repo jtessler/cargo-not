@@ -6,35 +6,22 @@
 
 goog.provide('cn.model.Cargo');
 
+goog.require('cn.model.PathModel');
 goog.require('goog.graphics.Path');
-goog.require('goog.graphics.SolidFill');
 
 
 
 /**
- * @param {string} color The cargo box's color.
+ * @inheritDoc
  * @constructor
+ * @extends {cn.model.PathModel}
  */
 cn.model.Cargo = function(color) {
-  this.path = new goog.graphics.Path();
+  goog.base(this, color);
   this.path.moveTo(1, 1)
            .lineTo(3, 1)
            .lineTo(3, 3)
            .lineTo(1, 3)
            .lineTo(1, 1);
-  this.fill = new goog.graphics.SolidFill(color);
 };
-
-
-/**
- * The Cargo box's path representation.
- * @type {!goog.graphics.Path}
- */
-cn.model.Cargo.prototype.path;
-
-
-/**
- * The cargo box's color
- * @type {goog.graphics.Fill}
- */
-cn.model.Cargo.prototype.fill;
+goog.inherits(cn.model.Cargo, cn.model.PathModel);

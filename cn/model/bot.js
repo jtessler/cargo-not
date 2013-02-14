@@ -6,15 +6,16 @@
 
 goog.provide('cn.model.Bot');
 
-goog.require('goog.graphics.Path');
+goog.require('cn.model.PathModel');
 
 
 
 /**
  * @constructor
+ * @extends {cn.model.PathModel}
  */
 cn.model.Bot = function() {
-  this.path = new goog.graphics.Path();
+  goog.base(this, 'yellow');
   this.path.moveTo(0, 0)
            .lineTo(4, 0)
            .lineTo(4, 3)
@@ -26,13 +27,7 @@ cn.model.Bot = function() {
            .lineTo(0, 0);
   this.position = 0;
 };
-
-
-/**
- * The bot's path representation.
- * @type {!goog.graphics.Path}
- */
-cn.model.Bot.prototype.path;
+goog.inherits(cn.model.Bot, cn.model.PathModel);
 
 
 /**
