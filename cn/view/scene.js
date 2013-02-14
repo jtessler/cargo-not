@@ -52,16 +52,22 @@ cn.view.Scene.prototype.stroke_;
  * Initializes the given canvas by scaling and drawing the game models at the
  * appropriate positions.
  * @param {!cn.model.Bot} bot The bot to draw.
- * @param {!cn.model.Cargo} cargo The box to draw.
+ * @param {!cn.model.Stack} stack The stack of boxes to draw.
  */
-cn.view.Scene.prototype.render = function(bot, cargo) {
+cn.view.Scene.prototype.render = function(bot, stack) {
   this.canvas_.render();
 
   bot.path.transform(this.tx_.setToScale(10, 10).translate(10, 10));
   this.canvas_.drawPath(bot.path, this.stroke_, bot.fill);
 
-  cargo.path.transform(this.tx_.setToScale(10, 10).translate(10, 10));
-  this.canvas_.drawPath(cargo.path, this.stroke_, cargo.fill);
+  stack.path.transform(this.tx_.setToScale(10, 10).translate(10, 40));
+  this.canvas_.drawPath(stack.path, this.stroke_, stack.fill);
+
+  stack.forEach(
+      function(cargo) {
+        cargo.path.transform(this.tx_.setToScale(10, 10));
+        this.canvas_.drawPath(cargo.path, this.stroke_, cargo.fill);
+      }, this);
 };
 
 
