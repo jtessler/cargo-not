@@ -22,7 +22,6 @@ cn.view.Scene = function() {
   this.canvas_ = new goog.graphics.CanvasGraphics(500, 500);
   this.tx_ = new goog.graphics.AffineTransform();
   this.stroke_ = new goog.graphics.Stroke(2, 'black');
-  this.fill_ = new goog.graphics.SolidFill('yellow');
 };
 
 
@@ -50,14 +49,6 @@ cn.view.Scene.prototype.stroke_;
 
 
 /**
- * The default fill style.
- * @type {!goog.graphics.Fill}
- * @private
- */
-cn.view.Scene.prototype.fill_;
-
-
-/**
  * Initializes the given canvas by scaling and drawing the game models at the
  * appropriate positions.
  * @param {!cn.model.Bot} bot The bot to draw.
@@ -67,7 +58,7 @@ cn.view.Scene.prototype.render = function(bot, cargo) {
   this.canvas_.render();
 
   bot.path.transform(this.tx_.setToScale(10, 10).translate(10, 10));
-  this.canvas_.drawPath(bot.path, this.stroke_, this.fill_);
+  this.canvas_.drawPath(bot.path, this.stroke_, bot.fill);
 
   cargo.path.transform(this.tx_.setToScale(10, 10).translate(10, 10));
   this.canvas_.drawPath(cargo.path, this.stroke_, cargo.fill);

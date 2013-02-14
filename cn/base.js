@@ -7,7 +7,7 @@
 goog.provide('cn.base');
 
 goog.require('cn.model.Bot');
-goog.require('cn.model.Cargo');
+goog.require('cn.model.CargoGreen');
 goog.require('cn.view.Scene');
 goog.require('goog.fx.anim');
 goog.require('goog.graphics.CanvasGraphics');
@@ -19,7 +19,7 @@ goog.require('goog.graphics.CanvasGraphics');
 cn.base.main = function() {
   var scene = new cn.view.Scene();
   var bot = new cn.model.Bot();
-  var cargo = new cn.model.Cargo('blue');
+  var cargo = new cn.model.CargoGreen();
 
   scene.render(bot, cargo);
   goog.fx.anim.registerAnimation(scene);
