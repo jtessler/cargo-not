@@ -34,7 +34,23 @@ cn.model.PathModel.prototype.path;
 
 
 /**
- * The cargo box's color
+ * The model's color
  * @type {!goog.graphics.Fill}
  */
 cn.model.PathModel.prototype.fill;
+
+
+/**
+ * @return {number} The model's top left x-coordinate.
+ */
+cn.model.PathModel.prototype.getX = function() {
+  return this.path.getCurrentPoint()[0];
+};
+
+
+/**
+ * @return {number} The model's top left y-coordinate.
+ */
+cn.model.PathModel.prototype.getY = function() {
+  return this.path.getCurrentPoint()[1];
+};
