@@ -11,20 +11,20 @@ goog.require('cn.model.PathModel');
 
 
 /**
- * @param {number} length The model's drawn length (in pixels).
+ * @param {number} width The model's drawn width (in pixels).
  * @param {number} height The model's drawn height (in pixels).
  * @constructor
  * @extends {cn.model.PathModel}
  */
-cn.model.Bot = function(length, height) {
-  goog.base(this, length, height, 'yellow');
+cn.model.Bot = function(width, height) {
+  goog.base(this, width, height, 'yellow');
   this.path.moveTo(0, 0)
-           .lineTo(length, 0)
-           .lineTo(length, height)
-           .lineTo(3 * Math.floor(length / 4), height)
-           .lineTo(3 * Math.floor(length / 4), Math.floor(height / 3))
-           .lineTo(Math.floor(length / 4), Math.floor(height / 3))
-           .lineTo(Math.floor(length / 4), height)
+           .lineTo(width, 0)
+           .lineTo(width, height)
+           .lineTo(3 * Math.floor(width / 4), height)
+           .lineTo(3 * Math.floor(width / 4), Math.floor(height / 3))
+           .lineTo(Math.floor(width / 4), Math.floor(height / 3))
+           .lineTo(Math.floor(width / 4), height)
            .lineTo(0, height)
            .lineTo(0, 0);
   this.position = 0;

@@ -15,7 +15,7 @@ goog.require('cn.model.PathModel');
 
 
 /**
- * @param {number} size The model's drawn side length (in pixels).
+ * @param {number} size The model's drawn side width (in pixels).
  * @param {string} color The model's fill color.
  * @constructor
  * @extends {cn.model.PathModel}
@@ -33,7 +33,7 @@ goog.inherits(cn.model.Cargo, cn.model.PathModel);
 
 
 /**
- * @param {number} size The model's drawn side length (in pixels).
+ * @param {number} size The model's drawn side width (in pixels).
  * @constructor
  * @extends {cn.model.Cargo}
  */
@@ -45,7 +45,7 @@ goog.inherits(cn.model.CargoBlue, cn.model.Cargo);
 
 
 /**
- * @param {number} size The model's drawn side length (in pixels).
+ * @param {number} size The model's drawn side width (in pixels).
  * @constructor
  * @extends {cn.model.Cargo}
  */
@@ -57,7 +57,7 @@ goog.inherits(cn.model.CargoGreen, cn.model.Cargo);
 
 
 /**
- * @param {number} size The model's drawn side length (in pixels).
+ * @param {number} size The model's drawn side width (in pixels).
  * @constructor
  * @extends {cn.model.Cargo}
  */
@@ -69,7 +69,7 @@ goog.inherits(cn.model.CargoRed, cn.model.Cargo);
 
 
 /**
- * @param {number} size The model's drawn side length (in pixels).
+ * @param {number} size The model's drawn side width (in pixels).
  * @constructor
  * @extends {cn.model.Cargo}
  */

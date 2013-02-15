@@ -12,16 +12,16 @@ goog.require('goog.array');
 
 
 /**
- * @param {number} length The model's drawn length (in pixels).
+ * @param {number} width The model's drawn width (in pixels).
  * @param {number} height The model's drawn height (in pixels).
  * @constructor
  * @extends {cn.model.PathModel}
  */
-cn.model.Stack = function(length, height) {
-  goog.base(this, length, height, 'yellow');
+cn.model.Stack = function(width, height) {
+  goog.base(this, width, height, 'yellow');
   this.path.moveTo(0, 0)
-           .lineTo(length, 0)
-           .lineTo(length, height)
+           .lineTo(width, 0)
+           .lineTo(width, height)
            .lineTo(0, height)
            .lineTo(0, 0);
   this.boxes_ = new Array();
