@@ -57,17 +57,14 @@ cn.view.Scene.prototype.stroke_;
 cn.view.Scene.prototype.render = function(bot, stack) {
   this.canvas_.render();
 
-  bot.path.transform(this.tx_.setToScale(10, 10));
   this.canvas_.drawPath(bot.path, this.stroke_, bot.fill);
 
-  stack.path.transform(this.tx_.setToScale(10, 10));
-  stack.path.transform(this.tx_.setToTranslation(0, 460));
+  stack.path.transform(this.tx_.setToTranslation(0, 490));
   this.canvas_.drawPath(stack.path, this.stroke_, stack.fill);
 
   stack.forEach(
       function(cargo, i) {
-        cargo.path.transform(this.tx_.setToScale(10, 10));
-        cargo.path.transform(this.tx_.setToTranslation(0, 460 - 20 * i));
+        cargo.path.transform(this.tx_.setToTranslation(10, 470 - 20 * i));
         this.canvas_.drawPath(cargo.path, this.stroke_, cargo.fill);
       }, this);
 };

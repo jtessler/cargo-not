@@ -12,17 +12,19 @@ goog.require('goog.array');
 
 
 /**
+ * @param {number} length The model's drawn length (in pixels).
+ * @param {number} height The model's drawn height (in pixels).
  * @constructor
  * @extends {cn.model.PathModel}
  */
-cn.model.Stack = function() {
-  goog.base(this, 'yellow');
-  this.path.moveTo(0, 3)
-           .lineTo(4, 3)
-           .lineTo(4, 4)
-           .lineTo(0, 4)
-           .lineTo(0, 3);
-  this.array_ = new Array();
+cn.model.Stack = function(length, height) {
+  goog.base(this, length, height, 'yellow');
+  this.path.moveTo(0, 0)
+           .lineTo(length, 0)
+           .lineTo(length, height)
+           .lineTo(0, height)
+           .lineTo(0, 0);
+  this.boxes_ = new Array();
 };
 goog.inherits(cn.model.Stack, cn.model.PathModel);
 
@@ -32,14 +34,14 @@ goog.inherits(cn.model.Stack, cn.model.PathModel);
  * @type {Array.<cn.model.Cargo>}
  * @private
  */
-cn.model.Stack.prototype.array_;
+cn.model.Stack.prototype.boxes_;
 
 
 /**
  * @param {!cn.model.Cargo} cargo The cargo box to add.
  */
 cn.model.Stack.prototype.add = function(cargo) {
-  this.array_.push(cargo);
+  this.boxes_.push(cargo);
 };
 
 
@@ -47,7 +49,7 @@ cn.model.Stack.prototype.add = function(cargo) {
  * @return {cn.model.Cargo} The removed cargo box.
  */
 cn.model.Stack.prototype.lift = function() {
-  return this.array_.pop();
+  return this.boxes_.pop();
 };
 
 
@@ -55,7 +57,7 @@ cn.model.Stack.prototype.lift = function() {
  * @return {number} The height of the stack.
  */
 cn.model.Stack.prototype.getHeight = function() {
-  return this.array_.length;
+  return this.boxes_.length;
 };
 
 
@@ -67,5 +69,5 @@ cn.model.Stack.prototype.getHeight = function() {
  * @template S
  */
 cn.model.Stack.prototype.forEach = function(f, opt_obj) {
-  goog.array.forEach(this.array_, f, opt_obj);
+  goog.array.forEach(this.boxes_, f, opt_obj);
 };

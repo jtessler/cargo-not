@@ -14,16 +14,38 @@ goog.require('goog.graphics.SolidFill');
 
 
 /**
+ * @param {number} length The model's drawn length (in pixels).
+ * @param {number} height The model's drawn height (in pixels).
  * @param {string} color The model's fill color.
  * @constructor
  */
-cn.model.PathModel = function(color) {
+cn.model.PathModel = function(length, height, color) {
+  if (!goog.math.isInt(length) || !goog.math.isInt(height)) {
+    throw Error('length and height must be integers');
+  }
   if (!goog.color.isValidColor(color)) {
     throw Error(color + ' is not a valid color');
   }
+
+  this.length = length;
+  this.height = height;
   this.path = new goog.graphics.Path();
   this.fill = new goog.graphics.SolidFill(color);
 };
+
+
+/**
+ * @type {number}
+ * @const
+ */
+cn.model.PathModel.prototype.length;
+
+
+/**
+ * @type {number}
+ * @const
+ */
+cn.model.PathModel.prototype.height;
 
 
 /**
