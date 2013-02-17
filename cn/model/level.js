@@ -37,7 +37,7 @@ cn.model.Level = function(height, margin, start, end) {
            .lineTo(0, 0);
   this.stacks = start;
 
-  this.forEachStack(
+  this.forEachSubModel(
       function(stack, i, stacks) {
         stack.setPosition(
             (i == 0) ?
@@ -61,7 +61,7 @@ cn.model.Stack.prototype.stacks;
  * @inheritDoc
  */
 cn.model.Level.prototype.translate = function(dx, dy) {
-  this.forEachStack(function(stack) { stack.translate(dx, dy); });
+  this.forEachSubModel(function(stack) { stack.translate(dx, dy); });
   return goog.base(this, 'translate', dx, dy);
 };
 
@@ -80,12 +80,8 @@ cn.model.Level.prototype.getLargestStack = function() {
 
 
 /**
- * @param {function(this: S, !cn.model.Stack, number, ?): ?} f The function to
- *     call for every element. This function takes 3 arguments (the element, the
- *     index and the array). The return value is ignored.
- * @param {S=} opt_obj The object to be used as the value of 'this' within f.
- * @template S
+ * @inheritDoc
  */
-cn.model.Level.prototype.forEachStack = function(f, opt_obj) {
+cn.model.Level.prototype.forEachSubModel = function(f, opt_obj) {
   goog.array.forEach(this.stacks, f, opt_obj);
 };

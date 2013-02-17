@@ -37,12 +37,6 @@ cn.view.Scene.prototype.render = function(bot, level) {
   this.canvas_.render();
 
   this.renderModel_(level.setPosition(200, 350));
-  level.forEachStack(
-      function(stack) {
-        this.renderModel_(stack);
-        stack.forEachCargo(function(cargo) { this.renderModel_(cargo); }, this);
-      }, this);
-
   this.renderModel_(
       bot.setPosition(
           level.stacks[0].getX(),
@@ -51,11 +45,13 @@ cn.view.Scene.prototype.render = function(bot, level) {
 
 
 /**
- * Draws a given model with its corresponding stroke and fill styles.
+ * Draws a given model with its corresponding stroke and fill styles. If the
+ * model is composed of any sub-models, those are recursively drawn as well.
  * @param {!cn.model.PathModel} model The model to draw.
  * @private
  */
 cn.view.Scene.prototype.renderModel_ = function(model) {
+  model.forEachSubModel(function(model) { this.renderModel_(model); }, this);
   this.canvas_.drawPath(model.path, model.stroke, model.fill);
 };
 

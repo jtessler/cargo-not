@@ -42,7 +42,7 @@ cn.model.Stack.prototype.boxes_;
  * @inheritDoc
  */
 cn.model.Stack.prototype.translate = function(dx, dy) {
-  this.forEachCargo(function(cargo) { cargo.translate(dx, dy); });
+  this.forEachSubModel(function(cargo) { cargo.translate(dx, dy); });
   return goog.base(this, 'translate', dx, dy);
 };
 
@@ -90,12 +90,8 @@ cn.model.Stack.prototype.size = function() {
 
 
 /**
- * @param {function(this: S, !cn.model.Cargo, number, ?): ?} f The function to
- *     call for every element. This function takes 3 arguments (the element, the
- *     index and the array). The return value is ignored.
- * @param {S=} opt_obj The object to be used as the value of 'this' within f.
- * @template S
+ * @inheritDoc
  */
-cn.model.Stack.prototype.forEachCargo = function(f, opt_obj) {
+cn.model.Stack.prototype.forEachSubModel = function(f, opt_obj) {
   goog.array.forEach(this.boxes_, f, opt_obj);
 };
