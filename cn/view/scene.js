@@ -52,7 +52,7 @@ cn.view.Scene.prototype.render = function(bot, stack) {
  */
 cn.view.Scene.prototype.renderModel_ = function(model) {
   this.canvas_.drawPath(model.path, model.stroke, model.fill);
-}
+};
 
 
 /**
