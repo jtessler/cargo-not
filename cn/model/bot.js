@@ -11,20 +11,22 @@ goog.require('cn.model.PathModel');
 
 
 /**
- * @param {number} width The model's drawn width (in pixels).
- * @param {number} height The model's drawn height (in pixels).
+ * @param {number} size The side length of the bot's inner area, i.e. where it
+ *     stores the cargo box. This should be the same size as a cargo box.
  * @constructor
  * @extends {cn.model.PathModel}
  */
-cn.model.Bot = function(width, height) {
+cn.model.Bot = function(size) {
+  var width = size * 2;
+  var height = Math.floor(size * 1.5);
   goog.base(this, width, height, 'yellow');
   this.path.moveTo(0, 0)
            .lineTo(width, 0)
            .lineTo(width, height)
-           .lineTo(3 * Math.floor(width / 4), height)
-           .lineTo(3 * Math.floor(width / 4), Math.floor(height / 3))
-           .lineTo(Math.floor(width / 4), Math.floor(height / 3))
-           .lineTo(Math.floor(width / 4), height)
+           .lineTo(Math.floor(size * 1.5), height)
+           .lineTo(Math.floor(size * 1.5), height - size)
+           .lineTo(Math.floor(size / 2), height - size)
+           .lineTo(Math.floor(size / 2), height)
            .lineTo(0, height)
            .lineTo(0, 0);
   this.position = 0;

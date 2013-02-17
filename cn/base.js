@@ -35,7 +35,7 @@ cn.main = function() {
       });
 
   var level = new cn.model.Level(10, 30, stacks, stacks);
-  var bot = new cn.model.Bot(40, 30);
+  var bot = new cn.model.Bot(20);
   var scene = new cn.view.Scene();
   scene.render(bot, level);
   goog.fx.anim.registerAnimation(scene);
