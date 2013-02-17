@@ -51,8 +51,8 @@ cn.view.Scene.prototype.render = function(bot, level) {
  * @private
  */
 cn.view.Scene.prototype.renderModel_ = function(model) {
-  model.forEachSubModel(function(model) { this.renderModel_(model); }, this);
   this.canvas_.drawPath(model.path, model.stroke, model.fill);
+  model.forEachSubModel(function(model) { this.renderModel_(model); }, this);
 };
 
 

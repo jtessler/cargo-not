@@ -57,16 +57,6 @@ cn.model.Stack.prototype.stacks;
 
 
 /**
- * Overrides function to translate all cargo stacks as well.
- * @inheritDoc
- */
-cn.model.Level.prototype.translate = function(dx, dy) {
-  this.forEachSubModel(function(stack) { stack.translate(dx, dy); });
-  return goog.base(this, 'translate', dx, dy);
-};
-
-
-/**
  * @return {!cn.model.Stack} The stack with the greatest cargo size.
  */
 cn.model.Level.prototype.getLargestStack = function() {

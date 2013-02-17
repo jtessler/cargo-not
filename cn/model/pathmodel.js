@@ -101,18 +101,22 @@ cn.model.PathModel.prototype.getY = function() {
 
 
 /**
- * Performs a translation transform on the model.
+ * Performs a translation transform on the model. If the model is composed of
+ * any sub-models, those are recursively translated as well.
  * @param {number} dx The x translation delta.
  * @param {number} dy The y translation delta.
  * @return {!cn.model.PathModel} The current model (for chaining).
  */
 cn.model.PathModel.prototype.translate = function(dx, dy) {
   this.path.transform(cn.model.PathModel.tx_.setToTranslation(dx, dy));
+  this.forEachSubModel(function(model) { model.translate(dx, dy); });
   return this;
 };
 
 
 /**
+ * If the model is composed of any sub-models, those coordinates are recursively
+ * updated as well.
  * @param {number} x The new x value.
  * @param {number} y The new y value.
  * @return {!cn.model.PathModel} The current model (for chaining).

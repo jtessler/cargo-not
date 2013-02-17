@@ -38,16 +38,6 @@ cn.model.Stack.prototype.boxes_;
 
 
 /**
- * Overrides function to translate all cargo boxes as well.
- * @inheritDoc
- */
-cn.model.Stack.prototype.translate = function(dx, dy) {
-  this.forEachSubModel(function(cargo) { cargo.translate(dx, dy); });
-  return goog.base(this, 'translate', dx, dy);
-};
-
-
-/**
  * Adds a given cargo box to the stack and updates its position relative to the
  * stack and its contents.
  * @param {!cn.model.Cargo} cargo The cargo box to add.
