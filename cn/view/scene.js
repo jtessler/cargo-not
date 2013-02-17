@@ -48,13 +48,11 @@ cn.view.Scene.prototype.render = function(bot, level) {
 
 /**
  * Draws a given model with its corresponding stroke and fill styles.
- * @param {?cn.model.PathModel} model The model to draw.
+ * @param {!cn.model.PathModel} model The model to draw.
  * @private
  */
 cn.view.Scene.prototype.renderModel_ = function(model) {
-  if (goog.isDefAndNotNull(model)) {
-    this.canvas_.drawPath(model.path, model.stroke, model.fill);
-  }
+  this.canvas_.drawPath(model.path, model.stroke, model.fill);
 };
 
 

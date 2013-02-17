@@ -31,7 +31,7 @@ goog.inherits(cn.model.Stack, cn.model.PathModel);
 
 /**
  * The underlying implementation of the stack's stack of cargo boxes.
- * @type {Array.<cn.model.Cargo>}
+ * @type {Array.<!cn.model.Cargo>}
  * @private
  */
 cn.model.Stack.prototype.boxes_;
@@ -82,7 +82,7 @@ cn.model.Stack.prototype.getCargoHeight = function() {
 
 
 /**
- * @param {function(this: S, ?cn.model.Cargo, number, ?): ?} f The function to
+ * @param {function(this: S, !cn.model.Cargo, number, ?): ?} f The function to
  *     call for every element. This function takes 3 arguments (the element, the
  *     index and the array). The return value is ignored.
  * @param {S=} opt_obj The object to be used as the value of 'this' within f.
