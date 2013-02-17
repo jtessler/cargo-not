@@ -12,6 +12,7 @@ goog.require('cn.model.CargoColor');
 goog.require('cn.model.Level');
 goog.require('cn.model.Stack');
 goog.require('cn.view.Scene');
+goog.require('goog.array');
 goog.require('goog.fx.anim');
 goog.require('goog.graphics.CanvasGraphics');
 
@@ -20,17 +21,22 @@ goog.require('goog.graphics.CanvasGraphics');
  * Sets up the UI and initializes all game code.
  */
 cn.main = function() {
-  var scene = new cn.view.Scene();
+  var stacks = [new cn.model.Stack(40, 10),
+                new cn.model.Stack(40, 10),
+                new cn.model.Stack(40, 10)];
+  goog.array.forEach(
+      stacks,
+      function(stack) {
+        var col = cn.model.CargoColor;
+        stack.addCargo(new cn.model.Cargo(20, col.RED));
+        stack.addCargo(new cn.model.Cargo(20, col.GREEN));
+        stack.addCargo(new cn.model.Cargo(20, col.BLUE));
+        stack.addCargo(new cn.model.Cargo(20, col.YELLOW));
+      });
+
+  var level = new cn.model.Level(10, 30, stacks, stacks);
   var bot = new cn.model.Bot(40, 30);
-  var stack = new cn.model.Stack(40, 10);
-  var col = cn.model.CargoColor;
-  stack.addCargo(new cn.model.Cargo(20, col.RED));
-  stack.addCargo(new cn.model.Cargo(20, col.GREEN));
-  stack.addCargo(new cn.model.Cargo(20, col.BLUE));
-  stack.addCargo(new cn.model.Cargo(20, col.YELLOW));
-
-  var level = new cn.model.Level(10, [stack], [stack]);
-
+  var scene = new cn.view.Scene();
   scene.render(bot, level);
   goog.fx.anim.registerAnimation(scene);
 };

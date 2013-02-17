@@ -16,18 +16,19 @@ goog.require('goog.array');
 
 /**
  * @param {number} height The model's drawn height (in pixels).
+ * @param {number} margin The space between each stack (in pixels).
  * @param {Array.<!cn.model.Stack>} start The initial stack configuration.
  * @param {Array.<!cn.model.Stack>} end The final stack configuration.
  * @constructor
  * @extends {cn.model.PathModel}
  */
-cn.model.Level = function(height, start, end) {
+cn.model.Level = function(height, margin, start, end) {
   var width =
       goog.array.reduce(
           start,
           function(width, stack) { return width + stack.width; },
           0) +
-      10 * (start.length + 1);
+      margin * (start.length + 1);
   goog.base(this, width, height, 'yellow');
   this.path.moveTo(0, 0)
            .lineTo(width, 0)
@@ -37,11 +38,11 @@ cn.model.Level = function(height, start, end) {
   this.stacks_ = start;
 
   this.forEachStack(
-      function(stack, i, array) {
+      function(stack, i, stacks) {
         stack.setPosition(
             (i == 0) ?
-                10 :
-                10 + array[i - 1].getX() + array[i - 1].width,
+                margin :
+                margin + stacks[i - 1].getX() + stacks[i - 1].width,
             -stack.height);
       });
 };
