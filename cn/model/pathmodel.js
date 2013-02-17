@@ -32,8 +32,7 @@ cn.model.PathModel = function(width, height, color) {
   this.width = width;
   this.height = height;
   this.path = new goog.graphics.Path();
-  // TODO(joseph): Use a static stroke for all path models.
-  this.stroke = new goog.graphics.Stroke(2, 'black');
+  this.stroke = cn.model.PathModel.defaultStroke_;
   this.fill = new goog.graphics.SolidFill(color);
 };
 
@@ -44,6 +43,14 @@ cn.model.PathModel = function(width, height, color) {
  * @private
  */
 cn.model.PathModel.tx_ = new goog.graphics.AffineTransform();
+
+
+/**
+ * The default stroke style used for all models.
+ * @type {!goog.graphics.Stroke}
+ * @private
+ */
+cn.model.PathModel.defaultStroke_ = new goog.graphics.Stroke(2, 'black');
 
 
 /**
