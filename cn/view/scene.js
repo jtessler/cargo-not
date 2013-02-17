@@ -36,13 +36,17 @@ cn.view.Scene.prototype.canvas_;
 cn.view.Scene.prototype.render = function(bot, level) {
   this.canvas_.render();
 
-  this.renderModel_(bot.setPosition(200, 200));
   this.renderModel_(level.setPosition(200, 350));
   level.forEachStack(
       function(stack) {
         this.renderModel_(stack);
         stack.forEachCargo(function(cargo) { this.renderModel_(cargo); }, this);
       }, this);
+
+  this.renderModel_(
+      bot.setPosition(
+          level.stacks[0].getX(),
+          level.getLargestStack().getTopCargo().getY() - bot.height * 2));
 };
 
 

@@ -35,7 +35,7 @@ cn.model.Level = function(height, margin, start, end) {
            .lineTo(width, height)
            .lineTo(0, height)
            .lineTo(0, 0);
-  this.stacks_ = start;
+  this.stacks = start;
 
   this.forEachStack(
       function(stack, i, stacks) {
@@ -52,9 +52,8 @@ goog.inherits(cn.model.Level, cn.model.PathModel);
 /**
  * The underlying implementation of the level's stacks
  * @type {Array.<!cn.model.Stack>}
- * @private
  */
-cn.model.Stack.prototype.stacks_;
+cn.model.Stack.prototype.stacks;
 
 
 /**
@@ -68,6 +67,19 @@ cn.model.Level.prototype.translate = function(dx, dy) {
 
 
 /**
+ * @return {!cn.model.Stack} The stack with the greatest cargo size.
+ */
+cn.model.Level.prototype.getLargestStack = function() {
+  return goog.array.reduce(
+      this.stacks,
+      function(maxStack, stack) {
+        return stack.size() > maxStack.size() ? stack : maxStack;
+      },
+      this.stacks[0]);
+};
+
+
+/**
  * @param {function(this: S, !cn.model.Stack, number, ?): ?} f The function to
  *     call for every element. This function takes 3 arguments (the element, the
  *     index and the array). The return value is ignored.
@@ -75,5 +87,5 @@ cn.model.Level.prototype.translate = function(dx, dy) {
  * @template S
  */
 cn.model.Level.prototype.forEachStack = function(f, opt_obj) {
-  goog.array.forEach(this.stacks_, f, opt_obj);
+  goog.array.forEach(this.stacks, f, opt_obj);
 };

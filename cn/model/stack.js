@@ -66,7 +66,7 @@ cn.model.Stack.prototype.addCargo = function(cargo) {
 
 
 /**
- * @return {cn.model.Cargo} The removed cargo box.
+ * @return {!cn.model.Cargo} The removed cargo box.
  */
 cn.model.Stack.prototype.liftCargo = function() {
   return this.boxes_.pop();
@@ -74,9 +74,17 @@ cn.model.Stack.prototype.liftCargo = function() {
 
 
 /**
- * @return {number} The height of the stack.
+ * @return {!cn.model.Cargo} The top cargo box.
  */
-cn.model.Stack.prototype.getCargoHeight = function() {
+cn.model.Stack.prototype.getTopCargo = function() {
+  return this.boxes_[this.size() - 1];
+};
+
+
+/**
+ * @return {number} The size of the stack.
+ */
+cn.model.Stack.prototype.size = function() {
   return this.boxes_.length;
 };
 
