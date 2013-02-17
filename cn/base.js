@@ -9,6 +9,7 @@ goog.provide('cn');
 goog.require('cn.model.Bot');
 goog.require('cn.model.Cargo');
 goog.require('cn.model.CargoColor');
+goog.require('cn.model.Level');
 goog.require('cn.model.Stack');
 goog.require('cn.view.Scene');
 goog.require('goog.fx.anim');
@@ -28,7 +29,9 @@ cn.main = function() {
   stack.addCargo(new cn.model.Cargo(20, col.BLUE));
   stack.addCargo(new cn.model.Cargo(20, col.YELLOW));
 
-  scene.render(bot, stack);
+  var level = new cn.model.Level(10, [stack], [stack]);
+
+  scene.render(bot, level);
   goog.fx.anim.registerAnimation(scene);
 };
 goog.exportSymbol('main', cn.main);

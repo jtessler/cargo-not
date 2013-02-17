@@ -42,7 +42,7 @@ cn.model.Stack.prototype.boxes_;
  * @inheritDoc
  */
 cn.model.Stack.prototype.translate = function(dx, dy) {
-  this.forEach(function(cargo) { cargo.translate(dx, dy); });
+  this.forEachCargo(function(cargo) { cargo.translate(dx, dy); });
   return goog.base(this, 'translate', dx, dy);
 };
 
@@ -88,6 +88,6 @@ cn.model.Stack.prototype.getCargoHeight = function() {
  * @param {S=} opt_obj The object to be used as the value of 'this' within f.
  * @template S
  */
-cn.model.Stack.prototype.forEach = function(f, opt_obj) {
+cn.model.Stack.prototype.forEachCargo = function(f, opt_obj) {
   goog.array.forEach(this.boxes_, f, opt_obj);
 };

@@ -31,14 +31,18 @@ cn.view.Scene.prototype.canvas_;
  * Initializes the given canvas by scaling and drawing the game models at the
  * appropriate positions.
  * @param {!cn.model.Bot} bot The bot to draw.
- * @param {!cn.model.Stack} stack The stack of boxes to draw.
+ * @param {!cn.model.Level} level The level configuration to draw.
  */
-cn.view.Scene.prototype.render = function(bot, stack) {
+cn.view.Scene.prototype.render = function(bot, level) {
   this.canvas_.render();
 
   this.renderModel_(bot.setPosition(200, 200));
-  this.renderModel_(stack.setPosition(200, 350));
-  stack.forEach(function(cargo) { this.renderModel_(cargo); }, this);
+  this.renderModel_(level.setPosition(200, 350));
+  level.forEachStack(
+      function(stack) {
+        this.renderModel_(stack);
+        stack.forEachCargo(function(cargo) { this.renderModel_(cargo); }, this);
+      }, this);
 };
 
 
