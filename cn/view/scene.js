@@ -36,22 +36,21 @@ cn.view.Scene.prototype.canvas_;
 cn.view.Scene.prototype.render = function(bot, stack) {
   this.canvas_.render();
 
-  this.renderModel_(bot);
-  this.renderModel_(stack.setPosition(0, 490));
-  stack.forEach(
-      function(cargo, i) {
-        this.renderModel_(cargo.setPosition(10, 470 - 20 * i));
-      }, this);
+  this.renderModel_(bot.setPosition(200, 200));
+  this.renderModel_(stack.setPosition(200, 350));
+  stack.forEach(function(cargo) { this.renderModel_(cargo); }, this);
 };
 
 
 /**
  * Draws a given model with its corresponding stroke and fill styles.
- * @param {!cn.model.PathModel} model The model to draw.
+ * @param {?cn.model.PathModel} model The model to draw.
  * @private
  */
 cn.view.Scene.prototype.renderModel_ = function(model) {
-  this.canvas_.drawPath(model.path, model.stroke, model.fill);
+  if (goog.isDefAndNotNull(model)) {
+    this.canvas_.drawPath(model.path, model.stroke, model.fill);
+  }
 };
 
 

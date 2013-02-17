@@ -24,10 +24,10 @@ cn.base.main = function() {
   var scene = new cn.view.Scene();
   var bot = new cn.model.Bot(40, 30);
   var stack = new cn.model.Stack(40, 10);
-  stack.add(new cn.model.CargoBlue(20));
-  stack.add(new cn.model.CargoGreen(20));
-  stack.add(new cn.model.CargoRed(20));
-  stack.add(new cn.model.CargoYellow(20));
+  stack.addCargo(new cn.model.CargoBlue(20));
+  stack.addCargo(new cn.model.CargoGreen(20));
+  stack.addCargo(new cn.model.CargoRed(20));
+  stack.addCargo(new cn.model.CargoYellow(20));
 
   scene.render(bot, stack);
   goog.fx.anim.registerAnimation(scene);

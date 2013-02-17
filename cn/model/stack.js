@@ -38,9 +38,29 @@ cn.model.Stack.prototype.boxes_;
 
 
 /**
+ * Overrides function to translate all cargo boxes as well.
+ * @inheritDoc
+ */
+cn.model.Stack.prototype.translate = function(dx, dy) {
+  this.forEach(function(cargo) { cargo.translate(dx, dy); });
+  return goog.base(this, 'translate', dx, dy);
+};
+
+
+/**
+ * Adds a given cargo box to the stack and updates its position relative to the
+ * stack and its contents.
  * @param {!cn.model.Cargo} cargo The cargo box to add.
  */
-cn.model.Stack.prototype.add = function(cargo) {
+cn.model.Stack.prototype.addCargo = function(cargo) {
+  if (goog.array.isEmpty(this.boxes_)) {
+    cargo.setPosition(
+        this.getX() + Math.floor((this.width - cargo.width) / 2),
+        this.getY() - cargo.height);
+  } else {
+    var topCargo = goog.array.peek(this.boxes_);
+    cargo.setPosition(topCargo.getX(), topCargo.getY() - cargo.height);
+  }
   this.boxes_.push(cargo);
 };
 
@@ -48,7 +68,7 @@ cn.model.Stack.prototype.add = function(cargo) {
 /**
  * @return {cn.model.Cargo} The removed cargo box.
  */
-cn.model.Stack.prototype.lift = function() {
+cn.model.Stack.prototype.liftCargo = function() {
   return this.boxes_.pop();
 };
 
@@ -56,13 +76,13 @@ cn.model.Stack.prototype.lift = function() {
 /**
  * @return {number} The height of the stack.
  */
-cn.model.Stack.prototype.getHeight = function() {
+cn.model.Stack.prototype.getCargoHeight = function() {
   return this.boxes_.length;
 };
 
 
 /**
- * @param {function(this: S, cn.model.Cargo, number, ?): ?} f The function to
+ * @param {function(this: S, ?cn.model.Cargo, number, ?): ?} f The function to
  *     call for every element. This function takes 3 arguments (the element, the
  *     index and the array). The return value is ignored.
  * @param {S=} opt_obj The object to be used as the value of 'this' within f.
