@@ -36,6 +36,7 @@ cn.main = function() {
 
   var level = new cn.model.Level(10, 30, stacks, stacks);
   var bot = new cn.model.Bot(20);
+  bot.attachCargo(new cn.model.Cargo(20, cn.model.CargoColor.GREEN));
   var scene = new cn.view.Scene();
   scene.render(bot, level);
   goog.fx.anim.registerAnimation(scene);
