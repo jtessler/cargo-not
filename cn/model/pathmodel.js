@@ -8,8 +8,10 @@
 goog.provide('cn.model.PathModel');
 
 goog.require('goog.color');
+goog.require('goog.graphics.AffineTransform');
 goog.require('goog.graphics.Path');
 goog.require('goog.graphics.SolidFill');
+goog.require('goog.graphics.Stroke');
 
 
 
@@ -30,8 +32,18 @@ cn.model.PathModel = function(width, height, color) {
   this.width = width;
   this.height = height;
   this.path = new goog.graphics.Path();
+  // TODO(joseph): Use a static stroke for all path models.
+  this.stroke = new goog.graphics.Stroke(2, 'black');
   this.fill = new goog.graphics.SolidFill(color);
 };
+
+
+/**
+ * The underlying affine transform object for all model transforms.
+ * @type {!goog.graphics.AffineTransform}
+ * @private
+ */
+cn.model.PathModel.tx_ = new goog.graphics.AffineTransform();
 
 
 /**
@@ -56,7 +68,14 @@ cn.model.PathModel.prototype.path;
 
 
 /**
- * The model's color
+ * The model's stroke style.
+ * @type {!goog.graphics.Stroke}
+ */
+cn.model.PathModel.prototype.stroke;
+
+
+/**
+ * The model's fill color.
  * @type {!goog.graphics.Fill}
  */
 cn.model.PathModel.prototype.fill;
@@ -75,4 +94,14 @@ cn.model.PathModel.prototype.getX = function() {
  */
 cn.model.PathModel.prototype.getY = function() {
   return this.path.getCurrentPoint()[1];
+};
+
+
+/**
+ * Performs a translation transform on the model.
+ * @param {number} dx The x translation delta.
+ * @param {number} dy The y translation delta.
+ */
+cn.model.PathModel.prototype.translate = function(dx, dy) {
+  this.path.transform(cn.model.PathModel.tx_.setToTranslation(dx, dy));
 };
