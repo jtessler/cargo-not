@@ -7,7 +7,6 @@
 
 goog.provide('cn.model.PathModel');
 
-goog.require('goog.color');
 goog.require('goog.graphics.AffineTransform');
 goog.require('goog.graphics.Path');
 goog.require('goog.graphics.SolidFill');
@@ -24,9 +23,6 @@ goog.require('goog.graphics.Stroke');
 cn.model.PathModel = function(width, height, color) {
   if (!goog.math.isInt(width) || !goog.math.isInt(height)) {
     throw Error('width and height must be integers');
-  }
-  if (!goog.color.isValidColor(color)) {
-    throw Error(color + ' is not a valid color');
   }
 
   this.width = width;
