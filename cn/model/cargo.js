@@ -5,18 +5,27 @@
  */
 
 goog.provide('cn.model.Cargo');
-goog.provide('cn.model.CargoBlue');
-goog.provide('cn.model.CargoGreen');
-goog.provide('cn.model.CargoRed');
-goog.provide('cn.model.CargoYellow');
+goog.provide('cn.model.CargoColor');
 
 goog.require('cn.model.PathModel');
+
+
+/**
+ * Enum for all possible cargo colors.
+ * @enum {string}
+ */
+cn.model.CargoColor = {
+  RED: 'red',
+  GREEN: 'green',
+  BLUE: 'blue',
+  YELLOW: 'yellow'
+};
 
 
 
 /**
  * @param {number} size The model's drawn side width (in pixels).
- * @param {string} color The model's fill color.
+ * @param {cn.model.CargoColor} color The model's fill color.
  * @constructor
  * @extends {cn.model.PathModel}
  */
@@ -29,51 +38,3 @@ cn.model.Cargo = function(size, color) {
            .lineTo(0, 0);
 };
 goog.inherits(cn.model.Cargo, cn.model.PathModel);
-
-
-
-/**
- * @param {number} size The model's drawn side width (in pixels).
- * @constructor
- * @extends {cn.model.Cargo}
- */
-cn.model.CargoBlue = function(size) {
-  goog.base(this, size, 'blue');
-};
-goog.inherits(cn.model.CargoBlue, cn.model.Cargo);
-
-
-
-/**
- * @param {number} size The model's drawn side width (in pixels).
- * @constructor
- * @extends {cn.model.Cargo}
- */
-cn.model.CargoGreen = function(size) {
-  goog.base(this, size, 'green');
-};
-goog.inherits(cn.model.CargoGreen, cn.model.Cargo);
-
-
-
-/**
- * @param {number} size The model's drawn side width (in pixels).
- * @constructor
- * @extends {cn.model.Cargo}
- */
-cn.model.CargoRed = function(size) {
-  goog.base(this, size, 'red');
-};
-goog.inherits(cn.model.CargoRed, cn.model.Cargo);
-
-
-
-/**
- * @param {number} size The model's drawn side width (in pixels).
- * @constructor
- * @extends {cn.model.Cargo}
- */
-cn.model.CargoYellow = function(size) {
-  goog.base(this, size, 'yellow');
-};
-goog.inherits(cn.model.CargoYellow, cn.model.Cargo);
