@@ -101,7 +101,19 @@ cn.model.PathModel.prototype.getY = function() {
  * Performs a translation transform on the model.
  * @param {number} dx The x translation delta.
  * @param {number} dy The y translation delta.
+ * @return {!cn.model.PathModel} The current model (for chaining).
  */
 cn.model.PathModel.prototype.translate = function(dx, dy) {
   this.path.transform(cn.model.PathModel.tx_.setToTranslation(dx, dy));
+  return this;
+};
+
+
+/**
+ * @param {number} x The new x value.
+ * @param {number} y The new y value.
+ * @return {!cn.model.PathModel} The current model (for chaining).
+ */
+cn.model.PathModel.prototype.setPosition = function(x, y) {
+  return this.translate(x - this.getX(), y - this.getY());
 };

@@ -37,14 +37,10 @@ cn.view.Scene.prototype.render = function(bot, stack) {
   this.canvas_.render();
 
   this.renderModel_(bot);
-
-  stack.translate(0, 490);
-  this.renderModel_(stack);
-
+  this.renderModel_(stack.setPosition(0, 490));
   stack.forEach(
       function(cargo, i) {
-        cargo.translate(10, 470 - 20 * i);
-        this.renderModel_(cargo);
+        this.renderModel_(cargo.setPosition(10, 470 - 20 * i));
       }, this);
 };
 
