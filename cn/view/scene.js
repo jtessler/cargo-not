@@ -36,18 +36,27 @@ cn.view.Scene.prototype.canvas_;
 cn.view.Scene.prototype.render = function(bot, stack) {
   this.canvas_.render();
 
-  // TODO(joseph): Refactor drawPath to another function.
-  this.canvas_.drawPath(bot.path, bot.stroke, bot.fill);
+  this.renderModel_(bot);
 
   stack.translate(0, 490);
-  this.canvas_.drawPath(stack.path, stack.stroke, stack.fill);
+  this.renderModel_(stack);
 
   stack.forEach(
       function(cargo, i) {
         cargo.translate(10, 470 - 20 * i);
-        this.canvas_.drawPath(cargo.path, cargo.stroke, cargo.fill);
+        this.renderModel_(cargo);
       }, this);
 };
+
+
+/**
+ * Draws a given model with its corresponding stroke and fill styles.
+ * @param {!cn.model.PathModel} model The model to draw.
+ * @private
+ */
+cn.view.Scene.prototype.renderModel_ = function(model) {
+  this.canvas_.drawPath(model.path, model.stroke, model.fill);
+}
 
 
 /**
