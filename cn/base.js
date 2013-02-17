@@ -4,7 +4,7 @@
  * @author joseph@cs.utexas.edu (Joe Tessler)
  */
 
-goog.provide('cn.base');
+goog.provide('cn');
 
 goog.require('cn.model.Bot');
 goog.require('cn.model.CargoBlue');
@@ -20,7 +20,7 @@ goog.require('goog.graphics.CanvasGraphics');
 /**
  * Sets up the UI and initializes all game code.
  */
-cn.base.main = function() {
+cn.main = function() {
   var scene = new cn.view.Scene();
   var bot = new cn.model.Bot(40, 30);
   var stack = new cn.model.Stack(40, 10);
@@ -32,4 +32,4 @@ cn.base.main = function() {
   scene.render(bot, stack);
   goog.fx.anim.registerAnimation(scene);
 };
-goog.exportSymbol('main', cn.base.main);
+goog.exportSymbol('main', cn.main);

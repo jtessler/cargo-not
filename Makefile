@@ -16,7 +16,7 @@ CC_JAR = $(CC_PATH)/compiler.jar
 CC = $(LIB_PATH)/closure/bin/build/closurebuilder.py \
 		--root $(LIB_PATH) \
 		--root $(PROJECT)/ \
-		--namespace "$(PROJECT).base" \
+		--namespace "$(PROJECT)" \
 		--compiler_jar $(CC_JAR) \
 		--compiler_flags "--jscomp_error=accessControls" \
 		--compiler_flags "--jscomp_error=const" \
