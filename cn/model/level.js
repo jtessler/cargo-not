@@ -17,25 +17,25 @@ goog.require('goog.array');
 /**
  * @param {number} height The model's drawn height (in pixels).
  * @param {number} margin The space between each stack (in pixels).
- * @param {Array.<!cn.model.Stack>} start The initial stack configuration.
- * @param {Array.<!cn.model.Stack>} end The final stack configuration.
+ * @param {Array.<!cn.model.Stack>} initial The initial stack configuration.
+ * @param {Array.<!cn.model.Stack>} goal The final stack configuration.
  * @constructor
  * @extends {cn.model.PathModel}
  */
-cn.model.Level = function(height, margin, start, end) {
+cn.model.Level = function(height, margin, initial, goal) {
   var width =
       goog.array.reduce(
-          start,
+          initial,
           function(width, stack) { return width + stack.width; },
           0) +
-      margin * (start.length + 1);
+      margin * (initial.length + 1);
   goog.base(this, width, height, 'yellow');
   this.path.moveTo(0, 0)
            .lineTo(width, 0)
            .lineTo(width, height)
            .lineTo(0, height)
            .lineTo(0, 0);
-  this.stacks = start;
+  this.stacks = initial;
 
   this.forEachSubModel(
       function(stack, i, stacks) {
@@ -54,19 +54,6 @@ goog.inherits(cn.model.Level, cn.model.PathModel);
  * @type {Array.<!cn.model.Stack>}
  */
 cn.model.Stack.prototype.stacks;
-
-
-/**
- * @return {!cn.model.Stack} The stack with the greatest cargo size.
- */
-cn.model.Level.prototype.getLargestStack = function() {
-  return goog.array.reduce(
-      this.stacks,
-      function(maxStack, stack) {
-        return stack.size() > maxStack.size() ? stack : maxStack;
-      },
-      this.stacks[0]);
-};
 
 
 /**

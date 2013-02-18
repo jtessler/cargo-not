@@ -16,7 +16,7 @@ goog.require('goog.graphics.CanvasGraphics');
  * @implements {goog.fx.anim.Animated}
  */
 cn.view.Scene = function() {
-  this.canvas_ = new goog.graphics.CanvasGraphics(500, 500);
+  this.canvas_ = new goog.graphics.CanvasGraphics(600, 300);
 };
 
 
@@ -36,11 +36,13 @@ cn.view.Scene.prototype.canvas_;
 cn.view.Scene.prototype.render = function(bot, level) {
   this.canvas_.render();
 
-  this.renderModel_(level.setPosition(200, 350));
+  // TODO(joseph): Refactor the margin to a constant.
+  var margin = 1;
   this.renderModel_(
-      bot.setPosition(
-          level.stacks[0].getX(),
-          level.getLargestStack().getTopCargo().getY() - bot.height * 2));
+      level.setPosition(
+          Math.floor((this.canvas_.getPixelSize().width - level.width) / 2),
+          this.canvas_.getPixelSize().height - level.height - margin));
+  this.renderModel_(bot.setPosition(level.stacks[0].getX(), margin));
 };
 
 
