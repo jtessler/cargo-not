@@ -9,6 +9,11 @@ goog.provide('cn.model.Program');
 goog.require('cn.model.Command');
 goog.require('cn.model.Condition');
 goog.require('cn.model.Instruction');
+goog.require('goog.array');
+
+
+/** @typedef {{f: number, i: number}} */
+cn.model.Pointer;
 
 
 
@@ -18,10 +23,6 @@ goog.require('cn.model.Instruction');
 cn.model.Program = function() {
   this.init(1);
 };
-
-
-/** @type {Array.<Array.<!cn.model.Instruction>>} */
-cn.model.Program.prototype.functions;
 
 
 /**
@@ -40,14 +41,26 @@ cn.model.Program.prototype.f_;
 cn.model.Program.prototype.i_;
 
 
+/** @type {Array.<Array.<!cn.model.Instruction>>} */
+cn.model.Program.prototype.functions;
+
+
+/**
+ * @type {Array.<Array.<!cn.model.Pointer>>}
+ * @private
+ */
+cn.model.Program.prototype.pointers_;
+
+
 /**
  * Initialize the program with the given instruction lengths.
  * @param {...number} var_lengths The length for each function.
  */
 cn.model.Program.prototype.init = function(var_lengths) {
-  this.functions = [];
   this.f_ = 0;
   this.i_ = 0;
+  this.pointers_ = [];
+  this.functions = [];
   goog.array.forEach(
       arguments,
       function(length) {
@@ -107,4 +120,71 @@ cn.model.Program.prototype.removeCondition = function(f, i) {
   var condition = this.functions[f][i].condition;
   this.functions[f][i].condition = null;
   return condition;
+};
+
+
+/**
+ * @return {!cn.model.Instruction} The currently executing instruction.
+ * @private
+ */
+cn.model.Program.prototype.current_ = function() {
+  return this.functions[this.f_][this.i_];
+};
+
+
+/**
+ * @return {boolean} True if the pointer is at the end of a function.
+ * @private
+ */
+cn.model.Program.prototype.atEndOfFunction_ = function() {
+  return this.i_ >= this.functions[this.f_].length;
+};
+
+
+/**
+ * @return {boolean} True if the program has a next instruction or can return
+ *     to the caller from the current function.
+ * @private
+ */
+cn.model.Program.prototype.hasNext_ = function() {
+  return this.pointers_.length > 0 ||
+      (!this.atEndOfFunction_() && this.current_().hasCommand());
+};
+
+
+/**
+ * Updates the program pointers and returns the instruction to execute.
+ * @return {?cn.model.Instruction} The next instruction or null if there are no
+ *     more instructions to execute.
+ */
+cn.model.Program.prototype.next = function() {
+  if (!this.hasNext_()) {
+    return null;
+  }
+
+  // Pop the most recent stack pointer and return to the caller by recursively
+  // calling this function.
+  if (this.atEndOfFunction_()) {
+    var pointer = this.pointers_.pop();
+    this.f_ = pointer.f;
+    this.i_ = pointer.i;
+    return this.next();
+  }
+
+  // TODO(joseph): Add condition check.
+
+  var instruction = this.current_();
+
+  // Update the pointer stack and call the function, then return the function
+  // call instruction.
+  if (instruction.isFunctionCall()) {
+    this.pointers_.push({f: this.f_, i: this.i_ + 1});
+    this.f_ = instruction.getFunctionCall();
+    this.i_ = 0;
+    return instruction;
+  }
+
+  // Simplest case. Just move to the next instruction.
+  this.i_++;
+  return instruction;
 };

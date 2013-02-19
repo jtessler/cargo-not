@@ -17,10 +17,10 @@ cn.model.Command = {
   LEFT: 'move the bot left',
   RIGHT: 'move the bot right',
   DOWN: 'drop or pickup cargo',
+  F0: 'move to program f0',
   F1: 'move to program f1',
   F2: 'move to program f2',
-  F3: 'move to program f3',
-  F4: 'move to program f4'
+  F3: 'move to program f3'
 };
 
 
@@ -54,3 +54,32 @@ cn.model.Instruction.prototype.command;
 
 /** @type {?cn.model.Condition} */
 cn.model.Instruction.prototype.condition;
+
+
+/** @return {boolean} True if the instruction has a command. */
+cn.model.Instruction.prototype.hasCommand = function() {
+  return goog.isDefAndNotNull(this.command);
+};
+
+
+/** @return {boolean} True if the command is F0, F1, F2, or F3. */
+cn.model.Instruction.prototype.isFunctionCall = function() {
+  return this.command == cn.model.Command.F0 ||
+      this.command == cn.model.Command.F1 ||
+      this.command == cn.model.Command.F2 ||
+      this.command == cn.model.Command.F3;
+};
+
+
+/**
+ * @return {number} The function number to call or -1 if not a function call.
+ */
+cn.model.Instruction.prototype.getFunctionCall = function() {
+  switch (this.command) {
+    case cn.model.Command.F0: return 0;
+    case cn.model.Command.F1: return 1;
+    case cn.model.Command.F2: return 2;
+    case cn.model.Command.F3: return 3;
+  }
+  return -1;
+};
