@@ -80,11 +80,13 @@ cn.model.Bot.prototype.attachCargo = function(cargo) {
 
 
 /**
- * TODO(joseph): Add optional color parameter.
+ * @param {cn.model.CargoColor=} opt_color If given a color, this function also
+ *     checks if the held cargo matches said color.
  * @return {boolean} True if the bot is carrying cargo.
  */
-cn.model.Bot.prototype.hasCargo = function() {
-  return goog.isDefAndNotNull(this.cargo_);
+cn.model.Bot.prototype.hasCargo = function(opt_color) {
+  return goog.isDefAndNotNull(this.cargo_) &&
+      (!goog.isDef(opt_color) || this.cargo_.color == opt_color);
 };
 
 

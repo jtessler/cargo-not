@@ -36,5 +36,10 @@ cn.model.Cargo = function(size, color) {
            .lineTo(size, size)
            .lineTo(0, size)
            .lineTo(0, 0);
+  this.color = color;
 };
 goog.inherits(cn.model.Cargo, cn.model.PathModel);
+
+
+/** @type {cn.model.CargoColor} */
+cn.model.Cargo.prototype.color;
