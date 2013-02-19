@@ -59,6 +59,16 @@ cn.view.Scene.prototype.renderModel_ = function(model) {
 
 
 /**
+ * @param {function(): boolean} f A function that updates some model's
+ *     appearance every step of the animation and returns true until the
+ *     animation should end.
+ */
+cn.view.Scene.prototype.runUntilFalse = function(f) {
+  // TODO(joseph): Implement this function.
+};
+
+
+/**
  * @inheritDoc
  */
 cn.view.Scene.prototype.onAnimationFrame = function(now) {
