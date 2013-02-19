@@ -71,7 +71,7 @@ cn.model.Program.prototype.functions;
 
 /**
  * Initialize the program with the given instruction lengths.
- * @param {...number} var_lengths The length for each function
+ * @param {...number} var_lengths The length for each function.
  */
 cn.model.Program.prototype.init = function(var_lengths) {
   this.functions = [];
