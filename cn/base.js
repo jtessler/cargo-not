@@ -10,6 +10,7 @@ goog.require('cn.model.Bot');
 goog.require('cn.model.Cargo');
 goog.require('cn.model.CargoColor');
 goog.require('cn.model.Level');
+goog.require('cn.model.Program');
 goog.require('cn.model.Stack');
 goog.require('cn.view.Scene');
 goog.require('goog.array');
@@ -34,6 +35,7 @@ cn.main = function() {
         stack.addCargo(new cn.model.Cargo(20, col.YELLOW));
       });
 
+  var program = new cn.model.Program();
   var level = new cn.model.Level(10, 30, stacks, stacks);
   var bot = new cn.model.Bot(20);
   bot.attachCargo(new cn.model.Cargo(20, cn.model.CargoColor.GREEN));
