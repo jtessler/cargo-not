@@ -17,8 +17,7 @@ goog.require('goog.graphics.CanvasGraphics');
  * Sets up the UI and initializes all game code.
  */
 cn.main = function() {
-  var game = new cn.model.Game(600, 300);
-  //bot.attachCargo(new cn.model.Cargo(20, cn.model.CargoColor.GREEN));
+  var game = new cn.model.Game();
   var scene = new cn.view.Scene();
   scene.render(game);
   goog.fx.anim.registerAnimation(scene);
