@@ -6,6 +6,7 @@
 
 goog.provide('cn.view.Scene');
 
+goog.require('cn.model.Game');
 goog.require('goog.fx.anim.Animated');
 goog.require('goog.graphics.CanvasGraphics');
 
@@ -30,19 +31,11 @@ cn.view.Scene.prototype.canvas_;
 /**
  * Initializes the given canvas by scaling and drawing the game models at the
  * appropriate positions.
- * @param {!cn.model.Bot} bot The bot to draw.
- * @param {!cn.model.Level} level The level configuration to draw.
+ * @param {!cn.model.Game} game The game model to draw.
  */
-cn.view.Scene.prototype.render = function(bot, level) {
+cn.view.Scene.prototype.render = function(game) {
   this.canvas_.render();
-
-  // TODO(joseph): Refactor the margin to a constant.
-  var margin = 1;
-  this.renderModel_(
-      level.setPosition(
-          Math.floor((this.canvas_.getPixelSize().width - level.width) / 2),
-          this.canvas_.getPixelSize().height - level.height - margin));
-  this.renderModel_(bot.setPosition(level.stacks[0].getX(), margin));
+  this.renderModel_(game);
 };
 
 
