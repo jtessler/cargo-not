@@ -28,7 +28,7 @@ cn.constants.BOT_COLOR = 'yellow';
 
 
 /** @type {number} @const */
-cn.constants.LEVEL_HEIGHT = 20;
+cn.constants.LEVEL_HEIGHT = 10;
 
 
 /** @type {string} @const */
