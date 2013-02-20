@@ -6,30 +6,31 @@
 
 goog.provide('cn.model.Bot');
 
+goog.require('cn.constants');
 goog.require('cn.model.PathModel');
 
 
 
 /**
- * @param {number} innerSize The side length of the bot's inner area, i.e. where
- *     it stores the cargo box. This should be the same size as a cargo box.
+ * @param {number=} opt_innerSize The side length of the bot's inner area, i.e.
+ *     where it stores the cargo box. This should be the same size as a cargo
+ *     box.
  * @constructor
  * @extends {cn.model.PathModel}
  */
-cn.model.Bot = function(innerSize) {
+cn.model.Bot = function(opt_innerSize) {
+  var innerSize = opt_innerSize || cn.constants.CARGO_SIZE;
   var innerX = Math.floor(innerSize / 2);
   var innerY = innerX;
-  var width = innerSize * 2;
-  var height = innerY + innerSize;
-  goog.base(this, width, height, 'yellow');
+  goog.base(this, innerSize * 2, innerY + innerSize, cn.constants.BOT_COLOR);
   this.path.moveTo(0, 0)
-           .lineTo(width, 0)
-           .lineTo(width, height)
-           .lineTo(innerX + innerSize, height)
+           .lineTo(this.width, 0)
+           .lineTo(this.width, this.height)
+           .lineTo(innerX + innerSize, this.height)
            .lineTo(innerX + innerSize, innerY)
            .lineTo(innerX, innerY)
-           .lineTo(innerX, height)
-           .lineTo(0, height)
+           .lineTo(innerX, this.height)
+           .lineTo(0, this.height)
            .lineTo(0, 0);
   this.position = 0;
   this.cargo_ = null;

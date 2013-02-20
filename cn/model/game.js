@@ -7,6 +7,7 @@
 
 goog.provide('cn.model.Game');
 
+goog.require('cn.constants');
 goog.require('cn.model.Bot');
 goog.require('cn.model.Cargo');
 goog.require('cn.model.CargoColor');
@@ -19,39 +20,43 @@ goog.require('goog.array');
 
 
 /**
- * @inheritDoc
+ * @param {number=} opt_width The entire game's screen width.
+ * @param {number=} opt_height The entire game's screen height.
  * @constructor
  * @extends {cn.model.PathModel}
  */
-cn.model.Game = function(width, height) {
-  goog.base(this, width, height, 'lightyellow');
+cn.model.Game = function(opt_width, opt_height) {
+  goog.base(
+      this,
+      opt_width || cn.constants.GAME_WIDTH,
+      opt_height || cn.constants.GAME_HEIGHT,
+      cn.constants.GAME_COLOR);
   this.path.moveTo(0, 0)
-           .lineTo(width, 0)
-           .lineTo(width, height)
-           .lineTo(0, height)
+           .lineTo(this.width, 0)
+           .lineTo(this.width, this.height)
+           .lineTo(0, this.height)
            .lineTo(0, 0);
 
-  var stacks = [new cn.model.Stack(40, 10),
-                new cn.model.Stack(40, 10),
-                new cn.model.Stack(40, 10)];
+  var stacks = [new cn.model.Stack(),
+                new cn.model.Stack(),
+                new cn.model.Stack()];
   goog.array.forEach(
       stacks,
       function(stack) {
         var col = cn.model.CargoColor;
-        stack.addCargo(new cn.model.Cargo(20, col.RED));
-        stack.addCargo(new cn.model.Cargo(20, col.GREEN));
-        stack.addCargo(new cn.model.Cargo(20, col.BLUE));
-        stack.addCargo(new cn.model.Cargo(20, col.YELLOW));
+        stack.addCargo(new cn.model.Cargo(col.RED));
+        stack.addCargo(new cn.model.Cargo(col.GREEN));
+        stack.addCargo(new cn.model.Cargo(col.BLUE));
+        stack.addCargo(new cn.model.Cargo(col.YELLOW));
       });
 
-  // TODO(joseph): Refactor these numbers to constants.
-  this.level = new cn.model.Level(10, 30, stacks, stacks);
+  this.level = new cn.model.Level(stacks, stacks);
   this.level.setPosition(
       Math.floor((this.width - this.level.width) / 2),
-      this.height - this.level.height - 1);
+      this.height - this.level.height - cn.constants.GAME_MARGIN);
 
   this.bot = new cn.model.Bot(20);
-  this.bot.setPosition(this.level.stacks[0].getX(), 1);
+  this.bot.setPosition(this.level.stacks[0].getX(), cn.constants.GAME_MARGIN);
 
   this.program = new cn.model.Program();
 };

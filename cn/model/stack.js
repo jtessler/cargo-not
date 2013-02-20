@@ -6,23 +6,28 @@
 
 goog.provide('cn.model.Stack');
 
+goog.require('cn.constants');
 goog.require('cn.model.PathModel');
 goog.require('goog.array');
 
 
 
 /**
- * @param {number} width The model's drawn width (in pixels).
- * @param {number} height The model's drawn height (in pixels).
+ * @param {number=} opt_width The stack's drawn width (in pixels).
+ * @param {number=} opt_height The stack's drawn height (in pixels).
  * @constructor
  * @extends {cn.model.PathModel}
  */
-cn.model.Stack = function(width, height) {
-  goog.base(this, width, height, 'yellow');
+cn.model.Stack = function(opt_width, opt_height) {
+  goog.base(
+      this,
+      opt_width || cn.constants.STACK_WIDTH,
+      opt_height || cn.constants.STACK_HEIGHT,
+      cn.constants.STACK_COLOR);
   this.path.moveTo(0, 0)
-           .lineTo(width, 0)
-           .lineTo(width, height)
-           .lineTo(0, height)
+           .lineTo(this.width, 0)
+           .lineTo(this.width, this.height)
+           .lineTo(0, this.height)
            .lineTo(0, 0);
   this.boxes_ = new Array();
 };

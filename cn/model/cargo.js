@@ -7,6 +7,7 @@
 goog.provide('cn.model.Cargo');
 goog.provide('cn.model.CargoColor');
 
+goog.require('cn.constants');
 goog.require('cn.model.PathModel');
 
 
@@ -24,12 +25,13 @@ cn.model.CargoColor = {
 
 
 /**
- * @param {number} size The model's drawn side width (in pixels).
  * @param {cn.model.CargoColor} color The model's fill color.
+ * @param {number=} opt_size The model's drawn side width (in pixels).
  * @constructor
  * @extends {cn.model.PathModel}
  */
-cn.model.Cargo = function(size, color) {
+cn.model.Cargo = function(color, opt_size) {
+  var size = opt_size || cn.constants.CARGO_SIZE;
   goog.base(this, size, size, color);
   this.path.moveTo(0, 0)
            .lineTo(size, 0)

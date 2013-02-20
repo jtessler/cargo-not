@@ -8,6 +8,7 @@
 
 goog.provide('cn.model.Level');
 
+goog.require('cn.constants');
 goog.require('cn.model.PathModel');
 goog.require('cn.model.Stack');
 goog.require('goog.array');
@@ -15,25 +16,28 @@ goog.require('goog.array');
 
 
 /**
- * @param {number} height The model's drawn height (in pixels).
- * @param {number} margin The space between each stack (in pixels).
  * @param {Array.<!cn.model.Stack>} initial The initial stack configuration.
  * @param {Array.<!cn.model.Stack>} goal The final stack configuration.
+ * @param {number=} opt_height The model's drawn height (in pixels).
+ * @param {number=} opt_margin The space between each stack (in pixels).
  * @constructor
  * @extends {cn.model.PathModel}
  */
-cn.model.Level = function(height, margin, initial, goal) {
-  var width =
+cn.model.Level = function(initial, goal, opt_height, opt_margin) {
+  var margin = opt_margin || cn.constants.STACK_WIDTH;
+  goog.base(
+      this,
       goog.array.reduce(
           initial,
           function(width, stack) { return width + stack.width; },
           0) +
-      margin * (initial.length + 1);
-  goog.base(this, width, height, 'yellow');
+      margin * (initial.length + 1),
+      opt_height || cn.constants.LEVEL_HEIGHT,
+      cn.constants.LEVEL_COLOR);
   this.path.moveTo(0, 0)
-           .lineTo(width, 0)
-           .lineTo(width, height)
-           .lineTo(0, height)
+           .lineTo(this.width, 0)
+           .lineTo(this.width, this.height)
+           .lineTo(0, this.height)
            .lineTo(0, 0);
   this.stacks = initial;
 
