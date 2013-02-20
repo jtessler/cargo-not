@@ -62,6 +62,26 @@ cn.model.Instruction.prototype.hasCommand = function() {
 };
 
 
+/**
+ * @param {!cn.model.Bot} bot The bot to test the condition against.
+ * @return {boolean} True if there is no condition or the given bot passes the
+ *     condition.
+ */
+cn.model.Instruction.prototype.passesCondition = function(bot) {
+  var cond = cn.model.Condition;
+  var col = cn.model.CargoColor;
+  switch (this.condition) {
+    case cond.NONE: return !bot.hasCargo();
+    case cond.ANY: return bot.hasCargo();
+    case cond.RED: return bot.hasCargo(col.RED);
+    case cond.GREEN: return bot.hasCargo(col.GREEN);
+    case cond.BLUE: return bot.hasCargo(col.BLUE);
+    case cond.YELLOW: return bot.hasCargo(col.YELLOW);
+  }
+  return true;
+};
+
+
 /** @return {boolean} True if the command is F0, F1, F2, or F3. */
 cn.model.Instruction.prototype.isFunctionCall = function() {
   return this.command == cn.model.Command.F0 ||

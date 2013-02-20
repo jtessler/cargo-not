@@ -154,10 +154,12 @@ cn.model.Program.prototype.hasNext_ = function() {
 
 /**
  * Updates the program pointers and returns the instruction to execute.
- * @return {?cn.model.Instruction} The next instruction or null if there are no
- *     more instructions to execute.
+ * @param {!cn.model.Bot} bot The bot to check the instruction's condition
+ *     against.
+ * @return {?cn.model.Command} The next command or null if there are no more
+ *     instructions to execute.
  */
-cn.model.Program.prototype.next = function() {
+cn.model.Program.prototype.next = function(bot) {
   if (!this.hasNext_()) {
     return null;
   }
@@ -168,12 +170,16 @@ cn.model.Program.prototype.next = function() {
     var pointer = this.pointers_.pop();
     this.f_ = pointer.f;
     this.i_ = pointer.i;
-    return this.next();
+    return this.next(bot);
   }
 
-  // TODO(joseph): Add condition check.
-
   var instruction = this.current_();
+
+  // Skip this instruction if its condition fails.
+  if (!instruction.passesCondition(bot)) {
+    this.i_++;
+    return this.next(bot);
+  }
 
   // Update the pointer stack and call the function, then return the function
   // call instruction.
@@ -181,10 +187,10 @@ cn.model.Program.prototype.next = function() {
     this.pointers_.push({f: this.f_, i: this.i_ + 1});
     this.f_ = instruction.getFunctionCall();
     this.i_ = 0;
-    return instruction;
+    return instruction.command;
   }
 
   // Simplest case. Just move to the next instruction.
   this.i_++;
-  return instruction;
+  return instruction.command;
 };
