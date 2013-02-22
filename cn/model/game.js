@@ -57,8 +57,8 @@ cn.model.Game = function(opt_width, opt_height) {
 
   this.bot = new cn.model.Bot(20);
   this.bot.setPosition(
-    this.level.stacks[0].getX(),
-    cn.constants.GAME_MARGIN + this.bot.height);
+      this.level.stacks[0].getX(),
+      cn.constants.GAME_MARGIN + this.bot.height);
 
   this.program = new cn.model.Program();
 };

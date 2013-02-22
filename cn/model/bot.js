@@ -81,6 +81,20 @@ cn.model.Bot.prototype.attachCargo = function(cargo) {
 
 
 /**
+ * @return {!cn.model.Cargo} The detached cargo. Throws an error if there was no
+ *     attached cargo.
+ */
+cn.model.Bot.prototype.detachCargo = function() {
+  var cargo = this.cargo_;
+  if (!goog.isDefAndNotNull(cargo)) {
+    throw Error('bot has no cargo to detach');
+  }
+  this.cargo_ = null;
+  return cargo;
+};
+
+
+/**
  * @param {cn.model.CargoColor=} opt_color If given a color, this function also
  *     checks if the held cargo matches said color.
  * @return {boolean} True if the bot is carrying cargo.

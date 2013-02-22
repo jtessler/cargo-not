@@ -64,10 +64,24 @@ cn.model.Program.prototype.init = function(var_lengths) {
   goog.array.forEach(
       arguments,
       function(length) {
-        this.functions.push(
-            goog.array.repeat(new cn.model.Instruction(), length));
+        this.functions.push(this.createFunction_(length));
       },
       this);
+};
+
+
+/**
+ * Initialize a single function with the given length.
+ * @param {number} length The length for the function.
+ * @return {Array.<!cn.model.Instruction>} The newly created function.
+ * @private
+ */
+cn.model.Program.prototype.createFunction_ = function(length) {
+  var instructions = [];
+  for (var i = 0; i < length; i++) {
+    instructions.push(new cn.model.Instruction());
+  }
+  return instructions;
 };
 
 

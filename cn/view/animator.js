@@ -23,14 +23,25 @@ cn.view.Animator = function(opt_width, opt_height) {
   this.canvas_ = new goog.graphics.CanvasGraphics(
       opt_width || cn.constants.GAME_WIDTH,
       opt_height || cn.constants.GAME_HEIGHT);
+  this.update_ = goog.nullFunction;
 };
 
 
 /**
  * The underlying graphics implementation.
  * @type {!goog.graphics.CanvasGraphics}
+ * @private
  */
 cn.view.Animator.prototype.canvas_;
+
+
+/**
+ * The function called on every animation that updates model positions. This
+ * function is set by the controller.
+ * @type {function()}
+ * @private
+ */
+cn.view.Animator.prototype.update_;
 
 
 /**
@@ -57,12 +68,21 @@ cn.view.Animator.prototype.renderModel_ = function(model) {
 
 
 /**
- * @param {function(): boolean} f A function that updates some model's
- *     appearance every step of the animation and returns true until the
+ * @param {function(): boolean} canStep A function that returns true until the
  *     animation should end.
+ * @param {function()} step A function that updates some model's appearance
+ *     every step of the animation.
+ * @param {function()} finish A function that runs after the animation ends.
  */
-cn.view.Animator.prototype.runUntilFalse = function(f) {
-  // TODO(joseph): Implement this function.
+cn.view.Animator.prototype.attachAnimation = function(canStep, step, finish) {
+  this.update_ = goog.bind(function() {
+    if (canStep()) {
+      step();
+    } else {
+      this.update_ = goog.nullFunction;
+      finish();
+    }
+  }, this);
 };
 
 
@@ -70,5 +90,6 @@ cn.view.Animator.prototype.runUntilFalse = function(f) {
  * @inheritDoc
  */
 cn.view.Animator.prototype.onAnimationFrame = function(now) {
+  this.update_();
   this.canvas_.redraw();
 };
