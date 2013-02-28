@@ -43,6 +43,22 @@ cn.controller.play = function(game, animator) {
 
 
 /**
+ * @param {!cn.view.Animator} animator The animator to pause.
+ */
+cn.controller.pause = function(animator) {
+  animator.pause();
+};
+
+
+/**
+ * @param {!cn.view.Animator} animator The animator to resume.
+ */
+cn.controller.resume = function(animator) {
+  animator.resume();
+};
+
+
+/**
  * @param {!cn.model.Game} game The current game.
  * @param {!cn.view.Animator} animator The animator in which to draw bot and
  *     cargo animations.
