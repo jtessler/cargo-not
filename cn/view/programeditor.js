@@ -8,30 +8,84 @@
 
 goog.provide('cn.view.ProgramEditor');
 
+goog.require('cn.controller');
 goog.require('cn.model.Command');
 goog.require('cn.model.Condition');
 goog.require('cn.model.Game');
 goog.require('cn.model.Program');
+goog.require('cn.view.Animator');
 goog.require('goog.array');
 goog.require('goog.dom');
+goog.require('goog.events');
 goog.require('goog.fx.DragDropGroup');
 goog.require('goog.object');
 goog.require('goog.style');
+goog.require('goog.ui.Button');
 
 
 
 /**
  * @param {!cn.model.Game} game The game model that includes the program to
  *     render.
+ * @param {!cn.view.Animator} animator The animator window to attach events to.
  * @constructor
  */
-cn.view.ProgramEditor = function(game) {
+cn.view.ProgramEditor = function(game, animator) {
   this.dragGroup_ = new goog.fx.DragDropGroup();
   this.dropGroup_ = new goog.fx.DragDropGroup();
   this.dragGroup_.addTarget(this.dropGroup_);
   this.dragGroup_.init();
 
   // TODO(joseph): Append these elsewhere.
+  // TODO(joseph): Refactor event handler code.
+
+  this.playButton_ = new goog.ui.Button('Play');
+  this.playButton_.render();
+  goog.events.listen(
+      this.playButton_,
+      goog.ui.Component.EventType.ACTION,
+      function() {
+        if (this.resetButton_.isEnabled()) {
+          cn.controller.resume(animator);
+        } else {
+          cn.controller.play(game, animator);
+        }
+        this.playButton_.setEnabled(false);
+        this.pauseButton_.setEnabled(true);
+        this.resetButton_.setEnabled(true);
+      },
+      false,
+      this);
+
+  this.pauseButton_ = new goog.ui.Button('Pause');
+  this.pauseButton_.setEnabled(false);
+  this.pauseButton_.render();
+  goog.events.listen(
+      this.pauseButton_,
+      goog.ui.Component.EventType.ACTION,
+      function() {
+        cn.controller.pause(animator);
+        this.pauseButton_.setEnabled(false);
+        this.playButton_.setEnabled(true);
+      },
+      false,
+      this);
+
+  this.resetButton_ = new goog.ui.Button('Reset');
+  this.resetButton_.setEnabled(false);
+  this.resetButton_.render();
+  goog.events.listen(
+      this.resetButton_,
+      goog.ui.Component.EventType.ACTION,
+      function() {
+        // TODO(joseph): Implement this function.
+        //cn.controller.reset(game, animator);
+        this.resetButton_.setEnabled(false);
+        this.pauseButton_.setEnabled(false);
+        this.playButton_.setEnabled(true);
+      },
+      false,
+      this);
 
   this.toolboxTable_ = goog.dom.createElement(goog.dom.TagName.TABLE);
   this.initToolbox_();
@@ -56,6 +110,27 @@ cn.view.ProgramEditor.prototype.dragGroup_;
  * @private
  */
 cn.view.ProgramEditor.prototype.dropGroup_;
+
+
+/**
+ * @type {!goog.ui.Button}
+ * @private
+ */
+cn.view.ProgramEditor.prototype.playButton_;
+
+
+/**
+ * @type {!goog.ui.Button}
+ * @private
+ */
+cn.view.ProgramEditor.prototype.pauseButton_;
+
+
+/**
+ * @type {!goog.ui.Button}
+ * @private
+ */
+cn.view.ProgramEditor.prototype.resetButton_;
 
 
 /**

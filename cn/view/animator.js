@@ -8,6 +8,7 @@ goog.provide('cn.view.Animator');
 
 goog.require('cn.constants');
 goog.require('cn.model.Game');
+goog.require('goog.fx.anim');
 goog.require('goog.fx.anim.Animated');
 goog.require('goog.graphics.CanvasGraphics');
 
@@ -24,6 +25,8 @@ cn.view.Animator = function(opt_width, opt_height) {
       opt_width || cn.constants.GAME_WIDTH,
       opt_height || cn.constants.GAME_HEIGHT);
   this.update_ = goog.nullFunction;
+  this.isAnimating_ = true;
+  goog.fx.anim.registerAnimation(this);
 };
 
 
@@ -42,6 +45,14 @@ cn.view.Animator.prototype.canvas_;
  * @private
  */
 cn.view.Animator.prototype.update_;
+
+
+/**
+ * If true, updates and animations occur.
+ * @type {boolean}
+ * @private
+ */
+cn.view.Animator.prototype.isAnimating_;
 
 
 /**
@@ -87,9 +98,27 @@ cn.view.Animator.prototype.attachAnimation = function(canStep, step, finish) {
 
 
 /**
+ * Pauses all updates and animations.
+ */
+cn.view.Animator.prototype.pause = function() {
+  this.isAnimating_ = false;
+};
+
+
+/**
+ * Pauses all updates and animations.
+ */
+cn.view.Animator.prototype.resume = function() {
+  this.isAnimating_ = true;
+};
+
+
+/**
  * @inheritDoc
  */
 cn.view.Animator.prototype.onAnimationFrame = function(now) {
-  this.update_();
-  this.canvas_.redraw();
+  if (this.isAnimating_) {
+    this.update_();
+    this.canvas_.redraw();
+  }
 };

@@ -11,7 +11,6 @@ goog.require('cn.model.Command');
 goog.require('cn.view.Animator');
 goog.require('cn.view.ProgramEditor');
 goog.require('goog.array');
-goog.require('goog.fx.anim');
 goog.require('goog.graphics.CanvasGraphics');
 
 
@@ -28,8 +27,6 @@ cn.main = function() {
   game.program.addCommand(0, 4, cn.model.Command.F0);
   var animator = new cn.view.Animator();
   animator.render(game);
-  var editor = new cn.view.ProgramEditor(game);
-  goog.fx.anim.registerAnimation(animator);
-  cn.controller.play(game, animator);
+  var editor = new cn.view.ProgramEditor(game, animator);
 };
 goog.exportSymbol('main', cn.main);
