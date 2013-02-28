@@ -8,15 +8,31 @@
 goog.provide('cn.leveldata');
 
 //Constants for retrieving data from level packs
+/** @const @type {number} */
 cn.leveldata.NAME = 0;
+
+/** @const @type {number} */
 cn.leveldata.CLAW = 1;
+
+/** @const @type {number} */
 cn.leveldata.STARS = 2;
+
+/** @const @type {number} */
 cn.leveldata.FUNCS = 3;
+
+/** @const @type {number} */
 cn.leveldata.TOOLBOX = 4;
+
+/** @const @type {number} */
 cn.leveldata.STAGE = 5;
+
+/** @const @type {number} */
 cn.leveldata.GOAL = 6;
+
+/** @const @type {number} */
 cn.leveldata.HINT = 7
 
+/** @const @dict*/
 cn.leveldata.levelpacks = {
         "Tutorial": ["Cargo 101","Transporter","Re-Curses","Inverter","From Beneath","Go Left"],
         "Easy": ["Double Flip","Go Left 2","Shuffle Sort","Go the Distance","Color Sort","Walking Piles"],
@@ -26,6 +42,7 @@ cn.leveldata.levelpacks = {
         "Impossible":"Restoring Order","Changing  Places","Palette Swap","Mirror 2","Changing Places 2","Vertical Sort"]
     };
 
+/** @const @dict*/
 cn.leveldata.levels = {
         "Cargo 101": [1, {3,3,3}, {8,8,8,5},\ 
                      {"right","pickup","left","f1","f2","f3","f4"}, {{"yellow"},{}}, {{},{"yellow"}}, "Down, Right, Down"],\
