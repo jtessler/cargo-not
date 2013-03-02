@@ -99,7 +99,8 @@ cn.model.Program.prototype.current_ = function() {
  * @private
  */
 cn.model.Program.prototype.atEndOfFunction_ = function() {
-  return this.i_ >= this.functions[this.f_].length;
+  return this.i_ >= this.functions[this.f_].length ||
+      !this.current_().hasCommand();
 };
 
 
@@ -109,8 +110,7 @@ cn.model.Program.prototype.atEndOfFunction_ = function() {
  * @private
  */
 cn.model.Program.prototype.hasNext_ = function() {
-  return this.pointers_.length > 0 ||
-      (!this.atEndOfFunction_() && this.current_().hasCommand());
+  return this.pointers_.length > 0 || !this.atEndOfFunction_()
 };
 
 
