@@ -17,6 +17,7 @@ goog.require('cn.view.Animator');
 goog.require('goog.array');
 goog.require('goog.dom');
 goog.require('goog.events');
+goog.require('goog.fx.AbstractDragDrop.EventType');
 goog.require('goog.fx.DragDropGroup');
 goog.require('goog.object');
 goog.require('goog.style');
@@ -31,61 +32,28 @@ goog.require('goog.ui.Button');
  * @constructor
  */
 cn.view.ProgramEditor = function(game, animator) {
-  this.dragGroup_ = new goog.fx.DragDropGroup();
-  this.dropGroup_ = new goog.fx.DragDropGroup();
-  this.dragGroup_.addTarget(this.dropGroup_);
-  this.dragGroup_.init();
 
   // TODO(joseph): Append these elsewhere.
-  // TODO(joseph): Refactor event handler code.
 
   this.playButton_ = new goog.ui.Button('Play');
-  this.playButton_.render();
-  goog.events.listen(
-      this.playButton_,
-      goog.ui.Component.EventType.ACTION,
-      function() {
-        if (this.resetButton_.isEnabled()) {
-          cn.controller.resume(animator);
-        } else {
-          cn.controller.play(game, animator);
-        }
-        this.playButton_.setEnabled(false);
-        this.pauseButton_.setEnabled(true);
-        this.resetButton_.setEnabled(true);
-      },
-      false,
-      this);
-
   this.pauseButton_ = new goog.ui.Button('Pause');
-  this.pauseButton_.setEnabled(false);
-  this.pauseButton_.render();
-  goog.events.listen(
-      this.pauseButton_,
-      goog.ui.Component.EventType.ACTION,
-      function() {
-        cn.controller.pause(animator);
-        this.pauseButton_.setEnabled(false);
-        this.playButton_.setEnabled(true);
-      },
-      false,
-      this);
-
   this.resetButton_ = new goog.ui.Button('Reset');
+  this.pauseButton_.setEnabled(false);
   this.resetButton_.setEnabled(false);
+  this.playButton_.render();
+  this.pauseButton_.render();
   this.resetButton_.render();
-  goog.events.listen(
-      this.resetButton_,
-      goog.ui.Component.EventType.ACTION,
-      function() {
-        // TODO(joseph): Implement this function.
-        //cn.controller.reset(game, animator);
-        this.resetButton_.setEnabled(false);
-        this.pauseButton_.setEnabled(false);
-        this.playButton_.setEnabled(true);
-      },
-      false,
-      this);
+  this.registerButtonEvents_(game, animator);
+
+  this.dragGroupToolbox_ = new goog.fx.DragDropGroup();
+  this.dragGroupRegister_ = new goog.fx.DragDropGroup();
+  this.dropGroupFunction_ = new goog.fx.DragDropGroup();
+  this.dragGroupToolbox_.addTarget(this.dropGroupFunction_);
+  this.dragGroupRegister_.addTarget(this.dropGroupFunction_);
+  this.dragGroupRegister_.addTarget(this.dragGroupToolbox_);
+  this.dragGroupToolbox_.init();
+  this.dragGroupRegister_.init();
+  this.registerDragEvents_();
 
   this.toolboxTable_ = goog.dom.createElement(goog.dom.TagName.TABLE);
   this.initToolbox_();
@@ -102,14 +70,14 @@ cn.view.ProgramEditor = function(game, animator) {
  * @type {!goog.fx.DragDropGroup}
  * @private
  */
-cn.view.ProgramEditor.prototype.dragGroup_;
+cn.view.ProgramEditor.prototype.dragGroupToolbox_;
 
 
 /**
  * @type {!goog.fx.DragDropGroup}
  * @private
  */
-cn.view.ProgramEditor.prototype.dropGroup_;
+cn.view.ProgramEditor.prototype.dropGroupFunction_;
 
 
 /**
@@ -157,7 +125,7 @@ cn.view.ProgramEditor.prototype.initToolbox_ = function() {
       function(command, key) {
         var td = goog.dom.createElement(goog.dom.TagName.TD);
         var div = this.createRegisterView_('pink');
-        this.dragGroup_.addItem(div, command);
+        this.dragGroupToolbox_.addItem(div, command);
 
         // TODO(joseph): Don't use the enum text here.
         goog.dom.setTextContent(div, key);
@@ -173,7 +141,7 @@ cn.view.ProgramEditor.prototype.initToolbox_ = function() {
  * @param {!cn.model.Program} program The program to build a table view for.
  */
 cn.view.ProgramEditor.prototype.initRegisters = function(program) {
-  this.dropGroup_.removeItems();
+  this.dropGroupFunction_.removeItems();
   goog.dom.removeChildren(this.registerTable_);
   goog.array.forEach(
       program.functions,
@@ -190,7 +158,7 @@ cn.view.ProgramEditor.prototype.initRegisters = function(program) {
             function(instruction, i) {
               var td = goog.dom.createElement(goog.dom.TagName.TD);
               var div = this.createRegisterView_('lightyellow');
-              this.dropGroup_.addItem(div, instruction);
+              this.dropGroupFunction_.addItem(div, instruction);
               td.appendChild(div);
               tr.appendChild(td);
             },
@@ -217,4 +185,82 @@ cn.view.ProgramEditor.prototype.createRegisterView_ = function(color) {
     'border': '1px solid black'
   });
   return div;
+};
+
+
+/**
+ * @param {!cn.model.Game} game The game model that includes the program to
+ *     render.
+ * @param {!cn.view.Animator} animator The animator window to attach events to.
+ * @private
+ */
+cn.view.ProgramEditor.prototype.registerButtonEvents_ =
+    function(game, animator) {
+  var EventType = goog.ui.Component.EventType;
+  goog.events.listen(this.playButton_, EventType.ACTION, function() {
+    if (this.resetButton_.isEnabled()) {
+      cn.controller.resume(animator);
+    } else {
+      cn.controller.play(game, animator);
+    }
+    this.playButton_.setEnabled(false);
+    this.pauseButton_.setEnabled(true);
+    this.resetButton_.setEnabled(true);
+  }, false, this);
+
+  goog.events.listen(this.pauseButton_, EventType.ACTION, function() {
+    cn.controller.pause(animator);
+    this.pauseButton_.setEnabled(false);
+    this.playButton_.setEnabled(true);
+  }, false, this);
+
+  goog.events.listen(this.resetButton_, EventType.ACTION, function() {
+    // TODO(joseph): Implement this function.
+    //cn.controller.reset(game, animator);
+    this.resetButton_.setEnabled(false);
+    this.pauseButton_.setEnabled(false);
+    this.playButton_.setEnabled(true);
+  }, false, this);
+};
+
+
+/**
+ * @private
+ */
+cn.view.ProgramEditor.prototype.registerDragEvents_ = function() {
+  var EventType = goog.fx.AbstractDragDrop.EventType;
+
+  goog.events.listen(this.dragGroupToolbox_, EventType.DROP, function(e) {
+    goog.dom.removeNode(e.dragSourceItem.element);
+  });
+
+  var setTransp = function(e) {
+    goog.style.setOpacity(e.dragSourceItem.element, 0.5);
+  };
+  goog.events.listen(this.dragGroupToolbox_, EventType.DRAGSTART, setTransp);
+  goog.events.listen(this.dragGroupRegister_, EventType.DRAGSTART, setTransp);
+
+  var setOpaque = function(e) {
+    goog.style.setOpacity(e.dragSourceItem.element, 1.0);
+  };
+  goog.events.listen(this.dragGroupToolbox_, EventType.DRAGEND, setOpaque);
+  goog.events.listen(this.dragGroupRegister_, EventType.DRAGEND, setOpaque);
+
+  goog.events.listen(this.dropGroupFunction_, EventType.DRAGOVER, function(e) {
+    e.dropTargetItem.element.style.background = 'yellow';
+  });
+
+  goog.events.listen(this.dropGroupFunction_, EventType.DRAGOUT, function(e) {
+    e.dropTargetItem.element.style.background = 'lightyellow';
+  });
+
+  goog.events.listen(this.dropGroupFunction_, EventType.DROP, function(e) {
+    var element = e.dragSource == this.dragGroupToolbox_ ?
+        e.dragSourceItem.element.cloneNode(true) :
+        e.dragSourceItem.element;
+    goog.style.setOpacity(element, 1.0);
+    goog.dom.removeChildren(e.dropTargetItem.element);
+    e.dropTargetItem.element.appendChild(element);
+    this.dragGroupRegister_.addItem(element);
+  }, false, this);
 };
