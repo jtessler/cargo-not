@@ -234,11 +234,15 @@ cn.view.ProgramEditor.prototype.registerDragEvents_ = function() {
     goog.dom.removeNode(e.dragSourceItem.element);
   });
 
-  var setTransp = function(e) {
+  goog.events.listen(this.dragGroupToolbox_, EventType.DRAGSTART, function(e) {
     goog.style.setOpacity(e.dragSourceItem.element, 0.5);
-  };
-  goog.events.listen(this.dragGroupToolbox_, EventType.DRAGSTART, setTransp);
-  goog.events.listen(this.dragGroupRegister_, EventType.DRAGSTART, setTransp);
+  });
+  goog.events.listen(this.dragGroupRegister_, EventType.DRAGSTART, function(e) {
+    var command = e.dragSourceItem.data.command;
+    cn.controller.removeCommand(e.dragSourceItem.data);
+    e.dragSourceItem.data = command;
+    goog.style.setOpacity(e.dragSourceItem.element, 0.5);
+  });
 
   var setOpaque = function(e) {
     goog.style.setOpacity(e.dragSourceItem.element, 1.0);
@@ -255,12 +259,17 @@ cn.view.ProgramEditor.prototype.registerDragEvents_ = function() {
   });
 
   goog.events.listen(this.dropGroupFunction_, EventType.DROP, function(e) {
-    var element = e.dragSource == this.dragGroupToolbox_ ?
-        e.dragSourceItem.element.cloneNode(true) :
-        e.dragSourceItem.element;
+    var element = e.dragSourceItem.element;
+    if (e.dragSource == this.dragGroupToolbox_) {
+      element = e.dragSourceItem.element.cloneNode(true);
+      this.dragGroupRegister_.addItem(element, e.dropTargetItem.data);
+    }
     goog.style.setOpacity(element, 1.0);
     goog.dom.removeChildren(e.dropTargetItem.element);
     e.dropTargetItem.element.appendChild(element);
-    this.dragGroupRegister_.addItem(element);
+    cn.controller.setCommand(e.dropTargetItem.data, e.dragSourceItem.data);
+    if (e.dragSource == this.dragGroupRegister_) {
+      e.dragSourceItem.data = e.dropTargetItem.data;
+    }
   }, false, this);
 };

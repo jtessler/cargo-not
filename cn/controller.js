@@ -135,3 +135,20 @@ cn.controller.moveUp = function(game, animator, endingY) {
         cn.controller.play(game, animator);
       });
 };
+
+
+/**
+ * @param {!cn.model.Instruction} instruction The instruction to update.
+ * @param {!cn.model.Command} command The command to set the instruction to.
+ */
+cn.controller.setCommand = function(instruction, command) {
+  instruction.command = command;
+};
+
+
+/**
+ * @param {!cn.model.Instruction} instruction The instruction to clear.
+ */
+cn.controller.removeCommand = function(instruction) {
+  instruction.command = null;
+};
