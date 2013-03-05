@@ -208,3 +208,39 @@ cn.model.Program.prototype.next = function(bot) {
   this.i_++;
   return instruction.command;
 };
+
+
+/**
+ * @return {number} The current function index.
+ */
+cn.model.Program.prototype.getCurrentFunction = function() {
+  return this.f_;
+};
+
+
+/**
+ * @return {number} The current instruction index.
+ */
+cn.model.Program.prototype.getCurrentInstruction = function() {
+  return this.i_;
+};
+
+
+/**
+ * @return {number} The caller's function index or -1 if no caller.
+ */
+cn.model.Program.prototype.getCallerFunction = function() {
+  return goog.array.isEmpty(this.pointers_) ?
+      -1 :
+      goog.array.peek(this.pointers_).f;
+};
+
+
+/**
+ * @return {number} The caller's instruction index or -1 if no caller.
+ */
+cn.model.Program.prototype.getCallerInstruction = function() {
+  return goog.array.isEmpty(this.pointers_) ?
+      -1 :
+      goog.array.peek(this.pointers_).i;
+};

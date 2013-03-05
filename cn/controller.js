@@ -15,25 +15,28 @@ goog.require('cn.view.Animator');
  * @param {!cn.model.Game} game The current game.
  * @param {!cn.view.Animator} animator The animator in which to draw bot and
  *     cargo animations.
+ * @param {!cn.view.ProgramEditor} editor The program editor to highlight
+ *     registers as they're executed.
  */
-cn.controller.play = function(game, animator) {
+cn.controller.play = function(game, animator, editor) {
   var command = game.program.next(game.bot);
   if (goog.isDefAndNotNull(command)) {
+    editor.highlightExecution(game.program);
     switch (command) {
       case cn.model.Command.LEFT:
-        cn.controller.moveLeft(game, animator);
+        cn.controller.moveLeft(game, animator, editor);
         break;
       case cn.model.Command.RIGHT:
-        cn.controller.moveRight(game, animator);
+        cn.controller.moveRight(game, animator, editor);
         break;
       case cn.model.Command.DOWN:
-        cn.controller.moveDown(game, animator);
+        cn.controller.moveDown(game, animator, editor);
         break;
       case cn.model.Command.F0:
       case cn.model.Command.F1:
       case cn.model.Command.F2:
       case cn.model.Command.F3:
-        cn.controller.play(game, animator);
+        cn.controller.play(game, animator, editor);
         break;
       default:
         throw Error('Animation not implemented for "' + command + '"');
@@ -62,15 +65,17 @@ cn.controller.resume = function(animator) {
  * @param {!cn.model.Game} game The current game.
  * @param {!cn.view.Animator} animator The animator in which to draw bot and
  *     cargo animations.
+ * @param {!cn.view.ProgramEditor} editor The program editor to highlight
+ *     registers as they're executed.
  */
-cn.controller.moveLeft = function(game, animator) {
+cn.controller.moveLeft = function(game, animator, editor) {
   var nextStack = game.level.stacks[game.bot.position - 1];
   animator.attachAnimation(
       function() { return game.bot.getX() > nextStack.getX(); },
       function() { game.bot.translate(-1, 0); },
       function() {
         game.bot.position--;
-        cn.controller.play(game, animator);
+        cn.controller.play(game, animator, editor);
       });
 };
 
@@ -79,15 +84,17 @@ cn.controller.moveLeft = function(game, animator) {
  * @param {!cn.model.Game} game The current game.
  * @param {!cn.view.Animator} animator The animator in which to draw bot and
  *     cargo animations.
+ * @param {!cn.view.ProgramEditor} editor The program editor to highlight
+ *     registers as they're executed.
  */
-cn.controller.moveRight = function(game, animator) {
+cn.controller.moveRight = function(game, animator, editor) {
   var nextStack = game.level.stacks[game.bot.position + 1];
   animator.attachAnimation(
       function() { return game.bot.getX() < nextStack.getX(); },
       function() { game.bot.translate(1, 0); },
       function() {
         game.bot.position++;
-        cn.controller.play(game, animator);
+        cn.controller.play(game, animator, editor);
       });
 };
 
@@ -96,8 +103,10 @@ cn.controller.moveRight = function(game, animator) {
  * @param {!cn.model.Game} game The current game.
  * @param {!cn.view.Animator} animator The animator in which to draw bot and
  *     cargo animations.
+ * @param {!cn.view.ProgramEditor} editor The program editor to highlight
+ *     registers as they're executed.
  */
-cn.controller.moveDown = function(game, animator) {
+cn.controller.moveDown = function(game, animator, editor) {
   var startingY = game.bot.getY();
   var stack = game.level.stacks[game.bot.position];
   animator.attachAnimation(
@@ -116,7 +125,7 @@ cn.controller.moveDown = function(game, animator) {
         } else if (stack.size() > 0) {
           game.bot.attachCargo(stack.liftCargo());
         }
-        cn.controller.moveUp(game, animator, startingY);
+        cn.controller.moveUp(game, animator, editor, startingY);
       });
 };
 
@@ -125,14 +134,16 @@ cn.controller.moveDown = function(game, animator) {
  * @param {!cn.model.Game} game The current game.
  * @param {!cn.view.Animator} animator The animator in which to draw bot and
  *     cargo animations.
+ * @param {!cn.view.ProgramEditor} editor The program editor to highlight
+ *     registers as they're executed.
  * @param {number} endingY The y value to move the bot to.
  */
-cn.controller.moveUp = function(game, animator, endingY) {
+cn.controller.moveUp = function(game, animator, editor, endingY) {
   animator.attachAnimation(
       function() { return game.bot.getY() > endingY; },
       function() { game.bot.translate(0, -1); },
       function() {
-        cn.controller.play(game, animator);
+        cn.controller.play(game, animator, editor);
       });
 };
 

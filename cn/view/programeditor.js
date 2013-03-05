@@ -201,7 +201,7 @@ cn.view.ProgramEditor.prototype.registerButtonEvents_ =
     if (this.resetButton_.isEnabled()) {
       cn.controller.resume(animator);
     } else {
-      cn.controller.play(game, animator);
+      cn.controller.play(game, animator, this);
     }
     this.playButton_.setEnabled(false);
     this.pauseButton_.setEnabled(true);
@@ -274,6 +274,7 @@ cn.view.ProgramEditor.prototype.registerDragEvents_ = function(game) {
 
     // Update the style and add the element to the register's DOM.
     goog.style.setOpacity(element, 1.0);
+    e.dropTargetItem.element.style.background = 'lightyellow';
     goog.dom.removeChildren(e.dropTargetItem.element);
     e.dropTargetItem.element.appendChild(element);
 
@@ -282,4 +283,38 @@ cn.view.ProgramEditor.prototype.registerDragEvents_ = function(game) {
     data.f = ptr.f;
     data.i = ptr.i;
   }, false, this);
+};
+
+
+/**
+ * Sets all registers to half transparency except for the register at the given
+ * pointer (and it's possible caller).
+ * @param {!cn.model.Program} program The program to get execution info from.
+ */
+cn.view.ProgramEditor.prototype.highlightExecution = function(program) {
+  var f = program.getCurrentFunction();
+  var i = program.getCurrentInstruction();
+  var callerF = program.getCallerFunction();
+  var callerI = program.getCallerInstruction();
+  goog.array.forEach(
+      goog.dom.getChildren(this.registerTable_),
+      function(tr, regF) {
+        goog.array.forEach(
+            goog.dom.getChildren(tr),
+            function(td, regI) {
+              // Highlight the executing command.
+              if (regF == f && regI == i) {
+                goog.style.setOpacity(goog.dom.getFirstElementChild(td), 1.0);
+              }
+              // Highlight (slightly) the executing function and caller.
+              else if (regF == f && regI == 0 ||
+                       regF == callerF && regI == callerI) {
+                goog.style.setOpacity(goog.dom.getFirstElementChild(td), 0.5);
+              }
+              // Otherwise, set the element to nearly transparent.
+              else {
+                goog.style.setOpacity(goog.dom.getFirstElementChild(td), 0.25);
+              }
+            });
+      });
 };
