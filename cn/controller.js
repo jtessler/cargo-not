@@ -138,17 +138,21 @@ cn.controller.moveUp = function(game, animator, endingY) {
 
 
 /**
- * @param {!cn.model.Instruction} instruction The instruction to update.
- * @param {!cn.model.Command} command The command to set the instruction to.
+ * @param {!cn.model.Game} game The current game.
+ * @param {number} f The function to add the command to.
+ * @param {number} i The position in the function to add the command to.
+ * @param {!cn.model.Command} command The command.
  */
-cn.controller.setCommand = function(instruction, command) {
-  instruction.command = command;
+cn.controller.setCommand = function(game, f, i, command) {
+  game.program.addCommand(f, i, command);
 };
 
 
 /**
- * @param {!cn.model.Instruction} instruction The instruction to clear.
+ * @param {!cn.model.Game} game The current game.
+ * @param {number} f The function to remove the command from.
+ * @param {number} i The position in the function to remove the command from.
  */
-cn.controller.removeCommand = function(instruction) {
-  instruction.command = null;
+cn.controller.removeCommand = function(game, f, i) {
+  game.program.removeCommand(f, i);
 };

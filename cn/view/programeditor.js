@@ -53,7 +53,7 @@ cn.view.ProgramEditor = function(game, animator) {
   this.dragGroupRegister_.addTarget(this.dragGroupToolbox_);
   this.dragGroupToolbox_.init();
   this.dragGroupRegister_.init();
-  this.registerDragEvents_();
+  this.registerDragEvents_(game);
 
   this.toolboxTable_ = goog.dom.createElement(goog.dom.TagName.TABLE);
   this.initToolbox_();
@@ -125,7 +125,7 @@ cn.view.ProgramEditor.prototype.initToolbox_ = function() {
       function(command, key) {
         var td = goog.dom.createElement(goog.dom.TagName.TD);
         var div = this.createRegisterView_('pink');
-        this.dragGroupToolbox_.addItem(div, command);
+        this.dragGroupToolbox_.addItem(div, {f: -1, i: -1, command: command});
 
         // TODO(joseph): Don't use the enum text here.
         goog.dom.setTextContent(div, key);
@@ -158,7 +158,7 @@ cn.view.ProgramEditor.prototype.initRegisters = function(program) {
             function(instruction, i) {
               var td = goog.dom.createElement(goog.dom.TagName.TD);
               var div = this.createRegisterView_('lightyellow');
-              this.dropGroupFunction_.addItem(div, instruction);
+              this.dropGroupFunction_.addItem(div, {f: f, i: i});
               td.appendChild(div);
               tr.appendChild(td);
             },
@@ -225,9 +225,10 @@ cn.view.ProgramEditor.prototype.registerButtonEvents_ =
 
 
 /**
+ * @param {!cn.model.Game} game The current game.
  * @private
  */
-cn.view.ProgramEditor.prototype.registerDragEvents_ = function() {
+cn.view.ProgramEditor.prototype.registerDragEvents_ = function(game) {
   var EventType = goog.fx.AbstractDragDrop.EventType;
 
   goog.events.listen(this.dragGroupToolbox_, EventType.DROP, function(e) {
@@ -238,9 +239,10 @@ cn.view.ProgramEditor.prototype.registerDragEvents_ = function() {
     goog.style.setOpacity(e.dragSourceItem.element, 0.5);
   });
   goog.events.listen(this.dragGroupRegister_, EventType.DRAGSTART, function(e) {
-    var command = e.dragSourceItem.data.command;
-    cn.controller.removeCommand(e.dragSourceItem.data);
-    e.dragSourceItem.data = command;
+    var data = e.dragSourceItem.data;
+    cn.controller.removeCommand(game, data.f, data.i);
+    data.f = -1;
+    data.i = -1;
     goog.style.setOpacity(e.dragSourceItem.element, 0.5);
   });
 
@@ -260,16 +262,24 @@ cn.view.ProgramEditor.prototype.registerDragEvents_ = function() {
 
   goog.events.listen(this.dropGroupFunction_, EventType.DROP, function(e) {
     var element = e.dragSourceItem.element;
+    var data = e.dragSourceItem.data;
+    var ptr = e.dropTargetItem.data;
+
+    // Clone the command element if coming from the toolbox.
     if (e.dragSource == this.dragGroupToolbox_) {
       element = e.dragSourceItem.element.cloneNode(true);
-      this.dragGroupRegister_.addItem(element, e.dropTargetItem.data);
+      data = goog.object.clone(data);
+      this.dragGroupRegister_.addItem(element, data);
     }
+
+    // Update the style and add the element to the register's DOM.
     goog.style.setOpacity(element, 1.0);
     goog.dom.removeChildren(e.dropTargetItem.element);
     e.dropTargetItem.element.appendChild(element);
-    cn.controller.setCommand(e.dropTargetItem.data, e.dragSourceItem.data);
-    if (e.dragSource == this.dragGroupRegister_) {
-      e.dragSourceItem.data = e.dropTargetItem.data;
-    }
+
+    // Update the actual program model.
+    cn.controller.setCommand(game, ptr.f, ptr.i, e.dragSourceItem.data.command);
+    data.f = ptr.f;
+    data.i = ptr.i;
   }, false, this);
 };
