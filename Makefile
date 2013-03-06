@@ -35,8 +35,7 @@ dry-run:
 	$(CC) --output_mode compiled > /dev/null
 
 lint:
-	gjslint --strict --unix_mode -r $(PROJECT) \
-		--exclude_files $(PROJECT)/leveldata.js
+	gjslint --strict --unix_mode -r $(PROJECT)
 
 clean:
 	rm -f $(JS_OUTPUT) $(INDEX_OUTPUT)
