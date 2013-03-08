@@ -17,22 +17,25 @@ goog.require('goog.array');
 
 
 /**
- * @param {!Array.<!cn.model.Stack>} initial The initial stack configuration.
- * @param {!Array.<!cn.model.Stack>} goal The final stack configuration.
+ * @param {!cn.LevelData} levelData The level data from which to import.
  * @param {number=} opt_height The model's drawn height (in pixels).
  * @param {number=} opt_margin The space between each stack (in pixels).
  * @constructor
  * @extends {cn.model.PathModel}
  */
-cn.model.Level = function(initial, goal, opt_height, opt_margin) {
+cn.model.Level = function(levelData, opt_height, opt_margin) {
+  this.levelData_ = levelData;
+  this.stacks = cn.model.Level.mapStacks_(levelData.initial);
+  //this.goal = cn.model.Level.mapStacks_(levelData.goal);
+
   var margin = opt_margin || cn.constants.STACK_WIDTH;
   goog.base(
       this,
       goog.array.reduce(
-          initial,
+          this.stacks,
           function(width, stack) { return width + stack.width; },
           0) +
-      margin * (initial.length + 1),
+      margin * (this.stacks.length + 1),
       opt_height || cn.constants.LEVEL_HEIGHT,
       cn.constants.LEVEL_COLOR);
   this.path.moveTo(0, 0)
@@ -40,7 +43,6 @@ cn.model.Level = function(initial, goal, opt_height, opt_margin) {
            .lineTo(this.width, this.height)
            .lineTo(0, this.height)
            .lineTo(0, 0);
-  this.stacks = initial;
 
   this.forEachSubModel(
       function(stack, i, stacks) {
@@ -52,17 +54,6 @@ cn.model.Level = function(initial, goal, opt_height, opt_margin) {
       });
 };
 goog.inherits(cn.model.Level, cn.model.PathModel);
-
-
-/**
- * @param {!cn.LevelData} levelData The level data from which to import.
- * @return {!cn.model.Level} The newly constructed level from the given data.
- */
-cn.model.Level.fromLevelData = function(levelData) {
-  return new cn.model.Level(
-      cn.model.Level.mapStacks_(levelData.initial),
-      cn.model.Level.mapStacks_(levelData.goal));
-};
 
 
 /**
@@ -92,6 +83,14 @@ cn.model.Level.mapStacks_ = function(colors) {
  * @type {Array.<!cn.model.Stack>}
  */
 cn.model.Level.prototype.stacks;
+
+
+/**
+ * The underlying level data.
+ * @type {!cn.LevelData}
+ * @private
+ */
+cn.model.Level.prototype.levelData_;
 
 
 /**

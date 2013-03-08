@@ -38,7 +38,7 @@ cn.model.Game = function(opt_width, opt_height) {
            .lineTo(0, this.height)
            .lineTo(0, 0);
 
-  this.level = cn.model.Level.fromLevelData(cn.LevelData.levels['Mirror 2']);
+  this.level = new cn.model.Level(cn.LevelData.levels['Mirror 2']);
   this.level.setPosition(
       Math.floor((this.width - this.level.width) / 2),
       this.height - this.level.height - cn.constants.GAME_MARGIN);
