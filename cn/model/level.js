@@ -8,6 +8,7 @@
 
 goog.provide('cn.model.Level');
 
+goog.require('cn.LevelData');
 goog.require('cn.constants');
 goog.require('cn.model.PathModel');
 goog.require('cn.model.Stack');
@@ -16,8 +17,8 @@ goog.require('goog.array');
 
 
 /**
- * @param {Array.<!cn.model.Stack>} initial The initial stack configuration.
- * @param {Array.<!cn.model.Stack>} goal The final stack configuration.
+ * @param {!Array.<!cn.model.Stack>} initial The initial stack configuration.
+ * @param {!Array.<!cn.model.Stack>} goal The final stack configuration.
  * @param {number=} opt_height The model's drawn height (in pixels).
  * @param {number=} opt_margin The space between each stack (in pixels).
  * @constructor
@@ -54,10 +55,43 @@ goog.inherits(cn.model.Level, cn.model.PathModel);
 
 
 /**
+ * @param {!cn.LevelData} levelData The level data from which to import.
+ * @return {!cn.model.Level} The newly constructed level from the given data.
+ */
+cn.model.Level.fromLevelData = function(levelData) {
+  return new cn.model.Level(
+      cn.model.Level.mapStacks_(levelData.initial),
+      cn.model.Level.mapStacks_(levelData.goal));
+};
+
+
+/**
+ * @param {!Array.<!Array.<!cn.model.CargoColor>>} colors The stacks of colors
+ *     to import.
+ * @return {!Array.<!cn.model.Stack>} The newly constructed stack from the given
+ *     data.
+ * @private
+ */
+cn.model.Level.mapStacks_ = function(colors) {
+  return goog.array.map(
+      colors,
+      function(colorStack) {
+        var stack = new cn.model.Stack();
+        goog.array.forEach(
+            colorStack,
+            function(color) {
+              stack.addCargo(new cn.model.Cargo(color));
+            });
+        return stack;
+      });
+};
+
+
+/**
  * The underlying implementation of the level's stacks
  * @type {Array.<!cn.model.Stack>}
  */
-cn.model.Stack.prototype.stacks;
+cn.model.Level.prototype.stacks;
 
 
 /**

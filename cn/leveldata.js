@@ -1,5 +1,6 @@
 /**
- * @fileoverview All level data.
+ * @fileoverview All level data, where the vast majority is a clone of
+ *     https://github.com/ruilov/CargoBot/blob/master/Levels.lua.
  *
  * @author elynnlee@cs.utexas.edu (Elynn Lee)
  *
@@ -7,6 +8,9 @@
 
 goog.provide('cn.LevelData');
 goog.provide('cn.LevelData.levels');
+
+goog.require('cn.model.CargoColor');
+goog.require('goog.array');
 
 
 
@@ -16,8 +20,8 @@ goog.provide('cn.LevelData.levels');
  *     number of registers required to attain one, two, and three stars.
  * @param {!Array.<number>} functions The lengths of each available function.
  * @param {!Array.<string>} toolbox The available commands and conditionals.
- * @param {!Array.<string>} initial The initial cargo configuration.
- * @param {!Array.<string>} goal The final cargo configuration.
+ * @param {!Array.<!Array.<string>>} initial The initial cargo configuration.
+ * @param {!Array.<!Array.<string>>} goal The final cargo configuration.
  * @param {string} hint A tip about the current level.
  * @constructor
  */
@@ -35,14 +39,40 @@ cn.LevelData = function(
   /** @type {!Array.<string>} */
   this.toolbox = toolbox;
 
-  /** @type {!Array.<string>} */
-  this.initial = initial;
+  /** @type {!Array.<!Array.<!cn.model.CargoColor>>} */
+  this.initial = cn.LevelData.mapStacks_(initial);
 
-  /** @type {!Array.<string>} */
-  this.goal = goal;
+  /** @type {!Array.<!Array.<!cn.model.CargoColor>>} */
+  this.goal = cn.LevelData.mapStacks_(goal);
 
   /** @type {string} */
   this.hint = hint;
+};
+
+
+/**
+ * @param {!Array.<!Array.<string>>} colors Stacks of colors (as implemented
+ *     from the aforementioned source).
+ * @return {!Array.<!Array.<!cn.model.CargoColor>>} The stack of colors as
+ *     implemented in this rendition of Cargo-Bot.
+ * @private
+ */
+cn.LevelData.mapStacks_ = function(colors) {
+  return goog.array.map(
+      colors,
+      function(stack) {
+        return goog.array.map(
+            stack,
+            function(color) {
+              switch (color) {
+                case 'red': return cn.model.CargoColor.RED;
+                case 'green': return cn.model.CargoColor.GREEN;
+                case 'blue': return cn.model.CargoColor.BLUE;
+                case 'yellow': return cn.model.CargoColor.YELLOW;
+                default: throw Error('no cargo implementation for: ' + color);
+              }
+            });
+      });
 };
 
 
@@ -631,4 +661,3 @@ cn.LevelData.levels = {
           'shortest known solution uses 11 registers.'
   )
 };
-

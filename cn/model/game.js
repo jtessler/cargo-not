@@ -7,6 +7,7 @@
 
 goog.provide('cn.model.Game');
 
+goog.require('cn.LevelData.levels');
 goog.require('cn.constants');
 goog.require('cn.model.Bot');
 goog.require('cn.model.Cargo');
@@ -37,20 +38,7 @@ cn.model.Game = function(opt_width, opt_height) {
            .lineTo(0, this.height)
            .lineTo(0, 0);
 
-  var stacks = [new cn.model.Stack(),
-                new cn.model.Stack(),
-                new cn.model.Stack()];
-  goog.array.forEach(
-      stacks,
-      function(stack) {
-        var col = cn.model.CargoColor;
-        stack.addCargo(new cn.model.Cargo(col.RED));
-        stack.addCargo(new cn.model.Cargo(col.GREEN));
-        stack.addCargo(new cn.model.Cargo(col.BLUE));
-        stack.addCargo(new cn.model.Cargo(col.YELLOW));
-      });
-
-  this.level = new cn.model.Level(stacks, stacks);
+  this.level = cn.model.Level.fromLevelData(cn.LevelData.levels['Mirror 2']);
   this.level.setPosition(
       Math.floor((this.width - this.level.width) / 2),
       this.height - this.level.height - cn.constants.GAME_MARGIN);
