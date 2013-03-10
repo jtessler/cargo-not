@@ -115,3 +115,11 @@ cn.model.Bot.prototype.forEachSubModel = function(f, opt_obj) {
     goog.bind(f, opt_obj, this.cargo_, 0, null)();
   }
 };
+
+
+/**
+ * @inheritDoc
+ */
+cn.model.Bot.prototype.reset = function() {
+  this.cargo_ = null;
+};

@@ -177,14 +177,7 @@ cn.controller.removeCommand = function(game, f, i) {
  */
 cn.controller.reset = function(game, animator, editor) {
   animator.detachAnimation();
-  game.level.reset();
-  game.program.reset();
-  if (game.bot.hasCargo()) {
-    game.bot.detachCargo();
-  }
-  // TODO(joseph): Update position based on level data.
-  game.bot.position = 0;
-  game.setupModelPositions();
+  game.reset();
   animator.reRender(game);
   editor.unhighlightExecution();
 };

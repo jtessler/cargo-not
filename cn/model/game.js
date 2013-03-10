@@ -77,3 +77,15 @@ cn.model.Game.prototype.setupModelPositions = function() {
 cn.model.Game.prototype.forEachSubModel = function(f, opt_obj) {
   goog.array.forEach([this.bot, this.level], f, opt_obj);
 };
+
+
+/**
+ * @inheritDoc
+ */
+cn.model.Game.prototype.reset = function() {
+  goog.base(this, 'reset');
+  this.program.reset();
+  // TODO(joseph): Update position based on level data.
+  this.bot.position = 0;
+  this.setupModelPositions();
+};

@@ -7,6 +7,7 @@
 
 goog.provide('cn.model.PathModel');
 
+goog.require('cn.model.Resettable');
 goog.require('goog.graphics.AffineTransform');
 goog.require('goog.graphics.Path');
 goog.require('goog.graphics.SolidFill');
@@ -19,6 +20,7 @@ goog.require('goog.graphics.Stroke');
  * @param {number} height The model's drawn height (in pixels).
  * @param {string} color The model's fill color.
  * @constructor
+ * @implements {cn.model.Resettable}
  */
 cn.model.PathModel = function(width, height, color) {
   if (!goog.math.isInt(width) || !goog.math.isInt(height)) {
@@ -136,3 +138,11 @@ cn.model.PathModel.prototype.setPosition = function(x, y) {
  * @template S
  */
 cn.model.PathModel.prototype.forEachSubModel = function(f, opt_obj) {};
+
+
+/**
+ * @inheritDoc
+ */
+cn.model.PathModel.prototype.reset = function() {
+  this.forEachSubModel(function(model) { model.reset(); });
+};

@@ -92,13 +92,13 @@ cn.model.Level.prototype.forEachSubModel = function(f, opt_obj) {
 
 
 /**
- * Resets the level's stacks to the initial configuration.
+ * @inheritDoc
  */
 cn.model.Level.prototype.reset = function() {
-  // TODO(joseph): Consider refactoring resets into an inherited, recusive
-  //     method (like set position and translate).
+  var x = 0, y = 0;
   if (goog.isDefAndNotNull(this.path)) {
-    this.setPosition(0, 0);
+    x = this.getX();
+    y = this.getY();
   }
   this.stacks = cn.model.Level.mapStacks_(this.levelData_.initial);
   this.forEachSubModel(
@@ -106,8 +106,8 @@ cn.model.Level.prototype.reset = function() {
         var margin = cn.constants.STACK_WIDTH;
         stack.setPosition(
             (i == 0) ?
-                margin :
+                x + margin :
                 margin + stacks[i - 1].getX() + stacks[i - 1].width,
-            -stack.height);
+            y - stack.height);
       });
 };

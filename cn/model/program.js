@@ -9,6 +9,7 @@ goog.provide('cn.model.Program');
 goog.require('cn.model.Command');
 goog.require('cn.model.Condition');
 goog.require('cn.model.Instruction');
+goog.require('cn.model.Resettable');
 goog.require('goog.array');
 
 
@@ -19,6 +20,7 @@ cn.model.Pointer;
 
 /**
  * @constructor
+ * @implements {cn.model.Resettable}
  */
 cn.model.Program = function() {
   this.init(1);
