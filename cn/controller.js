@@ -167,3 +167,21 @@ cn.controller.setCommand = function(game, f, i, command) {
 cn.controller.removeCommand = function(game, f, i) {
   game.program.removeCommand(f, i);
 };
+
+
+/**
+ * @param {!cn.model.Game} game The current game.
+ * @param {!cn.view.Animator} animator The animator to reset.
+ * @param {!cn.view.ProgramEditor} editor The program editor from which to
+ *     unhighlight registers.
+ */
+cn.controller.reset = function(game, animator, editor) {
+  animator.detachAnimation();
+  game.level.reset();
+  game.program.reset();
+  // TODO(joseph): Update position based on level data.
+  game.bot.position = 0;
+  game.setupModelPositions();
+  animator.reRender(game);
+  editor.unhighlightExecution();
+};

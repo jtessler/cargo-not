@@ -25,8 +25,7 @@ goog.require('goog.array');
  */
 cn.model.Level = function(levelData, opt_height, opt_margin) {
   this.levelData_ = levelData;
-  this.stacks = cn.model.Level.mapStacks_(levelData.initial);
-  //this.goal = cn.model.Level.mapStacks_(levelData.goal);
+  this.reset();
 
   var margin = opt_margin || cn.constants.STACK_WIDTH;
   goog.base(
@@ -43,15 +42,6 @@ cn.model.Level = function(levelData, opt_height, opt_margin) {
            .lineTo(this.width, this.height)
            .lineTo(0, this.height)
            .lineTo(0, 0);
-
-  this.forEachSubModel(
-      function(stack, i, stacks) {
-        stack.setPosition(
-            (i == 0) ?
-                margin :
-                margin + stacks[i - 1].getX() + stacks[i - 1].width,
-            -stack.height);
-      });
 };
 goog.inherits(cn.model.Level, cn.model.PathModel);
 
@@ -98,4 +88,26 @@ cn.model.Level.prototype.levelData_;
  */
 cn.model.Level.prototype.forEachSubModel = function(f, opt_obj) {
   goog.array.forEach(this.stacks, f, opt_obj);
+};
+
+
+/**
+ * Resets the level's stacks to the initial configuration.
+ */
+cn.model.Level.prototype.reset = function() {
+  // TODO(joseph): Consider refactoring resets into an inherited, recusive
+  //     method (like set position and translate).
+  if (goog.isDefAndNotNull(this.path)) {
+    this.setPosition(0, 0);
+  }
+  this.stacks = cn.model.Level.mapStacks_(this.levelData_.initial);
+  this.forEachSubModel(
+      function(stack, i, stacks) {
+        var margin = cn.constants.STACK_WIDTH;
+        stack.setPosition(
+            (i == 0) ?
+                margin :
+                margin + stacks[i - 1].getX() + stacks[i - 1].width,
+            -stack.height);
+      });
 };

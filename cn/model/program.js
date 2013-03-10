@@ -244,3 +244,13 @@ cn.model.Program.prototype.getCallerInstruction = function() {
       -1 :
       goog.array.peek(this.pointers_).i;
 };
+
+
+/**
+ * Resets the current pointers and call stack.
+ */
+cn.model.Program.prototype.reset = function() {
+  this.f_ = 0;
+  this.i_ = 0;
+  goog.array.clear(this.pointers_);
+};

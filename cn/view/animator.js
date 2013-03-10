@@ -67,6 +67,15 @@ cn.view.Animator.prototype.render = function(game) {
 
 
 /**
+ * @param {!cn.model.Game} game The game model to draw.
+ */
+cn.view.Animator.prototype.reRender = function(game) {
+  this.canvas_.clear();
+  this.renderModel_(game);
+};
+
+
+/**
  * Draws a given model with its corresponding stroke and fill styles. If the
  * model is composed of any sub-models, those are recursively drawn as well.
  * @param {!cn.model.PathModel} model The model to draw.
@@ -90,10 +99,16 @@ cn.view.Animator.prototype.attachAnimation = function(canStep, step, finish) {
     if (canStep()) {
       step();
     } else {
-      this.update_ = goog.nullFunction;
+      this.detachAnimation();
       finish();
     }
   }, this);
+  this.resume();
+};
+
+
+cn.view.Animator.prototype.detachAnimation = function() {
+  this.update_ = goog.nullFunction;
 };
 
 

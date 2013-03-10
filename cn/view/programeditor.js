@@ -215,8 +215,7 @@ cn.view.ProgramEditor.prototype.registerButtonEvents_ =
   }, false, this);
 
   goog.events.listen(this.resetButton_, EventType.ACTION, function() {
-    // TODO(joseph): Implement this function.
-    //cn.controller.reset(game, animator);
+    cn.controller.reset(game, animator, this);
     this.resetButton_.setEnabled(false);
     this.pauseButton_.setEnabled(false);
     this.playButton_.setEnabled(true);
@@ -315,6 +314,23 @@ cn.view.ProgramEditor.prototype.highlightExecution = function(program) {
               else {
                 goog.style.setOpacity(goog.dom.getFirstElementChild(td), 0.25);
               }
+            });
+      });
+};
+
+
+/**
+ * Sets all registers to fully opaque.
+ */
+cn.view.ProgramEditor.prototype.unhighlightExecution = function() {
+  // TODO(joseph): Refactor this for each into a shared private function.
+  goog.array.forEach(
+      goog.dom.getChildren(this.registerTable_),
+      function(tr) {
+        goog.array.forEach(
+            goog.dom.getChildren(tr),
+            function(td) {
+              goog.style.setOpacity(goog.dom.getFirstElementChild(td), 1.0);
             });
       });
 };

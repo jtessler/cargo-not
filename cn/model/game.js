@@ -39,16 +39,9 @@ cn.model.Game = function(opt_width, opt_height) {
            .lineTo(0, 0);
 
   this.level = new cn.model.Level(cn.LevelData.levels['Mirror 2']);
-  this.level.setPosition(
-      Math.floor((this.width - this.level.width) / 2),
-      this.height - this.level.height - cn.constants.GAME_MARGIN);
-
   this.bot = new cn.model.Bot(20);
-  this.bot.setPosition(
-      this.level.stacks[0].getX(),
-      cn.constants.GAME_MARGIN + this.bot.height);
-
   this.program = new cn.model.Program();
+  this.setupModelPositions();
 };
 goog.inherits(cn.model.Game, cn.model.PathModel);
 
@@ -63,6 +56,19 @@ cn.model.Game.prototype.level;
 
 /** @type {!cn.model.Program} */
 cn.model.Game.prototype.program;
+
+
+/**
+ * Sets up the game models' positions.
+ */
+cn.model.Game.prototype.setupModelPositions = function() {
+  this.level.setPosition(
+      Math.floor((this.width - this.level.width) / 2),
+      this.height - this.level.height - cn.constants.GAME_MARGIN);
+  this.bot.setPosition(
+      this.level.stacks[this.bot.position].getX(),
+      cn.constants.GAME_MARGIN + this.bot.height);
+};
 
 
 /**
