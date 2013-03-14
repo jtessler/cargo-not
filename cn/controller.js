@@ -69,6 +69,11 @@ cn.controller.resume = function(animator) {
  *     registers as they're executed.
  */
 cn.controller.moveLeft = function(game, animator, editor) {
+  if (game.bot.position == 0) {
+    // TODO(joseph): Add a cleaner error notification.
+    alert('Cannot move the bot any further left.');
+    return;
+  }
   var nextStack = game.level.stacks[game.bot.position - 1];
   animator.attachAnimation(
       function() { return game.bot.getX() > nextStack.getX(); },
@@ -88,6 +93,11 @@ cn.controller.moveLeft = function(game, animator, editor) {
  *     registers as they're executed.
  */
 cn.controller.moveRight = function(game, animator, editor) {
+  if (game.bot.position == game.level.stacks.length - 1) {
+    // TODO(joseph): Add a cleaner error notification.
+    alert('Cannot move the bot any further right.');
+    return;
+  }
   var nextStack = game.level.stacks[game.bot.position + 1];
   animator.attachAnimation(
       function() { return game.bot.getX() < nextStack.getX(); },
