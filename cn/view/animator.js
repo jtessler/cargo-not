@@ -107,6 +107,9 @@ cn.view.Animator.prototype.attachAnimation = function(canStep, step, finish) {
 };
 
 
+/**
+ * Detaches the animation function.
+ */
 cn.view.Animator.prototype.detachAnimation = function() {
   this.update_ = goog.nullFunction;
 };
