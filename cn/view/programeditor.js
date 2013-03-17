@@ -132,7 +132,7 @@ cn.view.ProgramEditor.prototype.initToolbox_ = function() {
         var div = this.createRegisterView_('pink');
         this.dragGroupToolbox_.addItem(div, {f: -1, i: -1, command: command});
 
-        // TODO(joseph): Don't use the enum text here.
+        // TODO(joseph): Don't use the enum text here. Use images.
         goog.dom.setTextContent(div, key);
         td.appendChild(div);
         tr.appendChild(td);
@@ -154,6 +154,7 @@ cn.view.ProgramEditor.prototype.initRegisters = function(program) {
         var tr = goog.dom.createElement(goog.dom.TagName.TR);
         var td = goog.dom.createElement(goog.dom.TagName.TD);
         var div = this.createRegisterView_('lightgray');
+        // TODO(joseph): Use an image here instead.
         goog.dom.setTextContent(div, 'F' + f);
         td.appendChild(div);
         tr.appendChild(td);
