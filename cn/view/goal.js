@@ -19,6 +19,7 @@ cn.view.Goal = function(opt_width, opt_height) {
   this.canvas_ = new goog.graphics.CanvasGraphics(
       opt_width || cn.constants.GAME_WIDTH,
       opt_height || cn.constants.GOAL_HEIGHT);
+  this.canvas_.render();
 };
 
 
@@ -36,7 +37,7 @@ cn.view.Goal.prototype.canvas_;
  * @param {!cn.model.Game} game The game model to draw.
  */
 cn.view.Goal.prototype.render = function(game) {
-  this.canvas_.render();
+  this.canvas_.clear();
   this.renderModel_(game.goal);
 };
 

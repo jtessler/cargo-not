@@ -19,10 +19,11 @@ goog.require('cn.view.ProgramEditor');
 cn.controller.init = function() {
   var game = new cn.model.Game();
   var goal = new cn.view.Goal();
-  goal.render(game);
   var animator = new cn.view.Animator();
-  animator.render(game);
   var editor = new cn.view.ProgramEditor(game, animator);
+
+  goal.render(game);
+  animator.render(game);
 };
 
 
@@ -203,6 +204,6 @@ cn.controller.removeCommand = function(game, f, i) {
 cn.controller.reset = function(game, animator, editor) {
   animator.detachAnimation();
   game.reset();
-  animator.reRender(game);
+  animator.render(game);
   editor.unhighlightExecution();
 };

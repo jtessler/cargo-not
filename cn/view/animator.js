@@ -27,6 +27,7 @@ cn.view.Animator = function(opt_width, opt_height) {
   this.update_ = goog.nullFunction;
   this.isAnimating_ = true;
   goog.fx.anim.registerAnimation(this);
+  this.canvas_.render();
 };
 
 
@@ -61,15 +62,6 @@ cn.view.Animator.prototype.isAnimating_;
  * @param {!cn.model.Game} game The game model to draw.
  */
 cn.view.Animator.prototype.render = function(game) {
-  this.canvas_.render();
-  this.renderModel_(game);
-};
-
-
-/**
- * @param {!cn.model.Game} game The game model to draw.
- */
-cn.view.Animator.prototype.reRender = function(game) {
   this.canvas_.clear();
   this.renderModel_(game);
 };
