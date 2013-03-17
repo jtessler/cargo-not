@@ -33,7 +33,7 @@ cn.model.Bot = function(opt_innerSize) {
            .lineTo(0, this.height)
            .lineTo(0, 0);
   this.position = 0;
-  this.speed = cn.constants.BOT_SPEED_DEFAULT;
+  this.speed = cn.constants.BOT_SPEED_MIN;
   this.cargo_ = null;
 };
 goog.inherits(cn.model.Bot, cn.model.PathModel);

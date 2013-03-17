@@ -218,3 +218,12 @@ cn.controller.reset = function(game, animator, editor) {
   animator.render(game);
   editor.unhighlightExecution();
 };
+
+
+/**
+ * @param {!cn.model.Game} game The current game.
+ * @param {number} speed The new bot speed.
+ */
+cn.controller.setBotSpeed = function(game, speed) {
+  game.bot.speed = speed;
+};

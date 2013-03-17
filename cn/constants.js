@@ -32,7 +32,11 @@ cn.constants.BOT_COLOR = 'yellow';
 
 
 /** @type {number} @const */
-cn.constants.BOT_SPEED_DEFAULT = 3;
+cn.constants.BOT_SPEED_MIN = 3;
+
+
+/** @type {number} @const */
+cn.constants.BOT_SPEED_MAX = 10;
 
 
 /** @type {number} @const */

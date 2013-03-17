@@ -8,6 +8,7 @@
 
 goog.provide('cn.view.ProgramEditor');
 
+goog.require('cn.constants');
 goog.require('cn.model.Command');
 goog.require('cn.model.Condition');
 goog.require('cn.model.Game');
@@ -21,6 +22,7 @@ goog.require('goog.fx.DragDropGroup');
 goog.require('goog.object');
 goog.require('goog.style');
 goog.require('goog.ui.Button');
+goog.require('goog.ui.Slider');
 
 
 
@@ -43,6 +45,31 @@ cn.view.ProgramEditor = function(game, animator) {
   this.pauseButton_.render();
   this.resetButton_.render();
   this.registerButtonEvents_(game, animator);
+
+  var slider = new goog.ui.Slider();
+  slider.setMinimum(cn.constants.BOT_SPEED_MIN);
+  slider.setMaximum(cn.constants.BOT_SPEED_MAX);
+  slider.setMoveToPointEnabled(true);
+  slider.createDom();
+  goog.style.setStyle(slider.getElement(), {
+    'background-color': 'lightgray',
+    'width': '150px',
+    'height': '20px',
+    'position': 'relative',
+    'overflow': 'hidden',
+    'border': '1px solid gray'
+  });
+  goog.style.setStyle(goog.dom.getFirstElementChild(slider.getElement()), {
+    'background-color': 'gray',
+    'width': '20px',
+    'height': '100%',
+    'position': 'absolute',
+    'overflow': 'hidden'
+  });
+  slider.render();
+  goog.events.listen(slider, goog.ui.Component.EventType.CHANGE, function() {
+    cn.controller.setBotSpeed(game, slider.getValue());
+  });
 
   this.dragGroupToolbox_ = new goog.fx.DragDropGroup();
   this.dragGroupRegister_ = new goog.fx.DragDropGroup();
