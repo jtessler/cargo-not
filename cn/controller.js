@@ -35,6 +35,11 @@ cn.controller.init = function() {
  *     registers as they're executed.
  */
 cn.controller.play = function(game, animator, editor) {
+  if (game.level.equals(game.goal)) {
+    // TODO(joseph): Handle winning differently.
+    alert('You won!');
+    return;
+  }
   var command = game.program.next(game.bot);
   if (goog.isDefAndNotNull(command)) {
     editor.highlightExecution(game.program);

@@ -90,3 +90,15 @@ cn.model.Stack.prototype.size = function() {
 cn.model.Stack.prototype.forEachSubModel = function(f, opt_obj) {
   goog.array.forEach(this.boxes_, f, opt_obj);
 };
+
+
+/**
+ * @param {!cn.model.Stack} other The stack to compare to.
+ * @return {boolean} True if they're equal.
+ */
+cn.model.Stack.prototype.equals = function(other) {
+  return goog.array.equals(
+      this.boxes_,
+      other.boxes_,
+      function(a, b) { return a.color == b.color; });
+};

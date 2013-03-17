@@ -112,3 +112,15 @@ cn.model.Level.prototype.reset = function() {
             y - stack.height);
       });
 };
+
+
+/**
+ * @param {!cn.model.Level} other The level to compare to.
+ * @return {boolean} True if they're equal.
+ */
+cn.model.Level.prototype.equals = function(other) {
+  return goog.array.equals(
+      this.stacks,
+      other.stacks,
+      function(a, b) { return a.equals(b); });
+};
