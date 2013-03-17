@@ -23,6 +23,10 @@ cn.constants.GAME_MARGIN = 1;
 cn.constants.GAME_COLOR = 'lightyellow';
 
 
+/** @type {number} @const */
+cn.constants.GOAL_HEIGHT = 200;
+
+
 /** @type {string} @const */
 cn.constants.BOT_COLOR = 'yellow';
 

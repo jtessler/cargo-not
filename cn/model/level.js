@@ -17,14 +17,15 @@ goog.require('goog.array');
 
 
 /**
- * @param {!cn.LevelData} levelData The level data from which to import.
+ * @param {!Array.<!Array.<!cn.model.CargoColor>>} initial The stacks of colors
+ *     to import.
  * @param {number=} opt_height The model's drawn height (in pixels).
  * @param {number=} opt_margin The space between each stack (in pixels).
  * @constructor
  * @extends {cn.model.PathModel}
  */
-cn.model.Level = function(levelData, opt_height, opt_margin) {
-  this.levelData_ = levelData;
+cn.model.Level = function(initial, opt_height, opt_margin) {
+  this.initial_ = initial;
   this.reset();
 
   var margin = opt_margin || cn.constants.STACK_WIDTH;
@@ -76,11 +77,11 @@ cn.model.Level.prototype.stacks;
 
 
 /**
- * The underlying level data.
- * @type {!cn.LevelData}
+ * The initial stack configuration.
+ * @type {!Array.<!Array.<!cn.model.CargoColor>>}
  * @private
  */
-cn.model.Level.prototype.levelData_;
+cn.model.Level.prototype.initial_;
 
 
 /**
@@ -100,7 +101,7 @@ cn.model.Level.prototype.reset = function() {
     x = this.getX();
     y = this.getY();
   }
-  this.stacks = cn.model.Level.mapStacks_(this.levelData_.initial);
+  this.stacks = cn.model.Level.mapStacks_(this.initial_);
   this.forEachSubModel(
       function(stack, i, stacks) {
         var margin = cn.constants.STACK_WIDTH;
