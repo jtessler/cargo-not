@@ -256,3 +256,13 @@ cn.model.Program.prototype.reset = function() {
   this.i_ = 0;
   goog.array.clear(this.pointers_);
 };
+
+
+/**
+ * @return {boolean} True if the program has started.
+ */
+cn.model.Program.prototype.hasStarted = function() {
+  var isReset =
+      this.f_ == 0 && this.i_ == 0 && goog.array.isEmpty(this.pointers_);
+  return !isReset;
+};

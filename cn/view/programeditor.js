@@ -231,35 +231,50 @@ cn.view.ProgramEditor.prototype.registerDragEvents_ = function(game) {
   var EventType = goog.fx.AbstractDragDrop.EventType;
 
   goog.events.listen(this.dragGroupToolbox_, EventType.DROP, function(e) {
-    goog.dom.removeNode(e.dragSourceItem.element);
+    if (!game.program.hasStarted()) {
+      goog.dom.removeNode(e.dragSourceItem.element);
+    }
   });
 
   goog.events.listen(this.dragGroupToolbox_, EventType.DRAGSTART, function(e) {
-    goog.style.setOpacity(e.dragSourceItem.element, 0.5);
+    if (!game.program.hasStarted()) {
+      goog.style.setOpacity(e.dragSourceItem.element, 0.5);
+    }
   });
   goog.events.listen(this.dragGroupRegister_, EventType.DRAGSTART, function(e) {
-    var data = e.dragSourceItem.data;
-    cn.controller.removeCommand(game, data.f, data.i);
-    data.f = -1;
-    data.i = -1;
-    goog.style.setOpacity(e.dragSourceItem.element, 0.5);
+    if (!game.program.hasStarted()) {
+      var data = e.dragSourceItem.data;
+      cn.controller.removeCommand(game, data.f, data.i);
+      data.f = -1;
+      data.i = -1;
+      goog.style.setOpacity(e.dragSourceItem.element, 0.5);
+    }
   });
 
   var setOpaque = function(e) {
-    goog.style.setOpacity(e.dragSourceItem.element, 1.0);
+    if (!game.program.hasStarted()) {
+      goog.style.setOpacity(e.dragSourceItem.element, 1.0);
+    }
   };
   goog.events.listen(this.dragGroupToolbox_, EventType.DRAGEND, setOpaque);
   goog.events.listen(this.dragGroupRegister_, EventType.DRAGEND, setOpaque);
 
   goog.events.listen(this.dropGroupFunction_, EventType.DRAGOVER, function(e) {
-    e.dropTargetItem.element.style.background = 'yellow';
+    if (!game.program.hasStarted()) {
+      e.dropTargetItem.element.style.background = 'yellow';
+    }
   });
 
   goog.events.listen(this.dropGroupFunction_, EventType.DRAGOUT, function(e) {
-    e.dropTargetItem.element.style.background = 'lightyellow';
+    if (!game.program.hasStarted()) {
+      e.dropTargetItem.element.style.background = 'lightyellow';
+    }
   });
 
   goog.events.listen(this.dropGroupFunction_, EventType.DROP, function(e) {
+    if (game.program.hasStarted()) {
+      return;
+    }
     var element = e.dragSourceItem.element;
     var data = e.dragSourceItem.data;
     var ptr = e.dropTargetItem.data;
