@@ -98,8 +98,9 @@ cn.controller.moveLeft = function(game, animator, editor) {
   var nextStack = game.level.stacks[game.bot.position - 1];
   animator.attachAnimation(
       function() { return game.bot.getX() > nextStack.getX(); },
-      function() { game.bot.translate(-1, 0); },
+      function() { game.bot.translate(-game.bot.speed, 0); },
       function() {
+        game.bot.setPosition(nextStack.getX(), game.bot.getY());
         game.bot.position--;
         cn.controller.play(game, animator, editor);
       });
@@ -122,8 +123,9 @@ cn.controller.moveRight = function(game, animator, editor) {
   var nextStack = game.level.stacks[game.bot.position + 1];
   animator.attachAnimation(
       function() { return game.bot.getX() < nextStack.getX(); },
-      function() { game.bot.translate(1, 0); },
+      function() { game.bot.translate(game.bot.speed, 0); },
       function() {
+        game.bot.setPosition(nextStack.getX(), game.bot.getY());
         game.bot.position++;
         cn.controller.play(game, animator, editor);
       });
@@ -142,20 +144,23 @@ cn.controller.moveDown = function(game, animator, editor) {
   var stack = game.level.stacks[game.bot.position];
   animator.attachAnimation(
       function() {
-        if (stack.size() > 0) {
-          return game.bot.hasCargo() ?
-              game.bot.getY() < stack.getTopCargo().getY() - game.bot.height :
-              game.bot.getInnerY() < stack.getTopCargo().getY();
+        if (game.bot.hasCargo() || stack.size() == 0) {
+          return game.bot.getY() < stack.getMaxY() - game.bot.height;
         }
-        return game.bot.getY() < stack.getY() - game.bot.height;
+        return game.bot.getInnerY() < stack.getMaxY();
       },
-      function() { game.bot.translate(0, 1); },
+      function() { game.bot.translate(0, game.bot.speed); },
       function() {
         if (game.bot.hasCargo()) {
           stack.addCargo(game.bot.detachCargo());
         } else if (stack.size() > 0) {
           game.bot.attachCargo(stack.liftCargo());
         }
+        game.bot.setPosition(
+            game.bot.getX(),
+            game.bot.hasCargo() || stack.size() == 0 ?
+                stack.getMaxY() - game.bot.height :
+                stack.getMaxY() + game.bot.getY() - game.bot.getInnerY());
         cn.controller.moveUp(game, animator, editor, startingY);
       });
 };
@@ -172,8 +177,9 @@ cn.controller.moveDown = function(game, animator, editor) {
 cn.controller.moveUp = function(game, animator, editor, endingY) {
   animator.attachAnimation(
       function() { return game.bot.getY() > endingY; },
-      function() { game.bot.translate(0, -1); },
+      function() { game.bot.translate(0, -game.bot.speed); },
       function() {
+        game.bot.setPosition(game.bot.getX(), endingY);
         cn.controller.play(game, animator, editor);
       });
 };

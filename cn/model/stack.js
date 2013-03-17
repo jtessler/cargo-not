@@ -77,6 +77,16 @@ cn.model.Stack.prototype.getTopCargo = function() {
 
 
 /**
+ * @return {number} The top Y value.
+ */
+cn.model.Stack.prototype.getMaxY = function() {
+  return goog.array.isEmpty(this.boxes_) ?
+      this.getY() :
+      this.getTopCargo().getY();
+};
+
+
+/**
  * @return {number} The size of the stack.
  */
 cn.model.Stack.prototype.size = function() {

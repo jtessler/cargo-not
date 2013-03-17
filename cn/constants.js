@@ -32,6 +32,10 @@ cn.constants.BOT_COLOR = 'yellow';
 
 
 /** @type {number} @const */
+cn.constants.BOT_SPEED_DEFAULT = 3;
+
+
+/** @type {number} @const */
 cn.constants.LEVEL_HEIGHT = 10;
 
 

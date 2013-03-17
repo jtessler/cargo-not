@@ -33,6 +33,7 @@ cn.model.Bot = function(opt_innerSize) {
            .lineTo(0, this.height)
            .lineTo(0, 0);
   this.position = 0;
+  this.speed = cn.constants.BOT_SPEED_DEFAULT;
   this.cargo_ = null;
 };
 goog.inherits(cn.model.Bot, cn.model.PathModel);
@@ -43,6 +44,13 @@ goog.inherits(cn.model.Bot, cn.model.PathModel);
  * @type {number}
  */
 cn.model.Bot.prototype.position;
+
+
+/**
+ * The bot's speed in pixels per animation step.
+ * @type {number}
+ */
+cn.model.Bot.prototype.speed;
 
 
 /**
