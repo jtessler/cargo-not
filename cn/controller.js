@@ -9,6 +9,19 @@ goog.provide('cn.controller');
 goog.require('cn.model.Command');
 goog.require('cn.model.Game');
 goog.require('cn.view.Animator');
+goog.require('cn.view.ProgramEditor');
+
+
+/**
+ * Initializes everything and renders the DOM.
+ */
+cn.controller.init = function() {
+  var game = new cn.model.Game();
+  game.program.init(8, 8, 8, 5);
+  var animator = new cn.view.Animator();
+  animator.render(game);
+  var editor = new cn.view.ProgramEditor(game, animator);
+}
 
 
 /**

@@ -8,7 +8,6 @@
 
 goog.provide('cn.view.ProgramEditor');
 
-goog.require('cn.controller');
 goog.require('cn.model.Command');
 goog.require('cn.model.Condition');
 goog.require('cn.model.Game');
