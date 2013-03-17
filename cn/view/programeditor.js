@@ -50,7 +50,6 @@ cn.view.ProgramEditor = function(game, animator) {
   this.dropGroupFunction_ = new goog.fx.DragDropGroup();
   this.dragGroupToolbox_.addTarget(this.dropGroupFunction_);
   this.dragGroupRegister_.addTarget(this.dropGroupFunction_);
-  this.dragGroupRegister_.addTarget(this.dragGroupToolbox_);
   this.dragGroupToolbox_.init();
   this.dragGroupRegister_.init();
   this.registerDragEvents_(game);
@@ -62,7 +61,6 @@ cn.view.ProgramEditor = function(game, animator) {
   this.registerTable_ = goog.dom.createElement(goog.dom.TagName.TABLE);
   this.initRegisters(game.program);
   goog.dom.getDocument().body.appendChild(this.registerTable_);
-
 };
 
 
@@ -71,6 +69,13 @@ cn.view.ProgramEditor = function(game, animator) {
  * @private
  */
 cn.view.ProgramEditor.prototype.dragGroupToolbox_;
+
+
+/**
+ * @type {!goog.fx.DragDropGroup}
+ * @private
+ */
+cn.view.ProgramEditor.prototype.dragGroupRegister_;
 
 
 /**
@@ -230,12 +235,6 @@ cn.view.ProgramEditor.prototype.registerButtonEvents_ =
 cn.view.ProgramEditor.prototype.registerDragEvents_ = function(game) {
   var EventType = goog.fx.AbstractDragDrop.EventType;
 
-  goog.events.listen(this.dragGroupToolbox_, EventType.DROP, function(e) {
-    if (!game.program.hasStarted()) {
-      goog.dom.removeNode(e.dragSourceItem.element);
-    }
-  });
-
   goog.events.listen(this.dragGroupToolbox_, EventType.DRAGSTART, function(e) {
     if (!game.program.hasStarted()) {
       goog.style.setOpacity(e.dragSourceItem.element, 0.5);
@@ -251,23 +250,40 @@ cn.view.ProgramEditor.prototype.registerDragEvents_ = function(game) {
     }
   });
 
-  var setOpaque = function(e) {
+  goog.events.listen(this.dragGroupToolbox_, EventType.DRAGEND, function(e) {
     if (!game.program.hasStarted()) {
       goog.style.setOpacity(e.dragSourceItem.element, 1.0);
     }
-  };
-  goog.events.listen(this.dragGroupToolbox_, EventType.DRAGEND, setOpaque);
-  goog.events.listen(this.dragGroupRegister_, EventType.DRAGEND, setOpaque);
+  });
+  goog.events.listen(this.dragGroupRegister_, EventType.DRAGEND, function(e) {
+    if (!game.program.hasStarted()) {
+      if (goog.object.containsKey(e.dragSourceItem.data, 'out')) {
+        goog.dom.removeNode(e.dragSourceItem.element);
+      } else {
+        goog.style.setOpacity(e.dragSourceItem.element, 1.0);
+      }
+    }
+  });
 
   goog.events.listen(this.dropGroupFunction_, EventType.DRAGOVER, function(e) {
     if (!game.program.hasStarted()) {
       e.dropTargetItem.element.style.background = 'yellow';
     }
   });
+  goog.events.listen(this.dragGroupRegister_, EventType.DRAGOVER, function(e) {
+    if (!game.program.hasStarted()) {
+      goog.object.remove(e.dragSourceItem.data, 'out');
+    }
+  });
 
   goog.events.listen(this.dropGroupFunction_, EventType.DRAGOUT, function(e) {
     if (!game.program.hasStarted()) {
       e.dropTargetItem.element.style.background = 'lightyellow';
+    }
+  });
+  goog.events.listen(this.dragGroupRegister_, EventType.DRAGOUT, function(e) {
+    if (!game.program.hasStarted()) {
+      goog.object.set(e.dragSourceItem.data, 'out', true);
     }
   });
 
