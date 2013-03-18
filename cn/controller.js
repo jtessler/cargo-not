@@ -10,6 +10,7 @@ goog.require('cn.model.Command');
 goog.require('cn.model.Game');
 goog.require('cn.view.Animator');
 goog.require('cn.view.Goal');
+goog.require('cn.view.LevelSelector');
 goog.require('cn.view.ProgramEditor');
 
 
@@ -21,6 +22,7 @@ cn.controller.init = function() {
   var goal = new cn.view.Goal();
   var animator = new cn.view.Animator();
   var editor = new cn.view.ProgramEditor(game, animator);
+  var selector = new cn.view.LevelSelector(game, goal, animator, editor);
 
   goal.render(game);
   animator.render(game);
@@ -255,4 +257,19 @@ cn.controller.clearProgram = function(game) {
  */
 cn.controller.setBotSpeed = function(game, speed) {
   game.bot.speed = speed;
+};
+
+
+/**
+ * @param {!cn.model.Game} game The current game.
+ * @param {!cn.view.Goal} goal The goal configuration to re-render.
+ * @param {!cn.view.Animator} animator The animator to re-render.
+ * @param {!cn.view.ProgramEditor} editor The program editor to clear and setup.
+ * @param {!cn.LevelData} levelData The new bot speed.
+ */
+cn.controller.loadLevel = function(game, goal, animator, editor, levelData) {
+  game.loadLevel(levelData);
+  goal.render(game);
+  animator.render(game);
+  editor.initRegisters(game.program);
 };

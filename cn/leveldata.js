@@ -8,6 +8,7 @@
 
 goog.provide('cn.LevelData');
 goog.provide('cn.LevelData.levels');
+goog.provide('cn.LevelData.levelpacks');
 
 goog.require('cn.model.CargoColor');
 goog.require('goog.array');
@@ -28,7 +29,7 @@ goog.require('goog.array');
 cn.LevelData = function(
     botPosition, stars, functions, toolbox, initial, goal, hint) {
   /** @type {number} */
-  this.botPosition = botPosition;
+  this.botPosition = botPosition - 1;
 
   /** @type {!Array.<number>} */
   this.stars = stars;

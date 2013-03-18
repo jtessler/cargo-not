@@ -23,7 +23,7 @@ cn.model.Pointer;
  * @implements {cn.model.Resettable}
  */
 cn.model.Program = function() {
-  this.init(1);
+  this.init([1]);
 };
 
 
@@ -56,15 +56,15 @@ cn.model.Program.prototype.pointers_;
 
 /**
  * Initialize the program with the given instruction lengths.
- * @param {...number} var_lengths The length for each function.
+ * @param {Array.<number>} lengths Lengths for each function.
  */
-cn.model.Program.prototype.init = function(var_lengths) {
+cn.model.Program.prototype.init = function(lengths) {
   this.f_ = 0;
   this.i_ = 0;
   this.pointers_ = [];
   this.functions = [];
   goog.array.forEach(
-      arguments,
+      lengths,
       function(length) {
         this.functions.push(this.createFunction_(length));
       },

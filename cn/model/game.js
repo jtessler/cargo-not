@@ -38,13 +38,9 @@ cn.model.Game = function(opt_width, opt_height) {
            .lineTo(0, this.height)
            .lineTo(0, 0);
 
-  var levelData = cn.LevelData.levels['Color Sort'];
-  this.level = new cn.model.Level(levelData.initial);
-  this.goal = new cn.model.Level(levelData.goal);
   this.bot = new cn.model.Bot();
   this.program = new cn.model.Program();
-  this.program.init(8, 8, 8, 5);
-  this.setupModelPositions();
+  this.loadLevel(cn.LevelData.levels['Cargo 101']);
 };
 goog.inherits(cn.model.Game, cn.model.PathModel);
 
@@ -59,6 +55,10 @@ cn.model.Game.prototype.level;
 
 /** @type {!cn.model.Level} */
 cn.model.Game.prototype.goal;
+
+
+/** @type {!cn.LevelData} */
+cn.model.Game.prototype.levelData;
 
 
 /** @type {!cn.model.Program} */
@@ -95,7 +95,18 @@ cn.model.Game.prototype.forEachSubModel = function(f, opt_obj) {
 cn.model.Game.prototype.reset = function() {
   goog.base(this, 'reset');
   this.program.reset();
-  // TODO(joseph): Update position based on level data.
-  this.bot.position = 0;
+  this.bot.position = this.levelData.botPosition;
   this.setupModelPositions();
+};
+
+
+/**
+ * @param {!cn.LevelData} levelData The level to load.
+ */
+cn.model.Game.prototype.loadLevel = function(levelData) {
+  this.levelData = levelData;
+  this.level = new cn.model.Level(levelData.initial);
+  this.goal = new cn.model.Level(levelData.goal);
+  this.program.init(levelData.functions);
+  this.reset();
 };

@@ -227,6 +227,7 @@ cn.view.ProgramEditor.prototype.initToolbox_ = function() {
  * @param {!cn.model.Program} program The program to build a table view for.
  */
 cn.view.ProgramEditor.prototype.initRegisters = function(program) {
+  this.registerCondDrop_.removeItems();
   this.registerCmdDrop_.removeItems();
   goog.dom.removeChildren(this.registerTable_);
   goog.array.forEach(
