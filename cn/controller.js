@@ -206,7 +206,6 @@ cn.controller.removeCommand = function(game, f, i) {
 };
 
 
-
 /**
  * @param {!cn.model.Game} game The current game.
  * @param {number} f The function to add the condition to.
@@ -239,6 +238,14 @@ cn.controller.reset = function(game, animator, editor) {
   game.reset();
   animator.render(game);
   editor.unhighlightExecution();
+};
+
+
+/**
+ * @param {!cn.model.Game} game The current game.
+ */
+cn.controller.clearProgram = function(game) {
+  game.program.clear();
 };
 
 

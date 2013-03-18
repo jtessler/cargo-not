@@ -260,6 +260,23 @@ cn.model.Program.prototype.reset = function() {
 
 
 /**
+ * Clears all commands and conditionals.
+ */
+cn.model.Program.prototype.clear = function() {
+  goog.array.forEach(
+    this.functions,
+    function(instructions) {
+      goog.array.forEach(
+        instructions,
+        function(instruction) {
+          instruction.command = null;
+          instruction.condition = null;
+        });
+    });
+};
+
+
+/**
  * @return {boolean} True if the program has started.
  */
 cn.model.Program.prototype.hasStarted = function() {

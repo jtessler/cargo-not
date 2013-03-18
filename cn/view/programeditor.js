@@ -39,11 +39,13 @@ cn.view.ProgramEditor = function(game, animator) {
   this.playButton_ = new goog.ui.Button('Play');
   this.pauseButton_ = new goog.ui.Button('Pause');
   this.resetButton_ = new goog.ui.Button('Reset');
+  this.clearButton_ = new goog.ui.Button('Clear');
   this.pauseButton_.setEnabled(false);
   this.resetButton_.setEnabled(false);
   this.playButton_.render();
   this.pauseButton_.render();
   this.resetButton_.render();
+  this.clearButton_.render();
   this.registerButtonEvents_(game, animator);
 
   var slider = new goog.ui.Slider();
@@ -160,6 +162,13 @@ cn.view.ProgramEditor.prototype.pauseButton_;
  * @private
  */
 cn.view.ProgramEditor.prototype.resetButton_;
+
+
+/**
+ * @type {!goog.ui.Button}
+ * @private
+ */
+cn.view.ProgramEditor.prototype.clearButton_;
 
 
 /**
@@ -290,6 +299,7 @@ cn.view.ProgramEditor.prototype.registerButtonEvents_ =
     this.playButton_.setEnabled(false);
     this.pauseButton_.setEnabled(true);
     this.resetButton_.setEnabled(true);
+    this.clearButton_.setEnabled(false);
   }, false, this);
 
   goog.events.listen(this.pauseButton_, EventType.ACTION, function() {
@@ -303,6 +313,16 @@ cn.view.ProgramEditor.prototype.registerButtonEvents_ =
     this.resetButton_.setEnabled(false);
     this.pauseButton_.setEnabled(false);
     this.playButton_.setEnabled(true);
+    this.clearButton_.setEnabled(true);
+  }, false, this);
+
+  goog.events.listen(this.clearButton_, EventType.ACTION, function() {
+    cn.controller.clearProgram(game);
+    this.forEachRegisterElement_(function(r, c, element) {
+      if (c != 0) {
+        goog.dom.removeChildren(element);
+      }
+    });
   }, false, this);
 };
 
@@ -495,30 +515,21 @@ cn.view.ProgramEditor.prototype.highlightExecution = function(program) {
   var i = program.getCurrentInstruction();
   var callerF = program.getCallerFunction();
   var callerI = program.getCallerInstruction();
-  goog.array.forEach(
-      goog.dom.getChildren(this.registerTable_),
-      function(tr, regF) {
-        goog.array.forEach(
-            goog.dom.getChildren(tr),
-            function(td, regI) {
-              goog.array.forEach(
-                  goog.dom.getChildren(td),
-                  function(element) {
-                    // Highlight the executing command.
-                    if (regF == f && regI == i) {
-                      goog.style.setOpacity(element, 1.0);
-                    }
-                    // Highlight (slightly) the executing function and caller.
-                    else if (regF == f && regI == 0 ||
-                             regF == callerF && regI == callerI) {
-                      goog.style.setOpacity(element, 0.5);
-                    }
-                    // Otherwise, set the element to nearly transparent.
-                    else {
-                      goog.style.setOpacity(element, 0.25);
-                    }
-                  });
-            });
+  this.forEachRegisterElement_(
+      function(regF, regI, element) {
+        // Highlight the executing command.
+        if (regF == f && regI == i) {
+          goog.style.setOpacity(element, 1.0);
+        }
+        // Highlight (slightly) the executing function and caller.
+        else if (regF == f && regI == 0 ||
+                 regF == callerF && regI == callerI) {
+          goog.style.setOpacity(element, 0.5);
+        }
+        // Otherwise, set the element to nearly transparent.
+        else {
+          goog.style.setOpacity(element, 0.25);
+        }
       });
 };
 
@@ -527,18 +538,31 @@ cn.view.ProgramEditor.prototype.highlightExecution = function(program) {
  * Sets all registers to fully opaque.
  */
 cn.view.ProgramEditor.prototype.unhighlightExecution = function() {
-  // TODO(joseph): Refactor this for each into a shared private function.
+  this.forEachRegisterElement_(function(r, c, element) {
+    goog.style.setOpacity(element, 1.0);
+  });
+};
+
+
+/**
+ * @param {function(this: S, number, number, Element, number, ?): ?}
+ *     f The function to call for every element. This function takes 5 arguments
+ *     (the row, column, the element, element index, and the array). The return
+ *     value is ignored.
+ * @param {S=} opt_obj The object to be used as the value of 'this' within f.
+ * @template S
+ * @private
+ */
+cn.view.ProgramEditor.prototype.forEachRegisterElement_ = function(f, opt_obj) {
   goog.array.forEach(
       goog.dom.getChildren(this.registerTable_),
-      function(tr) {
+      function(tr, r) {
         goog.array.forEach(
             goog.dom.getChildren(tr),
-            function(td) {
+            function(td, c) {
               goog.array.forEach(
                   goog.dom.getChildren(td),
-                  function(element) {
-                    goog.style.setOpacity(element, 1.0);
-                  });
-            });
-      });
+                  goog.bind(f, opt_obj, r, c));
+            }, opt_obj);
+      }, opt_obj);
 };
