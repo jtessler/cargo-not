@@ -8,7 +8,7 @@ goog.provide('cn.constants');
 
 
 /** @type {number} @const */
-cn.constants.GAME_WIDTH = 600;
+cn.constants.GAME_WIDTH = 800;
 
 
 /** @type {number} @const */
