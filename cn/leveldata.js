@@ -124,7 +124,7 @@ cn.LevelData.levelpacks = {
   ],
   'Impossible': [
     'Restoring Order',
-    'Changing  Places',
+    'Changing Places',
     'Palette Swap',
     'Mirror 2',
     'Changing Places 2',
@@ -543,7 +543,7 @@ cn.LevelData.levels = {
           'the blues so that you can put them back afterwards. Repeat for ' +
           'each pile.\n\nThe shortest known solution uses 16 registers.'
   ),
-  'Changing  Places': new cn.LevelData(
+  'Changing Places': new cn.LevelData(
       1,
       [20, 18, 17],
       [8, 8, 8, 5],
