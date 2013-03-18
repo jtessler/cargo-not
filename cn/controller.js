@@ -41,8 +41,8 @@ cn.controller.play = function(game, animator, editor) {
     return;
   }
   var command = game.program.next(game.bot);
+  editor.highlightExecution(game.program);
   if (goog.isDefAndNotNull(command)) {
-    editor.highlightExecution(game.program);
     switch (command) {
       case cn.model.Command.LEFT:
         cn.controller.moveLeft(game, animator, editor);

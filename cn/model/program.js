@@ -177,6 +177,7 @@ cn.model.Program.prototype.hasNext_ = function() {
  */
 cn.model.Program.prototype.next = function(bot) {
   if (!this.hasNext_()) {
+    this.i_++;
     return null;
   }
 
