@@ -77,7 +77,7 @@ cn.model.Game.prototype.setupModelPositions = function() {
       this.height - this.level.height - cn.constants.GAME_MARGIN);
   this.bot.setPosition(
       this.level.stacks[this.bot.position].getX(),
-      cn.constants.GAME_MARGIN + this.bot.height);
+      cn.constants.GAME_MARGIN + Math.floor(this.bot.height / 2));
 };
 
 

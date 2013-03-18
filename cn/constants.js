@@ -8,7 +8,7 @@ goog.provide('cn.constants');
 
 
 /** @type {number} @const */
-cn.constants.GAME_WIDTH = 800;
+cn.constants.GAME_WIDTH = 750;
 
 
 /** @type {number} @const */
@@ -24,7 +24,7 @@ cn.constants.GAME_COLOR = 'lightyellow';
 
 
 /** @type {number} @const */
-cn.constants.GOAL_HEIGHT = 200;
+cn.constants.GOAL_HEIGHT = 175;
 
 
 /** @type {string} @const */
