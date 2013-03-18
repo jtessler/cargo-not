@@ -155,7 +155,7 @@ cn.view.ProgramEditor.prototype.initToolbox_ = function() {
       cn.model.Command,
       function(command, key) {
         var td = goog.dom.createElement(goog.dom.TagName.TD);
-        var div = this.createRegisterView_('pink');
+        var div = this.createRegisterView_('pink', 50);
         this.dragGroupToolbox_.addItem(div, {f: -1, i: -1, command: command});
 
         // TODO(joseph): Don't use the enum text here. Use images.
@@ -179,7 +179,7 @@ cn.view.ProgramEditor.prototype.initRegisters = function(program) {
       function(instructions, f) {
         var tr = goog.dom.createElement(goog.dom.TagName.TR);
         var td = goog.dom.createElement(goog.dom.TagName.TD);
-        var div = this.createRegisterView_('lightgray');
+        var div = this.createRegisterView_('lightgray', 71);
         // TODO(joseph): Use an image here instead.
         goog.dom.setTextContent(div, 'F' + f);
         td.appendChild(div);
@@ -189,7 +189,12 @@ cn.view.ProgramEditor.prototype.initRegisters = function(program) {
             instructions,
             function(instruction, i) {
               var td = goog.dom.createElement(goog.dom.TagName.TD);
-              var div = this.createRegisterView_('lightyellow');
+              var div = this.createRegisterView_('lightyellow', 20);
+              goog.style.setStyle(div, 'border-bottom', 'none');
+              //this.dropGroupCondition_.addItem(div, {f: f, i: i});
+              td.appendChild(div);
+
+              var div = this.createRegisterView_('lightyellow', 50);
               this.dropGroupFunction_.addItem(div, {f: f, i: i});
               td.appendChild(div);
               tr.appendChild(td);
@@ -203,19 +208,20 @@ cn.view.ProgramEditor.prototype.initRegisters = function(program) {
 
 /**
  * @param {string} color The background color to draw.
+ * @param {number} height The height, in pixels.
  * @return {!Element} The div wrapper for a register "block".
  * @private
  */
-cn.view.ProgramEditor.prototype.createRegisterView_ = function(color) {
+cn.view.ProgramEditor.prototype.createRegisterView_ = function(color, height) {
   var div = goog.dom.createElement(goog.dom.TagName.DIV);
   goog.style.setUnselectable(div, true);
   goog.style.setStyle(div, {
     'background-color': color,
     'width': '50px',
-    'height': '50px',
     'text-align': 'center',
     'border': '1px solid black'
   });
+  goog.style.setHeight(div, height);
   return div;
 };
 
@@ -359,19 +365,23 @@ cn.view.ProgramEditor.prototype.highlightExecution = function(program) {
         goog.array.forEach(
             goog.dom.getChildren(tr),
             function(td, regI) {
-              // Highlight the executing command.
-              if (regF == f && regI == i) {
-                goog.style.setOpacity(goog.dom.getFirstElementChild(td), 1.0);
-              }
-              // Highlight (slightly) the executing function and caller.
-              else if (regF == f && regI == 0 ||
-                       regF == callerF && regI == callerI) {
-                goog.style.setOpacity(goog.dom.getFirstElementChild(td), 0.5);
-              }
-              // Otherwise, set the element to nearly transparent.
-              else {
-                goog.style.setOpacity(goog.dom.getFirstElementChild(td), 0.25);
-              }
+              goog.array.forEach(
+                  goog.dom.getChildren(td),
+                  function(element) {
+                    // Highlight the executing command.
+                    if (regF == f && regI == i) {
+                      goog.style.setOpacity(element, 1.0);
+                    }
+                    // Highlight (slightly) the executing function and caller.
+                    else if (regF == f && regI == 0 ||
+                             regF == callerF && regI == callerI) {
+                      goog.style.setOpacity(element, 0.5);
+                    }
+                    // Otherwise, set the element to nearly transparent.
+                    else {
+                      goog.style.setOpacity(element, 0.25);
+                    }
+                  });
             });
       });
 };
@@ -388,7 +398,11 @@ cn.view.ProgramEditor.prototype.unhighlightExecution = function() {
         goog.array.forEach(
             goog.dom.getChildren(tr),
             function(td) {
-              goog.style.setOpacity(goog.dom.getFirstElementChild(td), 1.0);
+              goog.array.forEach(
+                  goog.dom.getChildren(td),
+                  function(element) {
+                    goog.style.setOpacity(element, 1.0);
+                  });
             });
       });
 };
