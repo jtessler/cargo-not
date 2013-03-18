@@ -312,10 +312,6 @@ cn.view.ProgramEditor.prototype.registerButtonEvents_ =
 
   goog.events.listen(this.resetButton_, EventType.ACTION, function() {
     cn.controller.reset(game, animator, this);
-    this.resetButton_.setEnabled(false);
-    this.pauseButton_.setEnabled(false);
-    this.playButton_.setEnabled(true);
-    this.clearButton_.setEnabled(true);
   }, false, this);
 
   goog.events.listen(this.clearButton_, EventType.ACTION, function() {
@@ -565,4 +561,15 @@ cn.view.ProgramEditor.prototype.forEachRegisterElement_ = function(f, opt_obj) {
                   goog.bind(f, opt_obj, r, c));
             }, opt_obj);
       }, opt_obj);
+};
+
+
+/**
+ * Reset buttons to default enabled values.
+ */
+cn.view.ProgramEditor.prototype.resetButtons = function() {
+  this.resetButton_.setEnabled(false);
+  this.pauseButton_.setEnabled(false);
+  this.playButton_.setEnabled(true);
+  this.clearButton_.setEnabled(true);
 };

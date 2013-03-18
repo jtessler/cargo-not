@@ -249,6 +249,7 @@ cn.controller.reset = function(game, animator, editor) {
   game.reset();
   animator.render(game);
   editor.unhighlightExecution();
+  editor.resetButtons();
 };
 
 
@@ -281,6 +282,7 @@ cn.controller.setBotSpeed = function(game, speed) {
 cn.controller.loadLevel = function(
     game, goal, animator, editor, name, levelData) {
   cn.controller.sendLog(game);
+  cn.controller.reset(game, animator, editor);
   game.loadLevel(levelData);
   goal.render(game);
   animator.render(game);
