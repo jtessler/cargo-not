@@ -152,6 +152,22 @@ cn.view.ProgramEditor.prototype.registerTable_;
 cn.view.ProgramEditor.prototype.initToolbox_ = function() {
   var tr = goog.dom.createElement(goog.dom.TagName.TR);
   goog.object.forEach(
+      cn.model.Condition,
+      function(cond, key) {
+        var td = goog.dom.createElement(goog.dom.TagName.TD);
+        var div = this.createRegisterView_('pink', 20);
+        //this.dragGroupToolbox_.addItem(div, {f: -1, i: -1, condition: cond});
+
+        // TODO(joseph): Don't use the enum text here. Use images.
+        goog.dom.setTextContent(div, key.substring(0, 4));
+        td.appendChild(div);
+        tr.appendChild(td);
+      },
+      this);
+  this.toolboxTable_.appendChild(tr);
+
+  var tr = goog.dom.createElement(goog.dom.TagName.TR);
+  goog.object.forEach(
       cn.model.Command,
       function(command, key) {
         var td = goog.dom.createElement(goog.dom.TagName.TD);
