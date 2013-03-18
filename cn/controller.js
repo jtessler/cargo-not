@@ -280,6 +280,7 @@ cn.controller.setBotSpeed = function(game, speed) {
  */
 cn.controller.loadLevel = function(
     game, goal, animator, editor, name, levelData) {
+  cn.controller.sendLog(game);
   game.loadLevel(levelData);
   goal.render(game);
   animator.render(game);
@@ -293,6 +294,6 @@ cn.controller.loadLevel = function(
  */
 cn.controller.sendLog = function(game) {
   var request = new goog.net.XhrIo();
-  request.send('/log.php', 'POST', game.log.serialize(),
+  request.send('/users/joseph/log.php', 'POST', game.log.serialize(),
       {'content-type': 'application/json'});
 };
