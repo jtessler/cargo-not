@@ -78,7 +78,16 @@ cn.view.ProgramEditor = function(game, animator) {
   this.registerCmdDrag_.addTarget(this.registerCmdDrop_);
   this.toolboxCmdDrag_.init();
   this.registerCmdDrag_.init();
-  this.initDragEvents_(game);
+  this.initCmdDragEvents_(game);
+
+  this.toolboxCondDrag_ = new goog.fx.DragDropGroup();
+  this.registerCondDrag_ = new goog.fx.DragDropGroup();
+  this.registerCondDrop_ = new goog.fx.DragDropGroup();
+  this.toolboxCondDrag_.addTarget(this.registerCondDrop_);
+  this.registerCondDrag_.addTarget(this.registerCondDrop_);
+  this.toolboxCondDrag_.init();
+  this.registerCondDrag_.init();
+  this.initCondDragEvents_(game);
 
   this.toolboxTable_ = goog.dom.createElement(goog.dom.TagName.TABLE);
   this.initToolbox_();
@@ -109,6 +118,27 @@ cn.view.ProgramEditor.prototype.registerCmdDrag_;
  * @private
  */
 cn.view.ProgramEditor.prototype.registerCmdDrop_;
+
+
+/**
+ * @type {!goog.fx.DragDropGroup}
+ * @private
+ */
+cn.view.ProgramEditor.prototype.toolboxCondDrag_;
+
+
+/**
+ * @type {!goog.fx.DragDropGroup}
+ * @private
+ */
+cn.view.ProgramEditor.prototype.registerCondDrag_;
+
+
+/**
+ * @type {!goog.fx.DragDropGroup}
+ * @private
+ */
+cn.view.ProgramEditor.prototype.registerCondDrop_;
 
 
 /**
@@ -156,7 +186,7 @@ cn.view.ProgramEditor.prototype.initToolbox_ = function() {
       function(cond, key) {
         var td = goog.dom.createElement(goog.dom.TagName.TD);
         var div = this.createRegisterView_('pink', 20);
-        //this.toolboxCmdDrag_.addItem(div, {f: -1, i: -1, condition: cond});
+        this.toolboxCondDrag_.addItem(div, {f: -1, i: -1, condition: cond});
 
         // TODO(joseph): Don't use the enum text here. Use images.
         goog.dom.setTextContent(div, key.substring(0, 4));
@@ -207,7 +237,7 @@ cn.view.ProgramEditor.prototype.initRegisters = function(program) {
               var td = goog.dom.createElement(goog.dom.TagName.TD);
               var div = this.createRegisterView_('lightyellow', 20);
               goog.style.setStyle(div, 'border-bottom', 'none');
-              //this.dropGroupCondition_.addItem(div, {f: f, i: i});
+              this.registerCondDrop_.addItem(div, {f: f, i: i});
               td.appendChild(div);
 
               div = this.createRegisterView_('lightyellow', 50);
@@ -281,7 +311,7 @@ cn.view.ProgramEditor.prototype.registerButtonEvents_ =
  * @param {!cn.model.Game} game The current game.
  * @private
  */
-cn.view.ProgramEditor.prototype.initDragEvents_ = function(game) {
+cn.view.ProgramEditor.prototype.initCmdDragEvents_ = function(game) {
   var EventType = goog.fx.AbstractDragDrop.EventType;
 
   goog.events.listen(this.toolboxCmdDrag_, EventType.DRAGSTART, function(e) {
@@ -359,6 +389,96 @@ cn.view.ProgramEditor.prototype.initDragEvents_ = function(game) {
 
     // Update the actual program model.
     cn.controller.setCommand(game, ptr.f, ptr.i, e.dragSourceItem.data.command);
+    data.f = ptr.f;
+    data.i = ptr.i;
+  }, false, this);
+};
+
+
+/**
+ * @param {!cn.model.Game} game The current game.
+ * @private
+ */
+cn.view.ProgramEditor.prototype.initCondDragEvents_ = function(game) {
+  // TODO(joseph): Refactor this copied code.
+  var EventType = goog.fx.AbstractDragDrop.EventType;
+
+  goog.events.listen(this.toolboxCondDrag_, EventType.DRAGSTART, function(e) {
+    if (!game.program.hasStarted()) {
+      goog.style.setOpacity(e.dragSourceItem.element, 0.5);
+    }
+  });
+  goog.events.listen(this.registerCondDrag_, EventType.DRAGSTART, function(e) {
+    if (!game.program.hasStarted()) {
+      var data = e.dragSourceItem.data;
+      cn.controller.removeCondition(game, data.f, data.i);
+      data.f = -1;
+      data.i = -1;
+      goog.style.setOpacity(e.dragSourceItem.element, 0.5);
+    }
+  });
+
+  goog.events.listen(this.toolboxCondDrag_, EventType.DRAGEND, function(e) {
+    if (!game.program.hasStarted()) {
+      goog.style.setOpacity(e.dragSourceItem.element, 1.0);
+    }
+  });
+  goog.events.listen(this.registerCondDrag_, EventType.DRAGEND, function(e) {
+    if (!game.program.hasStarted()) {
+      if (goog.object.containsKey(e.dragSourceItem.data, 'out')) {
+        goog.dom.removeNode(e.dragSourceItem.element);
+      } else {
+        goog.style.setOpacity(e.dragSourceItem.element, 1.0);
+      }
+    }
+  });
+
+  goog.events.listen(this.registerCondDrop_, EventType.DRAGOVER, function(e) {
+    if (!game.program.hasStarted()) {
+      e.dropTargetItem.element.style.background = 'yellow';
+    }
+  });
+  goog.events.listen(this.registerCondDrag_, EventType.DRAGOVER, function(e) {
+    if (!game.program.hasStarted()) {
+      goog.object.remove(e.dragSourceItem.data, 'out');
+    }
+  });
+
+  goog.events.listen(this.registerCondDrop_, EventType.DRAGOUT, function(e) {
+    if (!game.program.hasStarted()) {
+      e.dropTargetItem.element.style.background = 'lightyellow';
+    }
+  });
+  goog.events.listen(this.registerCondDrag_, EventType.DRAGOUT, function(e) {
+    if (!game.program.hasStarted()) {
+      goog.object.set(e.dragSourceItem.data, 'out', true);
+    }
+  });
+
+  goog.events.listen(this.registerCondDrop_, EventType.DROP, function(e) {
+    if (game.program.hasStarted()) {
+      return;
+    }
+    var element = e.dragSourceItem.element;
+    var data = e.dragSourceItem.data;
+    var ptr = e.dropTargetItem.data;
+
+    // Clone the condition element if coming from the toolbox.
+    if (e.dragSource == this.toolboxCondDrag_) {
+      element = e.dragSourceItem.element.cloneNode(true);
+      data = goog.object.clone(data);
+      this.registerCondDrag_.addItem(element, data);
+    }
+
+    // Update the style and add the element to the register's DOM.
+    goog.style.setOpacity(element, 1.0);
+    e.dropTargetItem.element.style.background = 'lightyellow';
+    goog.dom.removeChildren(e.dropTargetItem.element);
+    e.dropTargetItem.element.appendChild(element);
+
+    // Update the actual program model.
+    cn.controller.setCondition(
+        game, ptr.f, ptr.i, e.dragSourceItem.data.condition);
     data.f = ptr.f;
     data.i = ptr.i;
   }, false, this);

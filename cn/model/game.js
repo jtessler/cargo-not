@@ -38,7 +38,7 @@ cn.model.Game = function(opt_width, opt_height) {
            .lineTo(0, this.height)
            .lineTo(0, 0);
 
-  var levelData = cn.LevelData.levels['Cargo 101'];
+  var levelData = cn.LevelData.levels['Color Sort'];
   this.level = new cn.model.Level(levelData.initial);
   this.goal = new cn.model.Level(levelData.goal);
   this.bot = new cn.model.Bot();

@@ -206,6 +206,28 @@ cn.controller.removeCommand = function(game, f, i) {
 };
 
 
+
+/**
+ * @param {!cn.model.Game} game The current game.
+ * @param {number} f The function to add the condition to.
+ * @param {number} i The position in the function to add the condition to.
+ * @param {!cn.model.Condition} condition The condition.
+ */
+cn.controller.setCondition = function(game, f, i, condition) {
+  game.program.addCondition(f, i, condition);
+};
+
+
+/**
+ * @param {!cn.model.Game} game The current game.
+ * @param {number} f The function to remove the condition from.
+ * @param {number} i The position in the function to remove the condition from.
+ */
+cn.controller.removeCondition = function(game, f, i) {
+  game.program.removeCondition(f, i);
+};
+
+
 /**
  * @param {!cn.model.Game} game The current game.
  * @param {!cn.view.Animator} animator The animator to reset.
