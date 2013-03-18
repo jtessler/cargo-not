@@ -42,6 +42,7 @@ cn.controller.init = function() {
 cn.controller.play = function(game, animator, editor) {
   if (game.level.equals(game.goal)) {
     // TODO(joseph): Handle winning differently.
+    game.log.record('won X stars');
     alert('You won!');
     return;
   }
@@ -197,6 +198,7 @@ cn.controller.moveUp = function(game, animator, editor, endingY) {
  * @param {!cn.model.Command} command The command.
  */
 cn.controller.setCommand = function(game, f, i, command) {
+  game.log.record('set command [' + f + '][' + i + '] to ' + command);
   game.program.functions[f][i].command = command;
 };
 
@@ -207,6 +209,7 @@ cn.controller.setCommand = function(game, f, i, command) {
  * @param {number} i The position in the function to remove the command from.
  */
 cn.controller.removeCommand = function(game, f, i) {
+  game.log.record('removed command [' + f + '][' + i + ']');
   game.program.functions[f][i].command = null;
 };
 
@@ -218,6 +221,7 @@ cn.controller.removeCommand = function(game, f, i) {
  * @param {!cn.model.Condition} condition The condition.
  */
 cn.controller.setCondition = function(game, f, i, condition) {
+  game.log.record('set condition [' + f + '][' + i + '] to ' + condition);
   game.program.functions[f][i].condition = condition;
 };
 
@@ -228,6 +232,7 @@ cn.controller.setCondition = function(game, f, i, condition) {
  * @param {number} i The position in the function to remove the condition from.
  */
 cn.controller.removeCondition = function(game, f, i) {
+  game.log.record('removed condition [' + f + '][' + i + ']');
   game.program.functions[f][i].condition = null;
 };
 
@@ -250,6 +255,7 @@ cn.controller.reset = function(game, animator, editor) {
  * @param {!cn.model.Game} game The current game.
  */
 cn.controller.clearProgram = function(game) {
+  game.log.record('cleared registers');
   game.program.clear();
 };
 
@@ -268,11 +274,14 @@ cn.controller.setBotSpeed = function(game, speed) {
  * @param {!cn.view.Goal} goal The goal configuration to re-render.
  * @param {!cn.view.Animator} animator The animator to re-render.
  * @param {!cn.view.ProgramEditor} editor The program editor to clear and setup.
+ * @param {string} name The level name.
  * @param {!cn.LevelData} levelData The new bot speed.
  */
-cn.controller.loadLevel = function(game, goal, animator, editor, levelData) {
+cn.controller.loadLevel = function(
+    game, goal, animator, editor, name, levelData) {
   game.loadLevel(levelData);
   goal.render(game);
   animator.render(game);
   editor.initRegisters(game.program);
+  game.log.record('loaded level ' + name);
 };

@@ -36,7 +36,7 @@ cn.view.LevelSelector = function(game, goal, animator, editor, opt_parent) {
     goog.events.listen(selector, goog.events.EventType.CHANGE, function(e) {
       if (e.target.value != name) {
         var levelData = cn.LevelData.levels[e.target.value];
-        cn.controller.loadLevel(game, goal, animator, editor, levelData);
+        cn.controller.loadLevel(game, goal, animator, editor, name, levelData);
       }
     });
   });

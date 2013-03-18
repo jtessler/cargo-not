@@ -13,6 +13,7 @@ goog.require('cn.model.Bot');
 goog.require('cn.model.Cargo');
 goog.require('cn.model.CargoColor');
 goog.require('cn.model.Level');
+goog.require('cn.model.Log');
 goog.require('cn.model.PathModel');
 goog.require('cn.model.Program');
 goog.require('cn.model.Stack');
@@ -41,6 +42,8 @@ cn.model.Game = function(opt_width, opt_height) {
   this.bot = new cn.model.Bot();
   this.program = new cn.model.Program();
   this.loadLevel(cn.LevelData.levels['Cargo 101']);
+  this.log = new cn.model.Log();
+  this.log.record('loaded level Cargo 101');
 };
 goog.inherits(cn.model.Game, cn.model.PathModel);
 
@@ -63,6 +66,10 @@ cn.model.Game.prototype.levelData;
 
 /** @type {!cn.model.Program} */
 cn.model.Game.prototype.program;
+
+
+/** @type {!cn.model.Log} */
+cn.model.Game.prototype.log;
 
 
 /**
