@@ -6,8 +6,8 @@
 
 goog.provide('cn.view.LevelSelector');
 
-goog.require('cn.LevelData.levels');
 goog.require('cn.LevelData.levelpacks');
+goog.require('cn.LevelData.levels');
 goog.require('goog.array');
 goog.require('goog.dom');
 goog.require('goog.events');

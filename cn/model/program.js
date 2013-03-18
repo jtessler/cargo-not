@@ -212,15 +212,15 @@ cn.model.Program.prototype.reset = function() {
  */
 cn.model.Program.prototype.clear = function() {
   goog.array.forEach(
-    this.functions,
-    function(instructions) {
-      goog.array.forEach(
-        instructions,
-        function(instruction) {
-          instruction.command = null;
-          instruction.condition = null;
-        });
-    });
+      this.functions,
+      function(instructions) {
+        goog.array.forEach(
+            instructions,
+            function(instruction) {
+              instruction.command = null;
+              instruction.condition = null;
+            });
+      });
 };
 
 

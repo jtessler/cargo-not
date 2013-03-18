@@ -7,8 +7,8 @@
  */
 
 goog.provide('cn.LevelData');
-goog.provide('cn.LevelData.levels');
 goog.provide('cn.LevelData.levelpacks');
+goog.provide('cn.LevelData.levels');
 
 goog.require('cn.model.CargoColor');
 goog.require('goog.array');
