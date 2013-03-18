@@ -11,15 +11,16 @@ goog.require('cn.constants');
 
 
 /**
+ * @param {Element=} opt_parent Optional parent to render into.
  * @param {number=} opt_width The goal view's screen width.
  * @param {number=} opt_height The goal view's screen height.
  * @constructor
  */
-cn.view.Goal = function(opt_width, opt_height) {
+cn.view.Goal = function(opt_parent, opt_width, opt_height) {
   this.canvas_ = new goog.graphics.CanvasGraphics(
       opt_width || cn.constants.GAME_WIDTH,
       opt_height || cn.constants.GOAL_HEIGHT);
-  this.canvas_.render();
+  this.canvas_.render(opt_parent);
 };
 
 

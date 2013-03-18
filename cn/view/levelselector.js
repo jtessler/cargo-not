@@ -20,9 +20,11 @@ goog.require('goog.object');
  * @param {!cn.view.Goal} goal The goal configuration view.
  * @param {!cn.view.Animator} animator The animator window.
  * @param {!cn.view.ProgramEditor} editor The program editor view.
+ * @param {Element=} opt_parent Optional parent to render into.
  * @constructor
  */
-cn.view.LevelSelector = function(game, goal, animator, editor) {
+cn.view.LevelSelector = function(game, goal, animator, editor, opt_parent) {
+  var parentElement = opt_parent || goog.dom.getDocument().body;
   var div = goog.dom.createDom('div');
   goog.object.forEach(cn.LevelData.levelpacks, function(levels, name) {
     var selector = goog.dom.createDom('select');
@@ -38,5 +40,5 @@ cn.view.LevelSelector = function(game, goal, animator, editor) {
       }
     });
   });
-  goog.dom.insertChildAt(goog.dom.getDocument().body, div, 0);
+  goog.dom.insertChildAt(parentElement, div, 0);
 };

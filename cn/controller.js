@@ -12,17 +12,20 @@ goog.require('cn.view.Animator');
 goog.require('cn.view.Goal');
 goog.require('cn.view.LevelSelector');
 goog.require('cn.view.ProgramEditor');
+goog.require('goog.dom');
 
 
 /**
  * Initializes everything and renders the DOM.
  */
 cn.controller.init = function() {
+  var center = goog.dom.createDom('center');
   var game = new cn.model.Game();
-  var goal = new cn.view.Goal();
-  var animator = new cn.view.Animator();
-  var editor = new cn.view.ProgramEditor(game, animator);
-  var selector = new cn.view.LevelSelector(game, goal, animator, editor);
+  var goal = new cn.view.Goal(center);
+  var animator = new cn.view.Animator(center);
+  var editor = new cn.view.ProgramEditor(game, animator, center);
+  new cn.view.LevelSelector(game, goal, animator, editor, center);
+  goog.dom.appendChild(goog.dom.getDocument().body, center);
 
   goal.render(game);
   animator.render(game);

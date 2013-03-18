@@ -30,11 +30,11 @@ goog.require('goog.ui.Slider');
  * @param {!cn.model.Game} game The game model that includes the program to
  *     render.
  * @param {!cn.view.Animator} animator The animator window to attach events to.
+ * @param {Element=} opt_parent Optional parent to render into.
  * @constructor
  */
-cn.view.ProgramEditor = function(game, animator) {
-
-  // TODO(joseph): Append these elsewhere.
+cn.view.ProgramEditor = function(game, animator, opt_parent) {
+  var parentElement = opt_parent || goog.dom.getDocument().body;
 
   this.playButton_ = new goog.ui.Button('Play');
   this.pauseButton_ = new goog.ui.Button('Pause');
@@ -42,10 +42,10 @@ cn.view.ProgramEditor = function(game, animator) {
   this.clearButton_ = new goog.ui.Button('Clear Registers');
   this.pauseButton_.setEnabled(false);
   this.resetButton_.setEnabled(false);
-  this.playButton_.render();
-  this.pauseButton_.render();
-  this.resetButton_.render();
-  this.clearButton_.render();
+  this.playButton_.render(parentElement);
+  this.pauseButton_.render(parentElement);
+  this.resetButton_.render(parentElement);
+  this.clearButton_.render(parentElement);
   this.registerButtonEvents_(game, animator);
 
   var slider = new goog.ui.Slider();
@@ -68,7 +68,7 @@ cn.view.ProgramEditor = function(game, animator) {
     'position': 'absolute',
     'overflow': 'hidden'
   });
-  slider.render();
+  slider.render(parentElement);
   goog.events.listen(slider, goog.ui.Component.EventType.CHANGE, function() {
     cn.controller.setBotSpeed(game, slider.getValue());
   });
@@ -93,11 +93,11 @@ cn.view.ProgramEditor = function(game, animator) {
 
   this.toolboxTable_ = goog.dom.createElement(goog.dom.TagName.TABLE);
   this.initToolbox_();
-  goog.dom.getDocument().body.appendChild(this.toolboxTable_);
+  goog.dom.appendChild(parentElement, this.toolboxTable_);
 
   this.registerTable_ = goog.dom.createElement(goog.dom.TagName.TABLE);
   this.initRegisters(game.program);
-  goog.dom.getDocument().body.appendChild(this.registerTable_);
+  goog.dom.appendChild(parentElement, this.registerTable_);
 };
 
 

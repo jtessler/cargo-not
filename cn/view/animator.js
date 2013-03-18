@@ -15,19 +15,20 @@ goog.require('goog.graphics.CanvasGraphics');
 
 
 /**
+ * @param {Element=} opt_parent Optional parent to render into.
  * @param {number=} opt_width The entire game's screen width.
  * @param {number=} opt_height The entire game's screen height.
  * @constructor
  * @implements {goog.fx.anim.Animated}
  */
-cn.view.Animator = function(opt_width, opt_height) {
+cn.view.Animator = function(opt_parent, opt_width, opt_height) {
   this.canvas_ = new goog.graphics.CanvasGraphics(
       opt_width || cn.constants.GAME_WIDTH,
       opt_height || cn.constants.GAME_HEIGHT);
   this.update_ = goog.nullFunction;
   this.isAnimating_ = true;
   goog.fx.anim.registerAnimation(this);
-  this.canvas_.render();
+  this.canvas_.render(opt_parent);
 };
 
 
