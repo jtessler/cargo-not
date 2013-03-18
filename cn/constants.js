@@ -36,7 +36,7 @@ cn.constants.BOT_SPEED_MIN = 3;
 
 
 /** @type {number} @const */
-cn.constants.BOT_SPEED_MAX = 10;
+cn.constants.BOT_SPEED_MAX = 20;
 
 
 /** @type {number} @const */

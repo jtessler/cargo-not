@@ -55,18 +55,19 @@ cn.view.ProgramEditor = function(game, animator, opt_parent) {
   slider.createDom();
   goog.style.setStyle(slider.getElement(), {
     'background-color': 'lightgray',
-    'width': '150px',
+    'width': '270px',
     'height': '20px',
     'position': 'relative',
     'overflow': 'hidden',
     'border': '1px solid gray'
   });
   goog.style.setStyle(goog.dom.getFirstElementChild(slider.getElement()), {
-    'background-color': 'gray',
-    'width': '20px',
-    'height': '100%',
+    'background-color': 'lightyellow',
+    'width': '40px',
+    'height': '18px',
     'position': 'absolute',
-    'overflow': 'hidden'
+    'overflow': 'hidden',
+    'border': '1px solid black'
   });
   slider.render(parentElement);
   goog.events.listen(slider, goog.ui.Component.EventType.CHANGE, function() {
