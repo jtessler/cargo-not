@@ -192,7 +192,7 @@ cn.controller.moveUp = function(game, animator, editor, endingY) {
  * @param {!cn.model.Command} command The command.
  */
 cn.controller.setCommand = function(game, f, i, command) {
-  game.program.addCommand(f, i, command);
+  game.program.functions[f][i].command = command;
 };
 
 
@@ -202,7 +202,7 @@ cn.controller.setCommand = function(game, f, i, command) {
  * @param {number} i The position in the function to remove the command from.
  */
 cn.controller.removeCommand = function(game, f, i) {
-  game.program.removeCommand(f, i);
+  game.program.functions[f][i].command = null;
 };
 
 
@@ -213,7 +213,7 @@ cn.controller.removeCommand = function(game, f, i) {
  * @param {!cn.model.Condition} condition The condition.
  */
 cn.controller.setCondition = function(game, f, i, condition) {
-  game.program.addCondition(f, i, condition);
+  game.program.functions[f][i].condition = condition;
 };
 
 
@@ -223,7 +223,7 @@ cn.controller.setCondition = function(game, f, i, condition) {
  * @param {number} i The position in the function to remove the condition from.
  */
 cn.controller.removeCondition = function(game, f, i) {
-  game.program.removeCondition(f, i);
+  game.program.functions[f][i].condition = null;
 };
 
 
