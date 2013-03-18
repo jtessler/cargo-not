@@ -13,6 +13,7 @@ goog.require('cn.view.Goal');
 goog.require('cn.view.LevelSelector');
 goog.require('cn.view.ProgramEditor');
 goog.require('goog.dom');
+goog.require('goog.net.XhrIo');
 
 
 /**
@@ -284,4 +285,14 @@ cn.controller.loadLevel = function(
   animator.render(game);
   editor.initRegisters(game.program);
   game.log.record('loaded level ' + name);
+};
+
+
+/**
+ * @param {!cn.model.Game} game The current game.
+ */
+cn.controller.sendLog = function(game) {
+  var request = new goog.net.XhrIo();
+  request.send('/log.php', 'POST', game.log.serialize(),
+      {'content-type': 'application/json'});
 };
