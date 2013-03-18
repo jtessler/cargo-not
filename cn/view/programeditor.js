@@ -38,8 +38,8 @@ cn.view.ProgramEditor = function(game, animator) {
 
   this.playButton_ = new goog.ui.Button('Play');
   this.pauseButton_ = new goog.ui.Button('Pause');
-  this.resetButton_ = new goog.ui.Button('Reset');
-  this.clearButton_ = new goog.ui.Button('Clear');
+  this.resetButton_ = new goog.ui.Button('Rewind');
+  this.clearButton_ = new goog.ui.Button('Clear Registers');
   this.pauseButton_.setEnabled(false);
   this.resetButton_.setEnabled(false);
   this.playButton_.render();
