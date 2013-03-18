@@ -71,14 +71,14 @@ cn.view.ProgramEditor = function(game, animator) {
     cn.controller.setBotSpeed(game, slider.getValue());
   });
 
-  this.dragGroupToolbox_ = new goog.fx.DragDropGroup();
-  this.dragGroupRegister_ = new goog.fx.DragDropGroup();
-  this.dropGroupFunction_ = new goog.fx.DragDropGroup();
-  this.dragGroupToolbox_.addTarget(this.dropGroupFunction_);
-  this.dragGroupRegister_.addTarget(this.dropGroupFunction_);
-  this.dragGroupToolbox_.init();
-  this.dragGroupRegister_.init();
-  this.registerDragEvents_(game);
+  this.toolboxCmdDrag_ = new goog.fx.DragDropGroup();
+  this.registerCmdDrag_ = new goog.fx.DragDropGroup();
+  this.registerCmdDrop_ = new goog.fx.DragDropGroup();
+  this.toolboxCmdDrag_.addTarget(this.registerCmdDrop_);
+  this.registerCmdDrag_.addTarget(this.registerCmdDrop_);
+  this.toolboxCmdDrag_.init();
+  this.registerCmdDrag_.init();
+  this.initDragEvents_(game);
 
   this.toolboxTable_ = goog.dom.createElement(goog.dom.TagName.TABLE);
   this.initToolbox_();
@@ -94,21 +94,21 @@ cn.view.ProgramEditor = function(game, animator) {
  * @type {!goog.fx.DragDropGroup}
  * @private
  */
-cn.view.ProgramEditor.prototype.dragGroupToolbox_;
+cn.view.ProgramEditor.prototype.toolboxCmdDrag_;
 
 
 /**
  * @type {!goog.fx.DragDropGroup}
  * @private
  */
-cn.view.ProgramEditor.prototype.dragGroupRegister_;
+cn.view.ProgramEditor.prototype.registerCmdDrag_;
 
 
 /**
  * @type {!goog.fx.DragDropGroup}
  * @private
  */
-cn.view.ProgramEditor.prototype.dropGroupFunction_;
+cn.view.ProgramEditor.prototype.registerCmdDrop_;
 
 
 /**
@@ -156,7 +156,7 @@ cn.view.ProgramEditor.prototype.initToolbox_ = function() {
       function(cond, key) {
         var td = goog.dom.createElement(goog.dom.TagName.TD);
         var div = this.createRegisterView_('pink', 20);
-        //this.dragGroupToolbox_.addItem(div, {f: -1, i: -1, condition: cond});
+        //this.toolboxCmdDrag_.addItem(div, {f: -1, i: -1, condition: cond});
 
         // TODO(joseph): Don't use the enum text here. Use images.
         goog.dom.setTextContent(div, key.substring(0, 4));
@@ -166,13 +166,13 @@ cn.view.ProgramEditor.prototype.initToolbox_ = function() {
       this);
   this.toolboxTable_.appendChild(tr);
 
-  var tr = goog.dom.createElement(goog.dom.TagName.TR);
+  tr = goog.dom.createElement(goog.dom.TagName.TR);
   goog.object.forEach(
       cn.model.Command,
       function(command, key) {
         var td = goog.dom.createElement(goog.dom.TagName.TD);
         var div = this.createRegisterView_('pink', 50);
-        this.dragGroupToolbox_.addItem(div, {f: -1, i: -1, command: command});
+        this.toolboxCmdDrag_.addItem(div, {f: -1, i: -1, command: command});
 
         // TODO(joseph): Don't use the enum text here. Use images.
         goog.dom.setTextContent(div, key);
@@ -188,7 +188,7 @@ cn.view.ProgramEditor.prototype.initToolbox_ = function() {
  * @param {!cn.model.Program} program The program to build a table view for.
  */
 cn.view.ProgramEditor.prototype.initRegisters = function(program) {
-  this.dropGroupFunction_.removeItems();
+  this.registerCmdDrop_.removeItems();
   goog.dom.removeChildren(this.registerTable_);
   goog.array.forEach(
       program.functions,
@@ -210,8 +210,8 @@ cn.view.ProgramEditor.prototype.initRegisters = function(program) {
               //this.dropGroupCondition_.addItem(div, {f: f, i: i});
               td.appendChild(div);
 
-              var div = this.createRegisterView_('lightyellow', 50);
-              this.dropGroupFunction_.addItem(div, {f: f, i: i});
+              div = this.createRegisterView_('lightyellow', 50);
+              this.registerCmdDrop_.addItem(div, {f: f, i: i});
               td.appendChild(div);
               tr.appendChild(td);
             },
@@ -281,15 +281,15 @@ cn.view.ProgramEditor.prototype.registerButtonEvents_ =
  * @param {!cn.model.Game} game The current game.
  * @private
  */
-cn.view.ProgramEditor.prototype.registerDragEvents_ = function(game) {
+cn.view.ProgramEditor.prototype.initDragEvents_ = function(game) {
   var EventType = goog.fx.AbstractDragDrop.EventType;
 
-  goog.events.listen(this.dragGroupToolbox_, EventType.DRAGSTART, function(e) {
+  goog.events.listen(this.toolboxCmdDrag_, EventType.DRAGSTART, function(e) {
     if (!game.program.hasStarted()) {
       goog.style.setOpacity(e.dragSourceItem.element, 0.5);
     }
   });
-  goog.events.listen(this.dragGroupRegister_, EventType.DRAGSTART, function(e) {
+  goog.events.listen(this.registerCmdDrag_, EventType.DRAGSTART, function(e) {
     if (!game.program.hasStarted()) {
       var data = e.dragSourceItem.data;
       cn.controller.removeCommand(game, data.f, data.i);
@@ -299,12 +299,12 @@ cn.view.ProgramEditor.prototype.registerDragEvents_ = function(game) {
     }
   });
 
-  goog.events.listen(this.dragGroupToolbox_, EventType.DRAGEND, function(e) {
+  goog.events.listen(this.toolboxCmdDrag_, EventType.DRAGEND, function(e) {
     if (!game.program.hasStarted()) {
       goog.style.setOpacity(e.dragSourceItem.element, 1.0);
     }
   });
-  goog.events.listen(this.dragGroupRegister_, EventType.DRAGEND, function(e) {
+  goog.events.listen(this.registerCmdDrag_, EventType.DRAGEND, function(e) {
     if (!game.program.hasStarted()) {
       if (goog.object.containsKey(e.dragSourceItem.data, 'out')) {
         goog.dom.removeNode(e.dragSourceItem.element);
@@ -314,29 +314,29 @@ cn.view.ProgramEditor.prototype.registerDragEvents_ = function(game) {
     }
   });
 
-  goog.events.listen(this.dropGroupFunction_, EventType.DRAGOVER, function(e) {
+  goog.events.listen(this.registerCmdDrop_, EventType.DRAGOVER, function(e) {
     if (!game.program.hasStarted()) {
       e.dropTargetItem.element.style.background = 'yellow';
     }
   });
-  goog.events.listen(this.dragGroupRegister_, EventType.DRAGOVER, function(e) {
+  goog.events.listen(this.registerCmdDrag_, EventType.DRAGOVER, function(e) {
     if (!game.program.hasStarted()) {
       goog.object.remove(e.dragSourceItem.data, 'out');
     }
   });
 
-  goog.events.listen(this.dropGroupFunction_, EventType.DRAGOUT, function(e) {
+  goog.events.listen(this.registerCmdDrop_, EventType.DRAGOUT, function(e) {
     if (!game.program.hasStarted()) {
       e.dropTargetItem.element.style.background = 'lightyellow';
     }
   });
-  goog.events.listen(this.dragGroupRegister_, EventType.DRAGOUT, function(e) {
+  goog.events.listen(this.registerCmdDrag_, EventType.DRAGOUT, function(e) {
     if (!game.program.hasStarted()) {
       goog.object.set(e.dragSourceItem.data, 'out', true);
     }
   });
 
-  goog.events.listen(this.dropGroupFunction_, EventType.DROP, function(e) {
+  goog.events.listen(this.registerCmdDrop_, EventType.DROP, function(e) {
     if (game.program.hasStarted()) {
       return;
     }
@@ -345,10 +345,10 @@ cn.view.ProgramEditor.prototype.registerDragEvents_ = function(game) {
     var ptr = e.dropTargetItem.data;
 
     // Clone the command element if coming from the toolbox.
-    if (e.dragSource == this.dragGroupToolbox_) {
+    if (e.dragSource == this.toolboxCmdDrag_) {
       element = e.dragSourceItem.element.cloneNode(true);
       data = goog.object.clone(data);
-      this.dragGroupRegister_.addItem(element, data);
+      this.registerCmdDrag_.addItem(element, data);
     }
 
     // Update the style and add the element to the register's DOM.
