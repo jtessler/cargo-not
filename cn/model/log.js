@@ -52,6 +52,14 @@ cn.model.Log.prototype.setId = function(id) {
 
 
 /**
+ * @return {number} The size of the log.
+ */
+cn.model.Log.prototype.size = function() {
+  return goog.object.getCount(this.log_);
+};
+
+
+/**
  * @return {string} The JSON representation of the log.
  */
 cn.model.Log.prototype.serialize = function() {

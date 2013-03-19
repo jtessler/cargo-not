@@ -304,8 +304,11 @@ cn.controller.loadLevel = function(
  * @param {!cn.model.Game} game The current game.
  */
 cn.controller.sendLog = function(game) {
-  game.log.setId(game.id);
-  goog.net.XhrIo.send('/users/joseph/log.php', null, 'POST',
-      game.log.serialize(), {'content-type': 'application/json'});
+  // Don't send meaningless logs.
+  if (game.log.size() > 3) {
+    game.log.setId(game.id);
+    goog.net.XhrIo.send('/users/joseph/log.php', null, 'POST',
+        game.log.serialize(), {'content-type': 'application/json'});
+  }
   game.log.clear();
 };
