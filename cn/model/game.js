@@ -121,3 +121,22 @@ cn.model.Game.prototype.loadLevel = function(levelData) {
   this.program.init(levelData.functions);
   this.reset();
 };
+
+
+/**
+ * @return {number} The number of stars awarded based on the number of registers
+ * used.
+ */
+cn.model.Game.prototype.getStars = function() {
+  var count = this.program.instructionCount();
+  if (count <= this.levelData.stars[2]) {
+    return 3;
+  }
+  if (count <= this.levelData.stars[1]) {
+    return 2;
+  }
+  if (count <= this.levelData.stars[0]) {
+    return 1;
+  }
+  return 0;
+};

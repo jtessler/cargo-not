@@ -51,8 +51,9 @@ cn.controller.init = function() {
 cn.controller.play = function(game, animator, editor) {
   if (game.level.equals(game.goal)) {
     // TODO(joseph): Handle winning differently.
-    game.log.record('won X stars');
-    alert('You won!');
+    var stars = game.getStars();
+    game.log.record('won ' + stars + ' stars');
+    alert('You won with ' + stars + ' stars!');
     return;
   }
   var command = game.program.next(game.bot);

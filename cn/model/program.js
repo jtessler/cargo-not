@@ -225,6 +225,26 @@ cn.model.Program.prototype.clear = function() {
 
 
 /**
+ * @return {number} The total number of instructions used.
+ */
+cn.model.Program.prototype.instructionCount = function() {
+  var count = 0;
+  goog.array.forEach(
+      this.functions,
+      function(instructions) {
+        goog.array.forEach(
+            instructions,
+            function(instruction) {
+              if(goog.isDefAndNotNull(instruction.command)) {
+                count++;
+              }
+            });
+      });
+  return count;
+};
+
+
+/**
  * @return {boolean} True if the program has started.
  */
 cn.model.Program.prototype.hasStarted = function() {
