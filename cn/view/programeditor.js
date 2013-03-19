@@ -67,7 +67,7 @@ cn.view.ProgramEditor = function(game, animator, opt_parent) {
     'width': '40px',
     'height': '20px',
     'position': 'absolute',
-    'overflow': 'hidden',
+    'overflow': 'hidden'
   });
   slider.render(parentElement);
   goog.events.listen(slider, goog.ui.Component.EventType.CHANGE, function() {
