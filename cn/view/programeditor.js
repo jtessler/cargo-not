@@ -55,7 +55,7 @@ cn.view.ProgramEditor = function(game, animator, opt_parent) {
   slider.createDom();
   goog.style.setStyle(slider.getElement(), {
     'background-size': '270px 20px',
-    'background-image': 'url("../../png/speed_bar.png")',
+    'background-image': 'url("' + cn.constants.ROOT + 'png/speed_bar.png")',
     'width': '270px',
     'height': '20px',
     'position': 'relative',
@@ -63,7 +63,7 @@ cn.view.ProgramEditor = function(game, animator, opt_parent) {
   });
   goog.style.setStyle(goog.dom.getFirstElementChild(slider.getElement()), {
     'background-size': '40px 20px',
-    'background-image': 'url("../../png/slider.png")',
+    'background-image': 'url("' + cn.constants.ROOT + 'png/slider.png")',
     'width': '40px',
     'height': '20px',
     'position': 'absolute',
@@ -266,7 +266,7 @@ cn.view.ProgramEditor.prototype.createRegisterView_ = function(image, height) {
   goog.style.setUnselectable(div, true);
   goog.style.setStyle(div, {
     'background-size': '100%',
-    'background-image': 'url("../../png/' + image + '.png")',
+    'background-image': 'url("' + cn.constants.ROOT + 'png/' + image + '.png")',
     'width': '50px',
     'text-align': 'center'
   });
