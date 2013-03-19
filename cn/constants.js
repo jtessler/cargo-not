@@ -8,7 +8,7 @@ goog.provide('cn.constants');
 
 
 /** @type {string} @const */
-cn.constants.ROOT = '/users/joseph/cargo-bot/';
+cn.constants.ROOT = '/users/joseph/cargo-not/';
 
 
 /** @type {number} @const */
