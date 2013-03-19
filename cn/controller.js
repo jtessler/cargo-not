@@ -21,8 +21,10 @@ goog.require('goog.net.XhrIo');
  * Initializes everything and renders the DOM.
  */
 cn.controller.init = function() {
+  var id = prompt('Enter your student ID') || 'unknown';
   var center = goog.dom.createDom('center');
   var game = new cn.model.Game();
+  game.id = id;
   var goal = new cn.view.Goal(center);
   var animator = new cn.view.Animator(center);
   var editor = new cn.view.ProgramEditor(game, animator, center);
@@ -31,7 +33,6 @@ cn.controller.init = function() {
 
   goal.render(game);
   animator.render(game);
-  game.id = prompt('Enter your student ID') || 'unknown';
 
   // Add an "on close" event to send the last log.
   goog.events.listen(window, goog.events.EventType.BEFOREUNLOAD, function(e) {
