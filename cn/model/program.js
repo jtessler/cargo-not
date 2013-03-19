@@ -235,7 +235,7 @@ cn.model.Program.prototype.instructionCount = function() {
         goog.array.forEach(
             instructions,
             function(instruction) {
-              if(goog.isDefAndNotNull(instruction.command)) {
+              if (goog.isDefAndNotNull(instruction.command)) {
                 count++;
               }
             });
