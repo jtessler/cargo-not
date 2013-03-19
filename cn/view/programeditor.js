@@ -40,12 +40,14 @@ cn.view.ProgramEditor = function(game, animator, opt_parent) {
   this.pauseButton_ = new goog.ui.Button('Pause');
   this.resetButton_ = new goog.ui.Button('Rewind');
   this.clearButton_ = new goog.ui.Button('Clear Registers');
+  this.hintButton_ = new goog.ui.Button('Show Hint');
   this.pauseButton_.setEnabled(false);
   this.resetButton_.setEnabled(false);
   this.playButton_.render(parentElement);
   this.pauseButton_.render(parentElement);
   this.resetButton_.render(parentElement);
   this.clearButton_.render(parentElement);
+  this.hintButton_.render(parentElement);
   this.registerButtonEvents_(game, animator);
 
   var slider = new goog.ui.Slider();
@@ -54,11 +56,12 @@ cn.view.ProgramEditor = function(game, animator, opt_parent) {
   slider.setMoveToPointEnabled(true);
   slider.createDom();
   goog.style.setStyle(slider.getElement(), {
-    'background-size': '270px 20px',
+    'background-size': '350px 20px',
     'background-image': 'url("' + cn.constants.ROOT + 'png/speed_bar.png")',
-    'width': '270px',
+    'width': '350px',
     'height': '20px',
     'position': 'relative',
+    'margin-bottom': '20px',
     'overflow': 'hidden'
   });
   goog.style.setStyle(goog.dom.getFirstElementChild(slider.getElement()), {
@@ -313,6 +316,10 @@ cn.view.ProgramEditor.prototype.registerButtonEvents_ =
         goog.dom.removeChildren(element);
       }
     });
+  }, false, this);
+
+  goog.events.listen(this.hintButton_, EventType.ACTION, function() {
+    alert(game.levelData.hint);
   }, false, this);
 };
 
