@@ -14,13 +14,13 @@ goog.provide('cn.model.Instruction');
  * @enum {string}
  */
 cn.model.Command = {
-  LEFT: 'move the bot left',
-  RIGHT: 'move the bot right',
-  DOWN: 'drop or pickup cargo',
-  F0: 'move to program f0',
-  F1: 'move to program f1',
-  F2: 'move to program f2',
-  F3: 'move to program f3'
+  LEFT: 'left',
+  RIGHT: 'right',
+  DOWN: 'down',
+  F0: 'f0',
+  F1: 'f1',
+  F2: 'f2',
+  F3: 'f3'
 };
 
 
@@ -29,12 +29,12 @@ cn.model.Command = {
  * @enum {string}
  */
 cn.model.Condition = {
-  NONE: 'if the bot has no cargo',
-  ANY: 'if the bot has any cargo',
-  RED: 'if the bot has red cargo',
-  GREEN: 'if the bot has green cargo',
-  BLUE: 'if the bot has blue cargo',
-  YELLOW: 'if the bot has yellow cargo'
+  NONE: 'none',
+  ANY: 'any',
+  RED: 'red',
+  GREEN: 'green',
+  BLUE: 'blue',
+  YELLOW: 'yellow'
 };
 
 

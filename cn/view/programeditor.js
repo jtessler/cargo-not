@@ -193,13 +193,10 @@ cn.view.ProgramEditor.prototype.initToolbox_ = function() {
   var tr = goog.dom.createElement(goog.dom.TagName.TR);
   goog.object.forEach(
       cn.model.Condition,
-      function(cond, key) {
+      function(cond) {
         var td = goog.dom.createElement(goog.dom.TagName.TD);
-        var div = this.createRegisterView_('pink', 20);
+        var div = this.createRegisterView_(cond, 20);
         this.toolboxCondDrag_.addItem(div, {f: -1, i: -1, condition: cond});
-
-        // TODO(joseph): Don't use the enum text here. Use images.
-        goog.dom.setTextContent(div, key.substring(0, 4));
         td.appendChild(div);
         tr.appendChild(td);
       },
@@ -211,11 +208,8 @@ cn.view.ProgramEditor.prototype.initToolbox_ = function() {
       cn.model.Command,
       function(command, key) {
         var td = goog.dom.createElement(goog.dom.TagName.TD);
-        var div = this.createRegisterView_('pink', 50);
+        var div = this.createRegisterView_(command, 50);
         this.toolboxCmdDrag_.addItem(div, {f: -1, i: -1, command: command});
-
-        // TODO(joseph): Don't use the enum text here. Use images.
-        goog.dom.setTextContent(div, key);
         td.appendChild(div);
         tr.appendChild(td);
       },
@@ -236,9 +230,7 @@ cn.view.ProgramEditor.prototype.initRegisters = function(program) {
       function(instructions, f) {
         var tr = goog.dom.createElement(goog.dom.TagName.TR);
         var td = goog.dom.createElement(goog.dom.TagName.TD);
-        var div = this.createRegisterView_('lightgray', 71);
-        // TODO(joseph): Use an image here instead.
-        goog.dom.setTextContent(div, 'F' + f);
+        var div = this.createRegisterView_('f' + f + '_large', 71);
         td.appendChild(div);
         tr.appendChild(td);
 
@@ -246,12 +238,12 @@ cn.view.ProgramEditor.prototype.initRegisters = function(program) {
             instructions,
             function(instruction, i) {
               var td = goog.dom.createElement(goog.dom.TagName.TD);
-              var div = this.createRegisterView_('lightyellow', 20);
-              goog.style.setStyle(div, 'border-bottom', 'none');
+              var div = this.createRegisterView_('drag_top', 20);
+              goog.style.setStyle(div, 'border-bottom', '1px solid white');
               this.registerCondDrop_.addItem(div, {f: f, i: i});
               td.appendChild(div);
 
-              div = this.createRegisterView_('lightyellow', 50);
+              div = this.createRegisterView_('drag_bottom', 50);
               this.registerCmdDrop_.addItem(div, {f: f, i: i});
               td.appendChild(div);
               tr.appendChild(td);
@@ -264,19 +256,19 @@ cn.view.ProgramEditor.prototype.initRegisters = function(program) {
 
 
 /**
- * @param {string} color The background color to draw.
+ * @param {string} image The background image name.
  * @param {number} height The height, in pixels.
  * @return {!Element} The div wrapper for a register "block".
  * @private
  */
-cn.view.ProgramEditor.prototype.createRegisterView_ = function(color, height) {
+cn.view.ProgramEditor.prototype.createRegisterView_ = function(image, height) {
   var div = goog.dom.createElement(goog.dom.TagName.DIV);
   goog.style.setUnselectable(div, true);
   goog.style.setStyle(div, {
-    'background-color': color,
+    'background-size': '100%',
+    'background-image': 'url("../../png/' + image + '.png")',
     'width': '50px',
-    'text-align': 'center',
-    'border': '1px solid black'
+    'text-align': 'center'
   });
   goog.style.setHeight(div, height);
   return div;
@@ -362,7 +354,7 @@ cn.view.ProgramEditor.prototype.initCmdDragEvents_ = function(game) {
 
   goog.events.listen(this.registerCmdDrop_, EventType.DRAGOVER, function(e) {
     if (!game.program.hasStarted()) {
-      e.dropTargetItem.element.style.background = 'yellow';
+      goog.style.setStyle(e.dropTargetItem.element, 'background-size', '0%');
     }
   });
   goog.events.listen(this.registerCmdDrag_, EventType.DRAGOVER, function(e) {
@@ -373,7 +365,7 @@ cn.view.ProgramEditor.prototype.initCmdDragEvents_ = function(game) {
 
   goog.events.listen(this.registerCmdDrop_, EventType.DRAGOUT, function(e) {
     if (!game.program.hasStarted()) {
-      e.dropTargetItem.element.style.background = 'lightyellow';
+      goog.style.setStyle(e.dropTargetItem.element, 'background-size', '100%');
     }
   });
   goog.events.listen(this.registerCmdDrag_, EventType.DRAGOUT, function(e) {
@@ -399,7 +391,7 @@ cn.view.ProgramEditor.prototype.initCmdDragEvents_ = function(game) {
 
     // Update the style and add the element to the register's DOM.
     goog.style.setOpacity(element, 1.0);
-    e.dropTargetItem.element.style.background = 'lightyellow';
+    goog.style.setStyle(e.dropTargetItem.element, 'background-size', '100%');
     goog.dom.removeChildren(e.dropTargetItem.element);
     e.dropTargetItem.element.appendChild(element);
 
@@ -449,7 +441,7 @@ cn.view.ProgramEditor.prototype.initCondDragEvents_ = function(game) {
 
   goog.events.listen(this.registerCondDrop_, EventType.DRAGOVER, function(e) {
     if (!game.program.hasStarted()) {
-      e.dropTargetItem.element.style.background = 'yellow';
+      goog.style.setStyle(e.dropTargetItem.element, 'background-size', '0%');
     }
   });
   goog.events.listen(this.registerCondDrag_, EventType.DRAGOVER, function(e) {
@@ -460,7 +452,7 @@ cn.view.ProgramEditor.prototype.initCondDragEvents_ = function(game) {
 
   goog.events.listen(this.registerCondDrop_, EventType.DRAGOUT, function(e) {
     if (!game.program.hasStarted()) {
-      e.dropTargetItem.element.style.background = 'lightyellow';
+      goog.style.setStyle(e.dropTargetItem.element, 'background-size', '100%');
     }
   });
   goog.events.listen(this.registerCondDrag_, EventType.DRAGOUT, function(e) {
@@ -486,7 +478,7 @@ cn.view.ProgramEditor.prototype.initCondDragEvents_ = function(game) {
 
     // Update the style and add the element to the register's DOM.
     goog.style.setOpacity(element, 1.0);
-    e.dropTargetItem.element.style.background = 'lightyellow';
+    goog.style.setStyle(e.dropTargetItem.element, 'background-size', '100%');
     goog.dom.removeChildren(e.dropTargetItem.element);
     e.dropTargetItem.element.appendChild(element);
 
