@@ -54,20 +54,20 @@ cn.view.ProgramEditor = function(game, animator, opt_parent) {
   slider.setMoveToPointEnabled(true);
   slider.createDom();
   goog.style.setStyle(slider.getElement(), {
-    'background-color': 'lightgray',
+    'background-size': '270px 20px',
+    'background-image': 'url("../../png/speed_bar.png")',
     'width': '270px',
     'height': '20px',
     'position': 'relative',
-    'overflow': 'hidden',
-    'border': '1px solid gray'
+    'overflow': 'hidden'
   });
   goog.style.setStyle(goog.dom.getFirstElementChild(slider.getElement()), {
-    'background-color': 'lightyellow',
+    'background-size': '40px 20px',
+    'background-image': 'url("../../png/slider.png")',
     'width': '40px',
-    'height': '18px',
+    'height': '20px',
     'position': 'absolute',
     'overflow': 'hidden',
-    'border': '1px solid black'
   });
   slider.render(parentElement);
   goog.events.listen(slider, goog.ui.Component.EventType.CHANGE, function() {
