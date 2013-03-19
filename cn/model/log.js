@@ -44,6 +44,14 @@ cn.model.Log.prototype.clear = function() {
 
 
 /**
+ * @param {string} id The ID to add.
+ */
+cn.model.Log.prototype.setId = function(id) {
+  goog.object.set(this.log_, 'id', id);
+};
+
+
+/**
  * @return {string} The JSON representation of the log.
  */
 cn.model.Log.prototype.serialize = function() {

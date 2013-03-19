@@ -13,6 +13,7 @@ goog.require('cn.view.Goal');
 goog.require('cn.view.LevelSelector');
 goog.require('cn.view.ProgramEditor');
 goog.require('goog.dom');
+goog.require('goog.events');
 goog.require('goog.net.XhrIo');
 
 
@@ -30,6 +31,12 @@ cn.controller.init = function() {
 
   goal.render(game);
   animator.render(game);
+  game.id = prompt('Enter your student ID') || 'unknown';
+
+  // Add an "on close" event to send the last log.
+  goog.events.listen(window, goog.events.EventType.BEFOREUNLOAD, function(e) {
+    cn.controller.sendLog(game);
+  });
 };
 
 
@@ -295,7 +302,8 @@ cn.controller.loadLevel = function(
  * @param {!cn.model.Game} game The current game.
  */
 cn.controller.sendLog = function(game) {
-  var request = new goog.net.XhrIo();
-  request.send('/users/joseph/log.php', 'POST', game.log.serialize(),
-      {'content-type': 'application/json'});
+  game.log.setId(game.id);
+  goog.net.XhrIo.send('/users/joseph/log.php', null, 'POST',
+      game.log.serialize(), {'content-type': 'application/json'});
+  game.log.clear();
 };

@@ -72,6 +72,10 @@ cn.model.Game.prototype.program;
 cn.model.Game.prototype.log;
 
 
+/** @type {string} */
+cn.model.Game.prototype.id;
+
+
 /**
  * Sets up the game models' positions.
  */

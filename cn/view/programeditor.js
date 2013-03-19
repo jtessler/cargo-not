@@ -428,8 +428,6 @@ cn.view.ProgramEditor.prototype.initCondDragEvents_ = function(game) {
     if (!game.program.hasStarted()) {
       var data = e.dragSourceItem.data;
       cn.controller.removeCondition(game, data.f, data.i);
-      data.f = -1;
-      data.i = -1;
       goog.style.setOpacity(e.dragSourceItem.element, 0.5);
     }
   });
