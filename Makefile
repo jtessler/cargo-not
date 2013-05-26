@@ -31,6 +31,14 @@ release:
 		--output_mode compiled > $(JS_OUTPUT)
 	py/index.py $(JS_OUTPUT) > $(INDEX_OUTPUT)
 
+# Update the ROOT constant when compiling on a UTCS machine.
+release-utcs:
+	$(CC) \
+		--compiler_flags "--compilation_level=ADVANCED_OPTIMIZATIONS" \
+		--compiler_flags "--define=\"cn.constants.ROOT='/~joseph/cargo-not/'\"" \
+		--output_mode compiled > $(JS_OUTPUT)
+	py/index.py $(JS_OUTPUT) > $(INDEX_OUTPUT)
+
 dry-run:
 	$(CC) --output_mode compiled > /dev/null
 

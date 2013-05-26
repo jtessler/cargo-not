@@ -6,9 +6,8 @@
 
 goog.provide('cn.constants');
 
-
-/** @type {string} @const */
-cn.constants.ROOT = '/users/joseph/cargo-not/';
+/** @define {string} */
+cn.constants.ROOT = '/';
 
 
 /** @type {number} @const */
