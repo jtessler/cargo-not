@@ -13,11 +13,25 @@
 
 .goog-tab {
   position: relative;
-  padding: 4px 8px;
   float: left;
+  width: 50px;
+  height: 20px;
+  padding: 5px 0;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
+@defmixin bg(URL, SIZE) {
+  background-image: url(URL);
+  background-size: SIZE;
+}
+.goog-tab-tutorial   { @mixin bg('png/difficulty1.png', 20%); }
+.goog-tab-easy       { @mixin bg('png/difficulty2.png', 45%); }
+.goog-tab-medium     { @mixin bg('png/difficulty3.png', 45%); }
+.goog-tab-hard       { @mixin bg('png/difficulty4.png', 45%); }
+.goog-tab-crazy      { @mixin bg('png/difficulty5.png', 65%); }
+.goog-tab-impossible { @mixin bg('png/difficulty6.png', 65%); }
 
 .goog-tab-selected {
-  background: #ffffff;
+  background-color: #ffffff;
 }
-
