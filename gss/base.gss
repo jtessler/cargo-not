@@ -1,0 +1,5 @@
+.game-ui {
+  text-align: center;
+  background-color: #eeeeee;
+  padding: 25px;
+}

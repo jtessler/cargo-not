@@ -4,9 +4,11 @@
  * @author joseph@cs.utexas.edu (Joe Tessler)
  */
 
-goog.provide('cn.model.Game');
 goog.provide('cn.ui.GameUi');
 
+goog.require('cn.model.Game');
+goog.require('cn.ui.LevelTabBar');
+goog.require('goog.dom.classes');
 goog.require('goog.ui.Component');
 
 
@@ -22,16 +24,16 @@ cn.ui.GameUi = function(game, opt_domHelper) {
 
   // TODO(joseph): Implement these classes.
   this.levelSelector = new cn.ui.LevelTabBar(game, this);
-  this.goalCanvas = new cn.ui.GameCanvas(game, this);
+  /*this.goalCanvas = new cn.ui.GameCanvas(game, this);
   this.animatedCanvas = new cn.ui.AnimatedGameCanvas(game, this);
   this.controls = new cn.ui.Controls(game, this);
-  this.programEditor = new cn.ui.ProgramEditor(game, this);
+  this.programEditor = new cn.ui.ProgramEditor(game, this);*/
 
-  this.addChild(this.levelSelector);
-  this.addChild(this.goalCanvas);
+  this.addChild(this.levelSelector, true);
+  /*this.addChild(this.goalCanvas);
   this.addChild(this.animatedCanvas);
   this.addChild(this.controls);
-  this.addChild(this.programEditor);
+  this.addChild(this.programEditor);*/
 };
 goog.inherits(cn.ui.GameUi, goog.ui.Component);
 
@@ -39,11 +41,15 @@ goog.inherits(cn.ui.GameUi, goog.ui.Component);
 /**
  * @inheritDoc
  */
+cn.ui.GameUi.prototype.createDom = function() {
+  this.decorateInternal(this.dom_.createElement('div'));
+};
+
+
+/**
+ * @inheritDoc
+ */
 cn.ui.GameUi.prototype.decorateInternal = function(element) {
-  goog.base(element, 'decorateInternal', element);
-  goog.style.setStyle(element, {
-    'text-align': 'center',
-    'background-color': 'lightgray',
-    'padding': '25px'
-  });
+  goog.base(this, 'decorateInternal', element);
+  goog.dom.classes.add(element, goog.getCssName('game-ui'));
 };

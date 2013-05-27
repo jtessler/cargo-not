@@ -8,6 +8,7 @@ goog.provide('cn.controller');
 
 goog.require('cn.model.Command');
 goog.require('cn.model.Game');
+goog.require('cn.ui.GameUi');
 goog.require('cn.view.Animator');
 goog.require('cn.view.Goal');
 goog.require('cn.view.LevelSelector');
@@ -21,23 +22,9 @@ goog.require('goog.net.XhrIo');
  * Initializes everything and renders the DOM.
  */
 cn.controller.init = function() {
-  var id = prompt('Enter your student ID') || 'unknown';
-  var center = goog.dom.createDom('center');
   var game = new cn.model.Game();
-  game.id = id;
-  var goal = new cn.view.Goal(center);
-  var animator = new cn.view.Animator(center);
-  var editor = new cn.view.ProgramEditor(game, animator, center);
-  new cn.view.LevelSelector(game, goal, animator, editor, center);
-  goog.dom.appendChild(goog.dom.getDocument().body, center);
-
-  goal.render(game);
-  animator.render(game);
-
-  // Add an "on close" event to send the last log.
-  goog.events.listen(window, goog.events.EventType.BEFOREUNLOAD, function(e) {
-    cn.controller.sendLog(game);
-  });
+  var ui = new cn.ui.GameUi(game);
+  ui.render();
 };
 
 

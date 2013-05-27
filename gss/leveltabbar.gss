@@ -1,0 +1,23 @@
+.goog-tab-bar {
+  list-style: none;
+  outline: none; /* Removes default focus behavior. */
+}
+
+.goog-tab-bar:after {
+  content: ' '; /* Makes the div 'fill' the floating sub-divs. */
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.goog-tab {
+  position: relative;
+  padding: 4px 8px;
+  float: left;
+}
+
+.goog-tab-selected {
+  background: #ffffff;
+}
+
