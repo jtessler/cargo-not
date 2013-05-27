@@ -6,7 +6,8 @@
 
 goog.provide('cn.constants');
 
-/** @define {string} */
+
+/** @define {string} The webserver's root directory. */
 cn.constants.ROOT = '/';
 
 
