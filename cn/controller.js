@@ -10,8 +10,6 @@ goog.require('cn.model.Command');
 goog.require('cn.model.Game');
 goog.require('cn.ui.GameUi');
 goog.require('cn.view.Animator');
-goog.require('cn.view.Goal');
-goog.require('cn.view.LevelSelector');
 goog.require('cn.view.ProgramEditor');
 goog.require('goog.dom');
 goog.require('goog.events');
@@ -269,20 +267,18 @@ cn.controller.setBotSpeed = function(game, speed) {
 
 /**
  * @param {!cn.model.Game} game The current game.
- * @param {!cn.view.Goal} goal The goal configuration to re-render.
- * @param {!cn.view.Animator} animator The animator to re-render.
- * @param {!cn.view.ProgramEditor} editor The program editor to clear and setup.
+ * @param {!cn.ui.GameUi} ui A pointer to the UI.
  * @param {string} name The level name.
  * @param {!cn.LevelData} levelData The new bot speed.
  */
-cn.controller.loadLevel = function(
-    game, goal, animator, editor, name, levelData) {
+cn.controller.loadLevel = function(game, ui, name, levelData) {
   cn.controller.sendLog(game);
-  cn.controller.reset(game, animator, editor);
+  //cn.controller.reset(game, animator, editor);
   game.loadLevel(levelData);
-  goal.render(game);
-  animator.render(game);
-  editor.initRegisters(game.program);
+  ui.goalCanvas.clear();
+  ui.goalCanvas.drawPathModel(game.goal);
+  //animator.render(game);
+  //editor.initRegisters(game.program);
   game.log.record('loaded level ' + name);
 };
 

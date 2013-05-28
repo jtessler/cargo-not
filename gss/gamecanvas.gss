@@ -1,0 +1,4 @@
+.cn-game-canvas {
+  float:right;
+  background-color: #ffffff;
+}

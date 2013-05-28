@@ -6,8 +6,8 @@
 
 goog.provide('cn.ui.LevelSelector');
 
-goog.require('cn.LevelData.levels');
 goog.require('cn.LevelData.levelpacks');
+goog.require('cn.LevelData.levels');
 goog.require('cn.model.Game');
 goog.require('goog.array');
 goog.require('goog.object');
@@ -89,8 +89,7 @@ cn.ui.LevelSelector.prototype.enterDocument = function() {
           }, this);
           var levelName = levelTabBar.getSelectedTab().getCaption();
           var levelData = cn.LevelData.levels[levelName];
-          //// TODO(joseph): Updated this controller call.
-          //cn.controller.loadLevel(this.game_, this.ui_);
+          cn.controller.loadLevel(this.game_, this.ui_, levelName, levelData);
         });
   }, this);
   this.levelTabBars_[0].setSelectedTabIndex(0);
