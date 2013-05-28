@@ -51,5 +51,5 @@ cn.ui.GameUi.prototype.createDom = function() {
  */
 cn.ui.GameUi.prototype.decorateInternal = function(element) {
   goog.base(this, 'decorateInternal', element);
-  goog.dom.classes.add(element, goog.getCssName('game-ui'));
+  goog.dom.classes.add(element, goog.getCssName('cn-game-ui'));
 };

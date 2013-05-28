@@ -1,7 +1,13 @@
+.cn-level-selector {
+  width: auto;
+  float: left;
+}
+
 .goog-tab-bar {
   list-style: none;
   outline: none; /* Removes default focus behavior. */
   text-align: left;
+  padding: 0 10px;
 }
 
 .goog-tab-bar-horizontal:after {
@@ -28,7 +34,7 @@
 }
 
 .goog-tab-bar-vertical .goog-tab {
-  padding: 5px;
+  padding: 5px 15px;
 }
 
 @defmixin bg(URL, SIZE) {

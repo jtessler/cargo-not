@@ -63,6 +63,7 @@ goog.inherits(cn.ui.LevelSelector, goog.ui.Component);
  */
 cn.ui.LevelSelector.prototype.enterDocument = function() {
   goog.base(this, 'enterDocument');
+  goog.dom.classes.add(this.getElement(), goog.getCssName('cn-level-selector'));
 
   // Event handler for level pack selector.
   this.getHandler().listen(this.levelpackTabBar_,

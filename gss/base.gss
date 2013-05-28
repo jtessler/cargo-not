@@ -4,8 +4,16 @@ body {
   font-weight: bold;
   color: #58595b;
 }
-.game-ui {
+.cn-game-ui {
   text-align: center;
   background-color: #eeeeee;
   padding: 25px;
+}
+
+.cn-game-ui:after {
+  content: ' '; /* Makes the div 'fill' the floating sub-divs. */
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
 }
