@@ -82,53 +82,53 @@ cn.LevelData.mapStacks_ = function(colors) {
  * @const
  */
 cn.LevelData.levelpacks = {
-  'Tutorial': [
-    'Cargo 101',
-    'Transporter',
-    'Re-Curses',
-    'Inverter',
-    'From Beneath',
-    'Go Left'
+  'TUTORIAL': [
+    'CARGO 101',
+    'TRANSPORTER',
+    'RE-CURSES',
+    'INVERTER',
+    'FROM BENEATH',
+    'GO LEFT'
   ],
-  'Easy': [
-    'Double Flip',
-    'Go Left 2',
-    'Shuffle Sort',
-    'Go the Distance',
-    'Color Sort',
-    'Walking Piles'
+  'EASY': [
+    'DOUBLE FLIP',
+    'GO LEFT 2',
+    'SHUFFLE SORT',
+    'GO THE DISTANCE',
+    'COLOR SORT',
+    'WALKING PILES'
   ],
-  'Medium': [
-    'Repeat Inverter',
-    'Double Sort',
-    'Mirror',
-    'Lay it out',
-    'The Stacker',
-    'Clarity'
+  'MEDIUM': [
+    'REPEAT INVERTER',
+    'DOUBLE SORT',
+    'MIRROR',
+    'LAY IT OUT',
+    'THE STACKER',
+    'CLARITY'
   ],
-  'Hard': [
-    'Come Together',
-    'Come Together 2',
-    'Up The Greens',
-    'Fill The Blanks',
-    'Count The Blues',
-    'Multi Sort'
+  'HARD': [
+    'COME TOGETHER',
+    'COME TOGETHER 2',
+    'UP THE GREENS',
+    'FILL THE BLANKS',
+    'COUNT THE BLUES',
+    'MULTI SORT'
   ],
-  'Crazy': [
-    'Divide by two',
-    'The Merger',
-    'Even the Odds',
-    'Genetic Code',
-    'Multi Sort 2',
-    'The Swap'
+  'CRAZY': [
+    'DIVIDE BY TWO',
+    'THE MERGER',
+    'EVEN THE ODDS',
+    'GENETIC CODE',
+    'MULTI SORT 2',
+    'THE SWAP'
   ],
-  'Impossible': [
-    'Restoring Order',
-    'Changing Places',
-    'Palette Swap',
-    'Mirror 2',
-    'Changing Places 2',
-    'Vertical Sort'
+  'IMPOSSIBLE': [
+    'RESTORING ORDER',
+    'CHANGING PLACES',
+    'PALETTE SWAP',
+    'MIRROR 2',
+    'CHANGING PLACES 2',
+    'VERTICAL SORT'
   ]
 };
 
@@ -138,7 +138,7 @@ cn.LevelData.levelpacks = {
  * @const
  */
 cn.LevelData.levels = {
-  'Cargo 101': new cn.LevelData(
+  'CARGO 101': new cn.LevelData(
       1,
       [3, 3, 3],
       [8, 8, 8, 5],
@@ -147,7 +147,7 @@ cn.LevelData.levels = {
       [[], ['yellow']],
       'Down, Right, Down'
   ),
-  'Transporter': new cn.LevelData(
+  'TRANSPORTER': new cn.LevelData(
       1,
       [5, 5, 4],
       [8, 8, 8, 5],
@@ -157,7 +157,7 @@ cn.LevelData.levels = {
       'Reuse the solution from level 1 and loop through it.\n\nThe shortest ' +
           'solution uses 4 registers.'
   ),
-  'Re-Curses': new cn.LevelData(
+  'RE-CURSES': new cn.LevelData(
       1,
       [10, 5, 5],
       [8, 8, 8, 5],
@@ -168,7 +168,7 @@ cn.LevelData.levels = {
       'Move one crate to the right, go back to the original position, and ' +
           'then loop.\n\nThe shortest solution uses 5 registers.'
   ),
-  'Inverter': new cn.LevelData(
+  'INVERTER': new cn.LevelData(
       1,
       [15, 10, 10],
       [8, 8, 8, 5],
@@ -178,7 +178,7 @@ cn.LevelData.levels = {
       'Move all four blocks one spot to the right, and repeat.\n\nThe ' +
           'shortest solution uses 10 registers.'
   ),
-  'From Beneath': new cn.LevelData(
+  'FROM BENEATH': new cn.LevelData(
       1,
       [8, 6, 5],
       [8, 8, 8, 5],
@@ -189,7 +189,7 @@ cn.LevelData.levels = {
       'Go right once if holding blue, twice if holding yellow, and left if ' +
           'holding none. Repeat.\n\nThe shortest solution uses 5 registers.'
   ),
-  'Go Left': new cn.LevelData(
+  'GO LEFT': new cn.LevelData(
       1,
       [15, 9, 9],
       [8, 8, 8, 5],
@@ -201,7 +201,7 @@ cn.LevelData.levels = {
       'Move each pile to the left. Repeat.\n\nThe shortest solution uses 9 ' +
           'registers.'
   ),
-  'Double Flip': new cn.LevelData(
+  'DOUBLE FLIP': new cn.LevelData(
       1,
       [12, 6, 5],
       [8, 8, 8, 5],
@@ -212,7 +212,7 @@ cn.LevelData.levels = {
       'Go right once if holding any, twice if holding blue, and left if ' +
           'holding none. Repeat.\n\nThe shortest solution uses 5 registers.'
   ),
-  'Go Left 2': new cn.LevelData(
+  'GO LEFT 2': new cn.LevelData(
       1,
       [8, 6, 4],
       [8, 8, 8, 5],
@@ -225,7 +225,7 @@ cn.LevelData.levels = {
       'Go right if holding none, and left if holding any. Repeat.\n\nThe ' +
           'shortest solution uses 4 registers.'
   ),
-  'Shuffle Sort': new cn.LevelData(
+  'SHUFFLE SORT': new cn.LevelData(
       2,
       [15, 10, 9],
       [8, 8, 8, 5],
@@ -235,7 +235,7 @@ cn.LevelData.levels = {
       'Alternate left and right, and make sure to use F2 to shorten your ' +
           'solution.\n\nThe shortest solution uses 9 registers.'
   ),
-  'Go the Distance': new cn.LevelData(
+  'GO THE DISTANCE': new cn.LevelData(
       1,
       [12, 6, 4],
       [8, 8, 8, 5],
@@ -248,7 +248,7 @@ cn.LevelData.levels = {
       'Go right if holding none, and left if holding red. Repeat.\n\nThe ' +
           'shortest solution uses 4 registers.'
   ),
-  'Color Sort': new cn.LevelData(
+  'COLOR SORT': new cn.LevelData(
       2,
       [14, 10, 8],
       [8, 8, 8, 5],
@@ -261,7 +261,7 @@ cn.LevelData.levels = {
           'drop if green.\n\nThe shortest known solution uses 8 registers, ' +
           'all in F1.'
   ),
-  'Walking Piles': new cn.LevelData(
+  'WALKING PILES': new cn.LevelData(
       1,
       [13, 11, 9],
       [8, 8, 8, 5],
@@ -275,7 +275,7 @@ cn.LevelData.levels = {
           'shortest known solution uses 9 registers (with an approach that ' +
           'is very specific to this configuration)'
   ),
-  'Repeat Inverter': new cn.LevelData(
+  'REPEAT INVERTER': new cn.LevelData(
       1,
       [9, 7, 5],
       [8, 8, 8, 5],
@@ -291,7 +291,7 @@ cn.LevelData.levels = {
           'conditional modifiers. Solutions with up to 7 instructions earn 3 ' +
           'stars.'
   ),
-  'Double Sort': new cn.LevelData(
+  'DOUBLE SORT': new cn.LevelData(
       2,
       [20, 14, 11],
       [8, 8, 8, 5],
@@ -304,7 +304,7 @@ cn.LevelData.levels = {
       'Sort, go right, sort, go left. Repeat. Use at most 14 instructions ' +
           'for 3 stars.\n\nThe shortest known solution uses 11 registers.'
   ),
-  'Mirror': new cn.LevelData(
+  'MIRROR': new cn.LevelData(
       1,
       [9, 7, 6],
       [8, 8, 8, 5],
@@ -317,7 +317,7 @@ cn.LevelData.levels = {
       'Use at most 7 registers for 3 stars. There are various known ' +
           'solutions with 6 registers in F1, but no known solution with only 5.'
   ),
-  'Lay it out': new cn.LevelData(
+  'LAY IT OUT': new cn.LevelData(
       1,
       [13, 9, 7],
       [8, 8, 8, 5],
@@ -328,7 +328,7 @@ cn.LevelData.levels = {
       'Move the pile one slot to the right and bring one crate back to the ' +
           'left.\n\nThe shortest known solution uses 7 registers.'
   ),
-  'The Stacker': new cn.LevelData(
+  'THE STACKER': new cn.LevelData(
       5,
       [12, 10, 8],
       [8, 8, 8, 5],
@@ -341,7 +341,7 @@ cn.LevelData.levels = {
           'yellow crate one slot to the right. Repeat.\n\nThe shortest known ' +
           'solution uses 8 registers.'
   ),
-  'Clarity': new cn.LevelData(
+  'CLARITY': new cn.LevelData(
       1,
       [9, 7, 6],
       [8, 8, 8, 5],
@@ -352,9 +352,9 @@ cn.LevelData.levels = {
       [['green', 'red'], ['green', 'green', 'green', 'red'],
         ['red', 'green', 'red'], ['red'],
         ['green', 'green', 'green', 'green', 'green']],
-      'A disguised version of Mirror'
+      'A disguised version of Mirror.'
   ),
-  'Come Together': new cn.LevelData(
+  'COME TOGETHER': new cn.LevelData(
       1,
       [15, 9, 7],
       [8, 8, 8, 5],
@@ -373,7 +373,7 @@ cn.LevelData.levels = {
           'implemented with 4 registers.\n\nThe shortest known solution uses ' +
           'a total of 7 registers.'
   ),
-  'Come Together 2': new cn.LevelData(
+  'COME TOGETHER 2': new cn.LevelData(
       1,
       [12, 10, 8],
       [8, 8, 8, 5],
@@ -387,7 +387,7 @@ cn.LevelData.levels = {
           'with a small modification.\n\nThe shortest known solution uses 8 ' +
           'registers.'
   ),
-  'Up The Greens': new cn.LevelData(
+  'UP THE GREENS': new cn.LevelData(
       1,
       [12, 9, 7],
       [8, 8, 8, 5],
@@ -401,7 +401,7 @@ cn.LevelData.levels = {
           'reset when you find a green. To do this only go left if holding ' +
           'a blue.\n\nThe shortest known solution uses 7 registers.'
   ),
-  'Fill The Blanks': new cn.LevelData(
+  'FILL THE BLANKS': new cn.LevelData(
       1,
       [20, 14, 11],
       [8, 8, 8, 5],
@@ -415,7 +415,7 @@ cn.LevelData.levels = {
           'right and bring one crate back to the left, except in the first ' +
           'iteration.\n\nThe shortest known solution uses 11 registers.'
   ),
-  'Count The Blues': new cn.LevelData(
+  'COUNT THE BLUES': new cn.LevelData(
       1,
       [15, 12, 9],
       [8, 8, 8, 5],
@@ -427,7 +427,7 @@ cn.LevelData.levels = {
           'to go right with the yellow.\n\nThe shortest known solution uses ' +
           '9 registers.'
   ),
-  'Multi Sort': new cn.LevelData(
+  'MULTI SORT': new cn.LevelData(
       1,
       [16, 11, 11],
       [8, 8, 8, 5],
@@ -443,7 +443,7 @@ cn.LevelData.levels = {
           'it back and drop it. Repeat.\n\nThe shortest known solution uses ' +
           '11 registers.'
   ),
-  'Divide by two': new cn.LevelData(
+  'DIVIDE BY TWO': new cn.LevelData(
       1,
       [20, 14, 12],
       [8, 8, 8, 5],
@@ -457,7 +457,7 @@ cn.LevelData.levels = {
       'Wind up the stack for every two crates. Move one crate back each time ' +
           'it unwinds.\n\nThe shortest known solution uses 12 registers.'
   ),
-  'The Merger': new cn.LevelData(
+  'THE MERGER': new cn.LevelData(
       1,
       [9, 7, 6],
       [8, 8, 8, 5],
@@ -468,7 +468,7 @@ cn.LevelData.levels = {
       'Use the stack once in each blue, and unwind it in each red.\n\nThe ' +
           'shortest known solution uses 6 registers.'
   ),
-  'Even the Odds': new cn.LevelData(
+  'EVEN THE ODDS': new cn.LevelData(
       1,
       [13, 11, 10],
       [8, 8, 8, 5],
@@ -486,7 +486,7 @@ cn.LevelData.levels = {
           'execute it an even number of times.\n\nThe shortest known ' +
           'solution uses 10 registers.'
   ),
-  'Genetic Code': new cn.LevelData(
+  'GENETIC CODE': new cn.LevelData(
       1,
       [29, 20, 17],
       [8, 8, 8, 5],
@@ -500,7 +500,7 @@ cn.LevelData.levels = {
           'Wind up the entire stack on the left and unwind on the right.\n\n' +
           'The shortest known solution uses 17 registers.'
   ),
-  'Multi Sort 2': new cn.LevelData(
+  'MULTI SORT 2': new cn.LevelData(
       1,
       [25, 17, 17],
       [8, 8, 8, 5],
@@ -517,7 +517,7 @@ cn.LevelData.levels = {
           'over the odd slots.\n\nThe shortest known solution uses 17 ' +
           'registers.'
   ),
-  'The Swap': new cn.LevelData(
+  'THE SWAP': new cn.LevelData(
       2,
       [15, 12, 10],
       [8, 8, 8, 5],
@@ -528,7 +528,7 @@ cn.LevelData.levels = {
       'Merge the piles in the middle, change parity, and unmerge.\n\nThe ' +
           'shortest known solution uses 10 registers.'
   ),
-  'Restoring Order': new cn.LevelData(
+  'RESTORING ORDER': new cn.LevelData(
       1,
       [29, 20, 16],
       [8, 8, 8, 5],
@@ -543,7 +543,7 @@ cn.LevelData.levels = {
           'the blues so that you can put them back afterwards. Repeat for ' +
           'each pile.\n\nThe shortest known solution uses 16 registers.'
   ),
-  'Changing Places': new cn.LevelData(
+  'CHANGING PLACES': new cn.LevelData(
       1,
       [20, 18, 17],
       [8, 8, 8, 5],
@@ -560,7 +560,7 @@ cn.LevelData.levels = {
           'slot. Finally, unwind the stack moving a crate to the right each ' +
           'time.\n\nThe shortest known solution uses 17 registers.'
   ),
-  'Palette Swap': new cn.LevelData(
+  'PALETTE SWAP': new cn.LevelData(
       2,
       [29, 18, 15],
       [8, 8, 8, 5],
@@ -576,7 +576,7 @@ cn.LevelData.levels = {
           'more crates are left, unwind the stack going left and going ' +
           'right. Repeat. \n\nThe shortest known solution uses 15 registers.'
   ),
-  'Mirror 2': new cn.LevelData(
+  'MIRROR 2': new cn.LevelData(
       1,
       [20, 15, 12],
       [8, 8, 8, 5],
@@ -587,7 +587,7 @@ cn.LevelData.levels = {
           'the left pile all the way to the right.\n\nThe shortest known ' +
           'solution uses 12 registers.'
   ),
-  'Changing Places 2': new cn.LevelData(
+  'CHANGING PLACES 2': new cn.LevelData(
       1,
       [25, 19, 16],
       [8, 8, 8, 5],
@@ -602,7 +602,7 @@ cn.LevelData.levels = {
           'consecutive piles and you\'re done.\n\nThe shortest known ' +
           'solution uses 16 registers.'
   ),
-  'Vertical Sort': new cn.LevelData(
+  'VERTICAL SORT': new cn.LevelData(
       2,
       [29, 29, 20],
       [8, 8, 8, 5],
@@ -616,7 +616,7 @@ cn.LevelData.levels = {
         ['green', 'blue'], ['green', 'green', 'green', 'blue', 'blue'], []],
       'Draw on ideas from previous sort levels.'
   ),
-  'Count in Binary': new cn.LevelData(
+  'COUNT IN BINARY': new cn.LevelData(
       1,
       [29, 23, 17],
       [8, 8, 8, 5],
@@ -626,7 +626,7 @@ cn.LevelData.levels = {
       [['green', 'green'], [], ['green'], ['green'], ['green'], [], ['green']],
       'Count up all the numbers in binary: 1, 10, 11, 100,...'
   ),
-  'Equalizer': new cn.LevelData(
+  'EQUALIZER': new cn.LevelData(
       1,
       [40, 40, 40],
       [10, 10, 10, 10, 6],
@@ -638,7 +638,7 @@ cn.LevelData.levels = {
         ['blue', 'blue'], ['blue', 'blue'], ['blue', 'blue'], ['red']],
       ''
   ),
-  'Parting the Sea': new cn.LevelData(
+  'PARTING THE SEA': new cn.LevelData(
       1,
       [17, 17, 17],
       [8, 8, 8, 5],
@@ -649,7 +649,7 @@ cn.LevelData.levels = {
         ['blue', 'blue', 'blue', 'blue', 'blue']],
       ''
   ),
-  'The Trick': new cn.LevelData(
+  'THE TRICK': new cn.LevelData(
       2,
       [20, 14, 11],
       [8, 8, 8, 5],

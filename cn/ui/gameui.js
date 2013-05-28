@@ -7,7 +7,7 @@
 goog.provide('cn.ui.GameUi');
 
 goog.require('cn.model.Game');
-goog.require('cn.ui.LevelTabBar');
+goog.require('cn.ui.LevelSelector');
 goog.require('goog.dom.classes');
 goog.require('goog.ui.Component');
 
@@ -23,7 +23,7 @@ cn.ui.GameUi = function(game, opt_domHelper) {
   goog.base(this, opt_domHelper);
 
   // TODO(joseph): Implement these classes.
-  this.levelSelector = new cn.ui.LevelTabBar(game, this);
+  this.levelSelector = new cn.ui.LevelSelector(game, this);
   /*this.goalCanvas = new cn.ui.GameCanvas(game, this);
   this.animatedCanvas = new cn.ui.AnimatedGameCanvas(game, this);
   this.controls = new cn.ui.Controls(game, this);

@@ -41,9 +41,7 @@ cn.model.Game = function(opt_width, opt_height) {
 
   this.bot = new cn.model.Bot();
   this.program = new cn.model.Program();
-  this.loadLevel(cn.LevelData.levels['Cargo 101']);
   this.log = new cn.model.Log();
-  this.log.record('loaded level Cargo 101');
 };
 goog.inherits(cn.model.Game, cn.model.PathModel);
 
