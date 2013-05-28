@@ -48,7 +48,7 @@ cn.model.PathModel.tx_ = new goog.graphics.AffineTransform();
  * @type {!goog.graphics.Stroke}
  * @private
  */
-cn.model.PathModel.defaultStroke_ = new goog.graphics.Stroke(2, 'black');
+cn.model.PathModel.defaultStroke_ = new goog.graphics.Stroke(2, 'white');
 
 
 /**

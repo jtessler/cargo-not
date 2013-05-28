@@ -19,7 +19,7 @@ cn.model.CargoColor = {
   RED: 'red',
   GREEN: 'green',
   BLUE: 'blue',
-  YELLOW: 'yellow'
+  YELLOW: '#ffcc00'
 };
 
 

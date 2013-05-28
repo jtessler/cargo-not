@@ -24,7 +24,7 @@ cn.constants.GAME_MARGIN = 1;
 
 
 /** @type {string} @const */
-cn.constants.GAME_COLOR = 'lightyellow';
+cn.constants.GAME_COLOR = 'white';
 
 
 /** @type {number} @const */
@@ -32,7 +32,7 @@ cn.constants.GOAL_HEIGHT = 175;
 
 
 /** @type {string} @const */
-cn.constants.BOT_COLOR = 'yellow';
+cn.constants.BOT_COLOR = '#6ec9c8';
 
 
 /** @type {number} @const */
@@ -48,7 +48,7 @@ cn.constants.LEVEL_HEIGHT = 10;
 
 
 /** @type {string} @const */
-cn.constants.LEVEL_COLOR = 'yellow';
+cn.constants.LEVEL_COLOR = '#ffcc00';
 
 
 /** @type {number} @const */
@@ -60,7 +60,7 @@ cn.constants.STACK_HEIGHT = 10;
 
 
 /** @type {string} @const */
-cn.constants.STACK_COLOR = 'yellow';
+cn.constants.STACK_COLOR = cn.constants.LEVEL_COLOR;
 
 
 /** @type {number} @const */
