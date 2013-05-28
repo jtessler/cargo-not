@@ -6,9 +6,11 @@ body {
 }
 
 .cn-game-ui {
+  width: 750px;
   text-align: center;
   background-color: #eeeeee;
   padding: 25px;
+  margin: auto;
 }
 
 div:after {

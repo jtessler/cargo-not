@@ -27,7 +27,7 @@ cn.ui.GameUi = function(game, opt_domHelper) {
 
   this.levelSelector = new cn.ui.LevelSelector(game, this);
   this.goalCanvas = new cn.ui.GameCanvas(
-      cn.constants.GAME_WIDTH, cn.constants.GOAL_HEIGHT);
+      cn.constants.GOAL_WIDTH, cn.constants.GOAL_HEIGHT);
   this.animatedCanvas = new cn.ui.AnimatedGameCanvas();
   /*this.controls = new cn.ui.Controls(game, this);
   this.programEditor = new cn.ui.ProgramEditor(game, this);*/

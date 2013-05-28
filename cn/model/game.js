@@ -80,7 +80,9 @@ cn.model.Game.prototype.id;
 cn.model.Game.prototype.setupModelPositions = function() {
   this.goal.setPosition(
       Math.floor((this.width - this.level.width) / 2),
-      cn.constants.GOAL_HEIGHT - this.level.height - cn.constants.GAME_MARGIN);
+      cn.constants.GOAL_HEIGHT * 2 - this.level.height
+          - cn.constants.GOAL_MARGIN);
+  this.goal.scale(0.5);
   this.level.setPosition(
       Math.floor((this.width - this.level.width) / 2),
       this.height - this.level.height - cn.constants.GAME_MARGIN);

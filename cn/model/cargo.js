@@ -16,9 +16,9 @@ goog.require('cn.model.PathModel');
  * @enum {string}
  */
 cn.model.CargoColor = {
-  RED: 'red',
-  GREEN: 'green',
-  BLUE: 'blue',
+  RED: 'ff0033',
+  GREEN: '339933',
+  BLUE: '#003399',
   YELLOW: '#ffcc00'
 };
 

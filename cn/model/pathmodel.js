@@ -117,6 +117,20 @@ cn.model.PathModel.prototype.translate = function(dx, dy) {
 
 
 /**
+ * Performs a scale transform on the model, preserving aspect ratio. If the
+ * model is composed of any sub-models, those are recursively translated as
+ * well.
+ * @param {number} s The scale factor.
+ * @return {!cn.model.PathModel} The current model (for chaining).
+ */
+cn.model.PathModel.prototype.scale = function(s) {
+  this.path.transform(cn.model.PathModel.tx_.setToScale(s, s));
+  this.forEachSubModel(function(model) { model.scale(s, s); });
+  return this;
+};
+
+
+/**
  * If the model is composed of any sub-models, those coordinates are recursively
  * updated as well.
  * @param {number} x The new x value.
