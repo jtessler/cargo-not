@@ -10,14 +10,6 @@
   padding: 0 10px;
 }
 
-.goog-tab-bar-horizontal:after {
-  content: ' '; /* Makes the div 'fill' the floating sub-divs. */
-  display: block;
-  height: 0;
-  clear: both;
-  visibility: hidden;
-}
-
 .goog-tab-bar-horizontal .goog-tab {
   position: relative;
   float: left;

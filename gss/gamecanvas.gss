@@ -1,4 +1,9 @@
 .cn-game-canvas {
-  float:right;
+  float: right;
   background-color: #ffffff;
+}
+
+.cn-animated-game-canvas {
+  float: none;
+  margin: 25px auto;
 }

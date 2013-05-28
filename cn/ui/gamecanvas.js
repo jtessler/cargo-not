@@ -7,6 +7,7 @@
 goog.provide('cn.ui.GameCanvas');
 
 goog.require('cn.constants');
+goog.require('goog.dom.classes');
 goog.require('goog.graphics.CanvasGraphics');
 
 
