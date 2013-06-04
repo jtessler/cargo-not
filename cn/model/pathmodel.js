@@ -125,7 +125,7 @@ cn.model.PathModel.prototype.translate = function(dx, dy) {
  */
 cn.model.PathModel.prototype.scale = function(s) {
   this.path.transform(cn.model.PathModel.tx_.setToScale(s, s));
-  this.forEachSubModel(function(model) { model.scale(s, s); });
+  this.forEachSubModel(function(model) { model.scale(s); });
   return this;
 };
 
