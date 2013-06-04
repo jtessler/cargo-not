@@ -44,14 +44,6 @@ release: css-release
 		--output_mode compiled > $(JS_OUTPUT)
 	py/index.py $(CSS_OUTPUT) $(JS_OUTPUT) > $(INDEX_OUTPUT)
 
-# Update the ROOT constant when compiling on a UTCS machine.
-release-utcs: css-release
-	$(CC) \
-		--compiler_flags "--define=\"cn.constants.ROOT='/~joseph/cargo-not/'\"" \
-		--compiler_flags "--compilation_level=ADVANCED_OPTIMIZATIONS" \
-		--output_mode compiled > $(JS_OUTPUT)
-	py/index.py $(CSS_OUTPUT) $(JS_OUTPUT) > $(INDEX_OUTPUT)
-
 css-release:
 	$(CSS) \
 		--rename CLOSURE \
