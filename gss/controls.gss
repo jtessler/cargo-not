@@ -1,0 +1,44 @@
+.cn-controls {
+  margin: 0 auto;
+}
+
+.goog-button {
+  border: none;
+  padding: 0;
+  margin: 10px 15px;
+  width: 40px;
+  height: 40px;
+  background-color: inherit;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 80%;
+}
+
+.goog-button[title=Play]   { background-image: url('png/play.png'); }
+.goog-button[title=Pause]  { background-image: url('png/pause.png'); }
+.goog-button[title=Rewind] { background-image: url('png/rewind.png'); }
+.goog-button[title=Reset]  { background-image: url('png/reset.png'); }
+
+.goog-button:hover, .goog-button-disabled {
+  opacity: 0.2;
+  /* @alternate */ filter: alpha(opacity=20);
+}
+
+@defmixin slider-bg(WIDTH, HEIGHT, URL) {
+  width: WIDTH;
+  height: HEIGHT;
+  background-size: WIDTH HEIGHT;
+  background-image: url(URL);
+}
+
+.goog-slider-horizontal {
+  @mixin slider-bg(350px, 20px, 'png/speed_bar.png');
+  margin: 0 auto;
+  position: relative;
+  outline: none;
+}
+
+.goog-slider-thumb {
+  @mixin slider-bg(40px, 20px, 'png/slider.png');
+  position: absolute;
+}

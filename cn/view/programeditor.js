@@ -306,7 +306,7 @@ cn.view.ProgramEditor.prototype.registerButtonEvents_ =
   }, false, this);
 
   goog.events.listen(this.resetButton_, EventType.ACTION, function() {
-    cn.controller.reset(game, animator, this);
+    //cn.controller.reset(game, animator, this);
   }, false, this);
 
   goog.events.listen(this.clearButton_, EventType.ACTION, function() {

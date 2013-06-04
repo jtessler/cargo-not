@@ -90,3 +90,7 @@ cn.constants.ANIMATED_GAME_CANVAS_CLASS_NAME =
 
 /** @type {string} @const */
 cn.constants.LEVEL_SELECTOR_CLASS_NAME = goog.getCssName('cn-level-selector');
+
+
+/** @type {string} @const */
+cn.constants.CONTROLS_CLASS_NAME = goog.getCssName('cn-controls');

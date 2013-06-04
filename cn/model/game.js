@@ -79,10 +79,6 @@ cn.model.Game.prototype.id;
  */
 cn.model.Game.prototype.setupModelPositions = function() {
   var consts = cn.constants;
-  this.goal.setPosition(
-      Math.floor((this.width - this.level.width) / 2),
-      consts.GOAL_HEIGHT * 2 - this.level.height - consts.GOAL_MARGIN);
-  this.goal.scale(0.5);
   this.level.setPosition(
       Math.floor((this.width - this.level.width) / 2),
       this.height - this.level.height - consts.GAME_MARGIN);
@@ -119,6 +115,15 @@ cn.model.Game.prototype.loadLevel = function(levelData) {
   this.level = new cn.model.Level(levelData.initial);
   this.goal = new cn.model.Level(levelData.goal);
   this.program.init(levelData.functions);
+
+  // Setup and scale the goal 'view'. This should only happen once per level
+  // loading, so it's not called in the reset method.
+  var consts = cn.constants;
+  this.goal.setPosition(
+      Math.floor((this.width - this.level.width) / 2),
+      consts.GOAL_HEIGHT * 2 - this.level.height - consts.GOAL_MARGIN);
+  this.goal.scale(0.5);
+
   this.reset();
 };
 

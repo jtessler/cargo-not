@@ -77,6 +77,16 @@ cn.ui.AnimatedGameCanvas.prototype.resume = function() {
 
 
 /**
+ * Ensures that no animation continues when clearing the canvas.
+ * @inheritDoc
+ */
+cn.ui.AnimatedGameCanvas.prototype.clear = function() {
+  goog.base(this, 'clear');
+  this.detachAnimation();
+};
+
+
+/**
  * @inheritDoc
  */
 cn.ui.AnimatedGameCanvas.prototype.onAnimationFrame = function(now) {

@@ -234,16 +234,14 @@ cn.controller.removeCondition = function(game, f, i) {
 
 /**
  * @param {!cn.model.Game} game The current game.
- * @param {!cn.view.Animator} animator The animator to reset.
- * @param {!cn.view.ProgramEditor} editor The program editor from which to
- *     unhighlight registers.
+ * @param {!cn.ui.GameUi} ui A pointer to the UI.
  */
-cn.controller.reset = function(game, animator, editor) {
-  animator.detachAnimation();
+cn.controller.reset = function(game, ui) {
   game.reset();
-  animator.render(game);
-  editor.unhighlightExecution();
-  editor.resetButtons();
+  ui.animatedCanvas.clear();
+  ui.animatedCanvas.drawPathModel(game);
+  ui.controls.reset();
+  //editor.unhighlightExecution();
 };
 
 
@@ -273,13 +271,11 @@ cn.controller.setBotSpeed = function(game, speed) {
  */
 cn.controller.loadLevel = function(game, ui, name, levelData) {
   cn.controller.sendLog(game);
-  //cn.controller.reset(game, animator, editor);
   game.loadLevel(levelData);
   ui.goalCanvas.clear();
   ui.goalCanvas.drawPathModel(game.goal);
-  ui.animatedCanvas.clear();
-  ui.animatedCanvas.drawPathModel(game);
   //editor.initRegisters(game.program);
+  cn.controller.reset(game, ui);
   game.log.record('loaded level ' + name);
 };
 

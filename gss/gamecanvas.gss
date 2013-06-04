@@ -5,5 +5,5 @@
 
 .cn-game-canvas-animated {
   float: none;
-  margin: 25px auto;
+  margin: 25px auto 0 auto;
 }

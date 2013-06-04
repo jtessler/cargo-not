@@ -10,6 +10,7 @@ goog.require('cn.constants');
 goog.require('cn.model.Game');
 goog.require('cn.ui.AnimatedGameCanvas');
 goog.require('cn.ui.ClassComponent');
+goog.require('cn.ui.Controls');
 goog.require('cn.ui.GameCanvas');
 goog.require('cn.ui.LevelSelector');
 goog.require('goog.ui.Component');
@@ -25,20 +26,20 @@ goog.require('goog.ui.Component');
 cn.ui.GameUi = function(game, opt_domHelper) {
   goog.base(this, cn.constants.GAME_UI_CLASS_NAME, opt_domHelper);
 
+  // TODO(joseph): Add these instance variable definitions.
   this.levelSelector = new cn.ui.LevelSelector(game, this);
   this.goalCanvas = new cn.ui.GameCanvas(
       cn.constants.GOAL_WIDTH, cn.constants.GOAL_HEIGHT);
   this.animatedCanvas = new cn.ui.AnimatedGameCanvas();
-  /*this.controls = new cn.ui.Controls(game, this);
-  this.programEditor = new cn.ui.ProgramEditor(game, this);*/
-
+  this.controls = new cn.ui.Controls(game, this);
+  //this.programEditor = new cn.ui.ProgramEditor(game, this);
 
   var container = new goog.ui.Component();
   container.addChild(this.levelSelector, true);
   container.addChild(this.goalCanvas, true);
   this.addChild(container, true);
   this.addChild(this.animatedCanvas, true);
-  /*this.addChild(this.controls);
-  this.addChild(this.programEditor);*/
+  this.addChild(this.controls, true);
+  //this.addChild(this.programEditor);
 };
 goog.inherits(cn.ui.GameUi, cn.ui.ClassComponent);
