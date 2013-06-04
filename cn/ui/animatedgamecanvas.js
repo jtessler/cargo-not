@@ -92,6 +92,7 @@ cn.ui.AnimatedGameCanvas.prototype.onAnimationFrame = function(now) {
  */
 cn.ui.AnimatedGameCanvas.prototype.enterDocument = function() {
   goog.base(this, 'enterDocument');
+  // TODO(joseph): Refactor class names to constants.
   goog.dom.classes.add(this.getElement(),
       goog.getCssName('cn-animated-game-canvas'));
 };

@@ -9,6 +9,7 @@ goog.provide('cn.ui.LevelSelector');
 goog.require('cn.LevelData.levelpacks');
 goog.require('cn.LevelData.levels');
 goog.require('cn.model.Game');
+goog.require('cn.ui.ClassComponent');
 goog.require('goog.array');
 goog.require('goog.object');
 goog.require('goog.string');
@@ -23,10 +24,11 @@ goog.require('goog.ui.TabBar');
  * @param {!cn.ui.GameUi} ui A pointer to parent game UI.
  * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper.
  * @constructor
- * @extends {goog.ui.Component}
+ * @extends {cn.ui.ClassComponent}
  */
 cn.ui.LevelSelector = function(game, ui, opt_domHelper) {
-  goog.base(this, opt_domHelper);
+  // TODO(joseph): Refactor class names to constants.
+  goog.base(this, goog.getCssName('cn-level-selector'), opt_domHelper);
   this.game_ = game;
   this.ui_ = ui;
 
@@ -55,7 +57,7 @@ cn.ui.LevelSelector = function(game, ui, opt_domHelper) {
     this.addChild(levelTabBar, true);
   }, this);
 };
-goog.inherits(cn.ui.LevelSelector, goog.ui.Component);
+goog.inherits(cn.ui.LevelSelector, cn.ui.ClassComponent);
 
 
 /**
@@ -63,7 +65,6 @@ goog.inherits(cn.ui.LevelSelector, goog.ui.Component);
  */
 cn.ui.LevelSelector.prototype.enterDocument = function() {
   goog.base(this, 'enterDocument');
-  goog.dom.classes.add(this.getElement(), goog.getCssName('cn-level-selector'));
 
   // Event handler for level pack selector.
   this.getHandler().listen(this.levelpackTabBar_,
