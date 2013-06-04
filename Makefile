@@ -23,6 +23,7 @@ CC = $(LIB_PATH)/closure/bin/build/closurebuilder.py \
 		--compiler_flags "--jscomp_error=accessControls" \
 		--compiler_flags "--jscomp_error=const" \
 		--compiler_flags "--warning_level=VERBOSE" \
+		--compiler_flags "--js=$(JS_MAP_OUTPUT)" \
 		--compiler_flags "--js=$(LIB_PATH)/closure/goog/deps.js"
 
 # Closure Stylesheets variables.
@@ -34,12 +35,12 @@ CSS = java -jar $(CSS_JAR) `find gss -name *.gss` \
 		--output-file $(CSS_OUTPUT)
 
 debug: css-debug
-	py/index.py $(CSS_OUTPUT) `$(CC) --output_mode list` > $(INDEX_OUTPUT)
+	py/index.py $(CSS_OUTPUT) $(JS_MAP_OUTPUT) `$(CC) --output_mode list` > \
+		$(INDEX_OUTPUT)
 
 release: css-release
 	$(CC) \
 		--compiler_flags "--compilation_level=ADVANCED_OPTIMIZATIONS" \
-		--compiler_flags "--js=$(JS_MAP_OUTPUT)" \
 		--output_mode compiled > $(JS_OUTPUT)
 	py/index.py $(CSS_OUTPUT) $(JS_OUTPUT) > $(INDEX_OUTPUT)
 
@@ -48,7 +49,6 @@ release-utcs: css-release
 	$(CC) \
 		--compiler_flags "--define=\"cn.constants.ROOT='/~joseph/cargo-not/'\"" \
 		--compiler_flags "--compilation_level=ADVANCED_OPTIMIZATIONS" \
-		--compiler_flags "--js=$(JS_MAP_OUTPUT)" \
 		--output_mode compiled > $(JS_OUTPUT)
 	py/index.py $(CSS_OUTPUT) $(JS_OUTPUT) > $(INDEX_OUTPUT)
 
@@ -59,7 +59,11 @@ css-release:
 		--output-renaming-map $(JS_MAP_OUTPUT) \
 
 css-debug:
-	$(CSS) --pretty-print
+	$(CSS) \
+		--pretty-print \
+		--rename DEBUG \
+		--output-renaming-map-format CLOSURE_UNCOMPILED \
+		--output-renaming-map $(JS_MAP_OUTPUT) \
 
 dry-run:
 	$(CC) --output_mode compiled > /dev/null
