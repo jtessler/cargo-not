@@ -44,6 +44,5 @@ cn.ui.GameCanvas.prototype.drawPathModel = function(model) {
  */
 cn.ui.GameCanvas.prototype.enterDocument = function() {
   goog.base(this, 'enterDocument');
-  // TODO(joseph): Refactor class names to constants.
-  goog.dom.classes.add(this.getElement(), goog.getCssName('cn-game-canvas'));
+  goog.dom.classes.add(this.getElement(), cn.constants.GAME_CANVAS_CLASS_NAME);
 };

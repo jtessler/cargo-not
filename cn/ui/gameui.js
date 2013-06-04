@@ -12,7 +12,7 @@ goog.require('cn.ui.AnimatedGameCanvas');
 goog.require('cn.ui.ClassComponent');
 goog.require('cn.ui.GameCanvas');
 goog.require('cn.ui.LevelSelector');
-goog.require('goog.dom.classes');
+goog.require('goog.ui.Component');
 
 
 
@@ -23,8 +23,7 @@ goog.require('goog.dom.classes');
  * @extends {cn.ui.ClassComponent}
  */
 cn.ui.GameUi = function(game, opt_domHelper) {
-  // TODO(joseph): Refactor class names to constants.
-  goog.base(this, goog.getCssName('cn-game-ui'), opt_domHelper);
+  goog.base(this, cn.constants.GAME_UI_CLASS_NAME, opt_domHelper);
 
   this.levelSelector = new cn.ui.LevelSelector(game, this);
   this.goalCanvas = new cn.ui.GameCanvas(

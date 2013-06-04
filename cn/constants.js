@@ -73,3 +73,20 @@ cn.constants.STACK_COLOR = cn.constants.LEVEL_COLOR;
 
 /** @type {number} @const */
 cn.constants.CARGO_SIZE = 20;
+
+
+/** @type {string} @const */
+cn.constants.GAME_UI_CLASS_NAME = goog.getCssName('cn-game-ui');
+
+
+/** @type {string} @const */
+cn.constants.GAME_CANVAS_CLASS_NAME = goog.getCssName('cn-game-canvas');
+
+
+/** @type {string} @const */
+cn.constants.ANIMATED_GAME_CANVAS_CLASS_NAME =
+    goog.getCssName('cn-game-canvas-animated');
+
+
+/** @type {string} @const */
+cn.constants.LEVEL_SELECTOR_CLASS_NAME = goog.getCssName('cn-level-selector');

@@ -8,6 +8,7 @@ goog.provide('cn.ui.LevelSelector');
 
 goog.require('cn.LevelData.levelpacks');
 goog.require('cn.LevelData.levels');
+goog.require('cn.constants');
 goog.require('cn.model.Game');
 goog.require('cn.ui.ClassComponent');
 goog.require('goog.array');
@@ -27,8 +28,7 @@ goog.require('goog.ui.TabBar');
  * @extends {cn.ui.ClassComponent}
  */
 cn.ui.LevelSelector = function(game, ui, opt_domHelper) {
-  // TODO(joseph): Refactor class names to constants.
-  goog.base(this, goog.getCssName('cn-level-selector'), opt_domHelper);
+  goog.base(this, cn.constants.LEVEL_SELECTOR_CLASS_NAME, opt_domHelper);
   this.game_ = game;
   this.ui_ = ui;
 
