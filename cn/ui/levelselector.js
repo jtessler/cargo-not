@@ -13,7 +13,6 @@ goog.require('cn.model.Game');
 goog.require('cn.ui.ClassComponent');
 goog.require('goog.array');
 goog.require('goog.object');
-goog.require('goog.string');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.Tab');
 goog.require('goog.ui.TabBar');
@@ -41,9 +40,7 @@ cn.ui.LevelSelector = function(game, ui, opt_domHelper) {
   // Setup the level selectors for each level pack.
   goog.object.forEach(cn.LevelData.levelpacks, function(levels, name) {
     var tab = new goog.ui.Tab(null);
-    var id = name.toLowerCase();
-    tab.setId(id);
-    tab.setTooltip(goog.string.toTitleCase(id)); // Make the tooltip pretty.
+    tab.setTooltip(name);
     this.levelpackTabBar_.addChild(tab, true);
 
     var levelTabBar = new goog.ui.TabBar(

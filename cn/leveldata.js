@@ -82,7 +82,7 @@ cn.LevelData.mapStacks_ = function(colors) {
  * @const
  */
 cn.LevelData.levelpacks = {
-  'TUTORIAL': [
+  'Tutorial': [
     'CARGO 101',
     'TRANSPORTER',
     'RE-CURSES',
@@ -90,7 +90,7 @@ cn.LevelData.levelpacks = {
     'FROM BENEATH',
     'GO LEFT'
   ],
-  'EASY': [
+  'Easy': [
     'DOUBLE FLIP',
     'GO LEFT 2',
     'SHUFFLE SORT',
@@ -98,7 +98,7 @@ cn.LevelData.levelpacks = {
     'COLOR SORT',
     'WALKING PILES'
   ],
-  'MEDIUM': [
+  'Medium': [
     'REPEAT INVERTER',
     'DOUBLE SORT',
     'MIRROR',
@@ -106,7 +106,7 @@ cn.LevelData.levelpacks = {
     'THE STACKER',
     'CLARITY'
   ],
-  'HARD': [
+  'Hard': [
     'COME TOGETHER',
     'COME TOGETHER 2',
     'UP THE GREENS',
@@ -114,7 +114,7 @@ cn.LevelData.levelpacks = {
     'COUNT THE BLUES',
     'MULTI SORT'
   ],
-  'CRAZY': [
+  'Crazy': [
     'DIVIDE BY TWO',
     'THE MERGER',
     'EVEN THE ODDS',
@@ -122,7 +122,7 @@ cn.LevelData.levelpacks = {
     'MULTI SORT 2',
     'THE SWAP'
   ],
-  'IMPOSSIBLE': [
+  'Impossible': [
     'RESTORING ORDER',
     'CHANGING PLACES',
     'PALETTE SWAP',
