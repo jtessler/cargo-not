@@ -78,17 +78,17 @@ cn.model.Game.prototype.id;
  * Sets up the game models' positions.
  */
 cn.model.Game.prototype.setupModelPositions = function() {
+  var consts = cn.constants;
   this.goal.setPosition(
       Math.floor((this.width - this.level.width) / 2),
-      cn.constants.GOAL_HEIGHT * 2 - this.level.height
-          - cn.constants.GOAL_MARGIN);
+      consts.GOAL_HEIGHT * 2 - this.level.height - consts.GOAL_MARGIN);
   this.goal.scale(0.5);
   this.level.setPosition(
       Math.floor((this.width - this.level.width) / 2),
-      this.height - this.level.height - cn.constants.GAME_MARGIN);
+      this.height - this.level.height - consts.GAME_MARGIN);
   this.bot.setPosition(
       this.level.stacks[this.bot.position].getX(),
-      cn.constants.GAME_MARGIN + Math.floor(this.bot.height / 2));
+      consts.GAME_MARGIN + Math.floor(this.bot.height / 2));
 };
 
 
