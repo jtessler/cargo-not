@@ -10,6 +10,8 @@ goog.require('cn.constants');
 goog.require('cn.model.Game');
 goog.require('cn.ui.AnimatedGameCanvas');
 goog.require('cn.ui.ClassComponent');
+goog.require('cn.ui.CommandToolbox');
+goog.require('cn.ui.ConditionToolbox');
 goog.require('cn.ui.Controls');
 goog.require('cn.ui.GameCanvas');
 goog.require('cn.ui.LevelSelector');
@@ -32,6 +34,8 @@ cn.ui.GameUi = function(game, opt_domHelper) {
       cn.constants.GOAL_WIDTH, cn.constants.GOAL_HEIGHT);
   this.animatedCanvas = new cn.ui.AnimatedGameCanvas();
   this.controls = new cn.ui.Controls(game, this);
+  this.conditionToolbox = new cn.ui.ConditionToolbox(game, this);
+  this.commandToolbox = new cn.ui.CommandToolbox(game, this);
   //this.programEditor = new cn.ui.ProgramEditor(game, this);
 
   var container = new goog.ui.Component();
@@ -40,6 +44,11 @@ cn.ui.GameUi = function(game, opt_domHelper) {
   this.addChild(container, true);
   this.addChild(this.animatedCanvas, true);
   this.addChild(this.controls, true);
+  container = new cn.ui.ClassComponent(
+      cn.constants.TOOLBOX_CONTAINER_CLASS_NAME);
+  container.addChild(this.conditionToolbox, true);
+  container.addChild(this.commandToolbox, true);
+  this.addChild(container, true);
   //this.addChild(this.programEditor);
 };
 goog.inherits(cn.ui.GameUi, cn.ui.ClassComponent);

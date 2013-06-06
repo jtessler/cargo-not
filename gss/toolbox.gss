@@ -1,0 +1,34 @@
+.cn-toolbox-container {
+  background-color: white;
+  display: inline-block;
+  margin-top: 15px;
+  padding: 15px;
+}
+
+.cn-toolbox {
+  margin: 0 auto;
+}
+
+@defmixin condition-command(HEIGHT) {
+  margin: 5px;
+  width: 50px;
+  height: HEIGHT;
+  background-size: 100%;
+  display: inline-block;
+}
+.cn-condition { @mixin condition-command(20px); }
+.cn-condition-none { background-image: url('png/none.png'); }
+.cn-condition-any { background-image: url('png/any.png'); }
+.cn-condition-red { background-image: url('png/red.png'); }
+.cn-condition-green { background-image: url('png/green.png'); }
+.cn-condition-blue { background-image: url('png/blue.png'); }
+.cn-condition-yellow { background-image: url('png/yellow.png'); }
+
+.cn-command { @mixin condition-command(50px); }
+.cn-command-left { background-image: url('png/left.png'); }
+.cn-command-right { background-image: url('png/right.png'); }
+.cn-command-down { background-image: url('png/down.png'); }
+.cn-command-f0 { background-image: url('png/f0.png'); }
+.cn-command-f1 { background-image: url('png/f1.png'); }
+.cn-command-f2 { background-image: url('png/f2.png'); }
+.cn-command-f3 { background-image: url('png/f3.png'); }

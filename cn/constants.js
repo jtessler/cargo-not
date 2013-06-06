@@ -94,3 +94,49 @@ cn.constants.LEVEL_SELECTOR_CLASS_NAME = goog.getCssName('cn-level-selector');
 
 /** @type {string} @const */
 cn.constants.CONTROLS_CLASS_NAME = goog.getCssName('cn-controls');
+
+
+/** @type {string} @const */
+cn.constants.CONDITION_CLASS_NAME = goog.getCssName('cn-condition');
+
+
+/** @type {string} @const */
+cn.constants.COMMAND_CLASS_NAME = goog.getCssName('cn-command');
+
+
+/**
+ * Enum of CSS class names for all possible program commands.
+ * @enum {string}
+ */
+cn.constants.COMMAND_CLASS_NAMES = {
+  LEFT: goog.getCssName('cn-command-left'),
+  RIGHT: goog.getCssName('cn-command-right'),
+  DOWN: goog.getCssName('cn-command-down'),
+  F0: goog.getCssName('cn-command-f0'),
+  F1: goog.getCssName('cn-command-f1'),
+  F2: goog.getCssName('cn-command-f2'),
+  F3: goog.getCssName('cn-command-f3')
+};
+
+
+/**
+ * Enum of CSS class names for all possible program conditionals.
+ * @enum {string}
+ */
+cn.constants.CONDITION_CLASS_NAMES = {
+  NONE: goog.getCssName('cn-condition-none'),
+  ANY: goog.getCssName('cn-condition-any'),
+  RED: goog.getCssName('cn-condition-red'),
+  GREEN: goog.getCssName('cn-condition-green'),
+  BLUE: goog.getCssName('cn-condition-blue'),
+  YELLOW: goog.getCssName('cn-condition-yellow')
+};
+
+
+/** @type {string} @const */
+cn.constants.TOOLBOX_CLASS_NAME = goog.getCssName('cn-toolbox');
+
+
+/** @type {string} @const */
+cn.constants.TOOLBOX_CONTAINER_CLASS_NAME =
+    goog.getCssName('cn-toolbox-container');
