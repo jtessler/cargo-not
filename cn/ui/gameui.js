@@ -15,6 +15,7 @@ goog.require('cn.ui.ConditionToolbox');
 goog.require('cn.ui.Controls');
 goog.require('cn.ui.GameCanvas');
 goog.require('cn.ui.LevelSelector');
+goog.require('goog.style');
 goog.require('goog.ui.Component');
 
 
@@ -52,3 +53,13 @@ cn.ui.GameUi = function(game, opt_domHelper) {
   //this.addChild(this.programEditor);
 };
 goog.inherits(cn.ui.GameUi, cn.ui.ClassComponent);
+
+
+/**
+ * Prevent users from selecting any element of the game UI.
+ * @inheritDoc
+ */
+cn.ui.GameUi.prototype.enterDocument = function() {
+  goog.base(this, 'enterDocument');
+  goog.style.setUnselectable(this.getElement(), true);
+};
