@@ -12,14 +12,15 @@ goog.require('goog.ui.Component');
 
 
 /**
- * @param {string} className The CSS class name to attach.
+ * @param {string|!Array.<string>} className The CSS class name or list of
+ *     class names to attach.
  * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper.
  * @constructor
  * @extends {goog.ui.Component}
  */
 cn.ui.ClassComponent = function(className, opt_domHelper) {
   goog.base(this, opt_domHelper);
-  this.className_ = className;
+  this.classNames_ = goog.isArray(className) ? className : [className];
 };
 goog.inherits(cn.ui.ClassComponent, goog.ui.Component);
 
@@ -37,9 +38,9 @@ cn.ui.ClassComponent.prototype.createDom = function() {
  */
 cn.ui.ClassComponent.prototype.decorateInternal = function(element) {
   goog.base(this, 'decorateInternal', element);
-  goog.dom.classes.add(element, this.className_);
+  goog.dom.classes.addRemove(element, null, this.classNames_);
 };
 
 
-/** @type {string} @private */
-cn.ui.ClassComponent.prototype.className_;
+/** @type {!Array.<string>} @private */
+cn.ui.ClassComponent.prototype.classNames_;
