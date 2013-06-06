@@ -57,7 +57,7 @@ css-debug:
 		--output-renaming-map-format CLOSURE_UNCOMPILED \
 		--output-renaming-map $(JS_MAP_OUTPUT) \
 
-dry-run:
+dry-run: css-release
 	$(CC) --output_mode compiled > /dev/null
 
 lint:
