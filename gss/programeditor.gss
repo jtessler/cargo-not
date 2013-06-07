@@ -1,0 +1,34 @@
+.cn-program-editor {
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.cn-register {
+  float: left;
+  margin: 0.5px;
+  width: 50px;
+  height: 71px;
+  background-size: 100%;
+}
+.cn-register-f0 { background-image: url('png/f0_large.png'); }
+.cn-register-f1 { background-image: url('png/f1_large.png'); }
+.cn-register-f2 { background-image: url('png/f2_large.png'); }
+.cn-register-f3 { background-image: url('png/f3_large.png'); }
+
+.cn-command-register .cn-command,
+.cn-condition-register .cn-condition {
+  margin: 0;
+}
+
+@defmixin register(URL, HEIGHT) {
+  height: HEIGHT;
+  background-size: 100%;
+  background-image: url(URL);
+}
+.cn-condition-register {
+  @mixin register('png/drag_top.png', 20px);
+  border-bottom: 1px solid white;
+}
+.cn-command-register {
+  @mixin register('png/drag_bottom.png', 50px);
+}

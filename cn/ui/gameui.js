@@ -15,6 +15,7 @@ goog.require('cn.ui.ConditionToolbox');
 goog.require('cn.ui.Controls');
 goog.require('cn.ui.GameCanvas');
 goog.require('cn.ui.LevelSelector');
+goog.require('cn.ui.ProgramEditor');
 goog.require('goog.style');
 goog.require('goog.ui.Component');
 
@@ -30,6 +31,7 @@ cn.ui.GameUi = function(game, opt_domHelper) {
   goog.base(this, cn.constants.GAME_UI_CLASS_NAME, opt_domHelper);
 
   // TODO(joseph): Add these instance variable definitions.
+  // TODO(joseph): Add opt_domHelper to constructors.
   this.levelSelector = new cn.ui.LevelSelector(game, this);
   this.goalCanvas = new cn.ui.GameCanvas(
       cn.constants.GOAL_WIDTH, cn.constants.GOAL_HEIGHT);
@@ -37,7 +39,13 @@ cn.ui.GameUi = function(game, opt_domHelper) {
   this.controls = new cn.ui.Controls(game, this);
   this.conditionToolbox = new cn.ui.ConditionToolbox();
   this.commandToolbox = new cn.ui.CommandToolbox();
-  //this.programEditor = new cn.ui.ProgramEditor(game, this);
+  this.programEditor = new cn.ui.ProgramEditor(game, this);
+
+  // Wire the drag drop source to target groups.
+  this.conditionToolbox.getDragDropGroup().addTarget(
+      this.programEditor.getConditionDragDropGroup());
+  this.commandToolbox.getDragDropGroup().addTarget(
+      this.programEditor.getCommandDragDropGroup());
 
   var container = new goog.ui.Component();
   container.addChild(this.levelSelector, true);
@@ -50,7 +58,7 @@ cn.ui.GameUi = function(game, opt_domHelper) {
   container.addChild(this.conditionToolbox, true);
   container.addChild(this.commandToolbox, true);
   this.addChild(container, true);
-  //this.addChild(this.programEditor);
+  this.addChild(this.programEditor, true);
 };
 goog.inherits(cn.ui.GameUi, cn.ui.ClassComponent);
 

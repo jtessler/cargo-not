@@ -28,8 +28,6 @@ goog.require('goog.style');
 cn.ui.Toolbox = function(opt_domHelper) {
   goog.base(this, cn.constants.TOOLBOX_CLASS_NAME, opt_domHelper);
   this.dragDropGroup_ = new goog.fx.DragDropGroup();
-  // TODO(joseph): Remove this line.
-  this.dragDropGroup_.addTarget(this.dragDropGroup_);
 };
 goog.inherits(cn.ui.Toolbox, cn.ui.ClassComponent);
 

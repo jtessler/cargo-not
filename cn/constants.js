@@ -140,3 +140,12 @@ cn.constants.TOOLBOX_CLASS_NAME = goog.getCssName('cn-toolbox');
 /** @type {string} @const */
 cn.constants.TOOLBOX_CONTAINER_CLASS_NAME =
     goog.getCssName('cn-toolbox-container');
+
+
+/** @type {Array.<string>} @const */
+cn.constants.FUNCTION_CLASS_NAMES = [
+  goog.getCssName('cn-register-f0'),
+  goog.getCssName('cn-register-f1'),
+  goog.getCssName('cn-register-f2'),
+  goog.getCssName('cn-register-f3')
+];
