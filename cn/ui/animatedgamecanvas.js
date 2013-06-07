@@ -102,6 +102,7 @@ cn.ui.AnimatedGameCanvas.prototype.onAnimationFrame = function(now) {
  */
 cn.ui.AnimatedGameCanvas.prototype.enterDocument = function() {
   goog.base(this, 'enterDocument');
+  goog.fx.anim.registerAnimation(this);
   goog.dom.classes.add(this.getElement(),
       cn.constants.ANIMATED_GAME_CANVAS_CLASS_NAME);
 };
