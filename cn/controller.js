@@ -36,7 +36,7 @@ cn.controller.play = function(game, ui) {
     return;
   }
   var command = game.program.next(game.bot);
-  //editor.highlightExecution(game.program);
+  ui.programEditor.highlightExecution();
   if (goog.isDefAndNotNull(command)) {
     switch (command) {
       case cn.model.Command.LEFT:
@@ -223,7 +223,7 @@ cn.controller.reset = function(game, ui) {
   ui.animatedCanvas.clear();
   ui.animatedCanvas.drawPathModel(game);
   ui.controls.reset();
-  //editor.unhighlightExecution();
+  ui.programEditor.unhighlightExecution();
 };
 
 
@@ -234,12 +234,7 @@ cn.controller.reset = function(game, ui) {
 cn.controller.clearProgram = function(game, ui) {
   game.log.record('cleared registers');
   game.program.clear();
-  // TODO(joseph): Refactor this into program editor.
-  ui.programEditor.forEachRegister(function(register) {
-    register.forEachChild(function(subRegister) {
-      goog.dom.removeChildren(subRegister.getElement());
-    });
-  });
+  ui.programEditor.clear();
 };
 
 

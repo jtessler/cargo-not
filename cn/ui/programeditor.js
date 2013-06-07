@@ -158,6 +158,59 @@ cn.ui.ProgramEditor.prototype.getCommandDragDropGroup = function() {
 
 
 /**
+ * Sets all registers to half transparency except for the register at the given
+ * pointer (and it's possible caller).
+ */
+cn.ui.ProgramEditor.prototype.highlightExecution = function() {
+  var f = this.game_.program.getCurrentFunction();
+  var i = this.game_.program.getCurrentInstruction();
+  var callerF = this.game_.program.getCallerFunction();
+  var callerI = this.game_.program.getCallerInstruction();
+  this.forEachRegister(
+      function(register, regF, regI) {
+        // Highlight the executing command.
+        if (regF == f && regI == i) {
+          goog.style.setOpacity(register.getElement(), 1.0);
+        }
+        // Highlight (slightly) the executing function and caller.
+        else if (regF == f && regI == 0 ||
+                 regF == callerF && regI == callerI) {
+          goog.style.setOpacity(register.getElement(), 0.5);
+        }
+        // Otherwise, set the element to nearly transparent.
+        else {
+          goog.style.setOpacity(register.getElement(), 0.25);
+        }
+      });
+};
+
+
+/**
+ * Sets all registers to fully opaque.
+ */
+cn.ui.ProgramEditor.prototype.unhighlightExecution = function() {
+  this.forEachRegister(function(register) {
+    goog.style.setOpacity(register.getElement(), 1.0);
+  });
+};
+
+
+/**
+ * Clears all registers.
+ */
+cn.ui.ProgramEditor.prototype.clear = function() {
+  this.forEachRegister(function(register, f, i) {
+    // Don't remove the function name 'fake' register.
+    if (i != 0) {
+      register.forEachChild(function(subRegister) {
+        goog.dom.removeChildren(subRegister.getElement());
+      });
+    }
+  });
+};
+
+
+/**
  * @param {function(this: S, !cn.ui.Register, number, number): ?}
  *     f The function to call for every element. This function takes 3 arguments
  *     (the register, function index, instruction index). The return value is
@@ -168,10 +221,7 @@ cn.ui.ProgramEditor.prototype.getCommandDragDropGroup = function() {
 cn.ui.ProgramEditor.prototype.forEachRegister = function(f, opt_obj) {
   this.forEachChild(function(functionEditor, r) {
     functionEditor.forEachChild(function(register, c) {
-      // Ignore the large function image 'fake' register.
-      if (c != 0) {
-        f(register, r, c - 1);
-      }
+      f(register, r, c);
     }, opt_obj);
   }, opt_obj);
 };
