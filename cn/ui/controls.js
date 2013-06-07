@@ -123,24 +123,24 @@ cn.ui.Controls.prototype.ui_;
 
 
 /** @type {!goog.ui.Button} @private */
-cn.view.ProgramEditor.prototype.playButton_;
+cn.ui.Controls.prototype.playButton_;
 
 
 /** @type {!goog.ui.Button} @private */
-cn.view.ProgramEditor.prototype.pauseButton_;
+cn.ui.Controls.prototype.pauseButton_;
 
 
 /** @type {!goog.ui.Button} @private */
-cn.view.ProgramEditor.prototype.rewindButton_;
+cn.ui.Controls.prototype.rewindButton_;
 
 
 /** @type {!goog.ui.Button} @private */
-cn.view.ProgramEditor.prototype.resetButton_;
+cn.ui.Controls.prototype.resetButton_;
 
 
 /** @type {!goog.ui.Button} @private */
-cn.view.ProgramEditor.prototype.hintButton_;
+cn.ui.Controls.prototype.hintButton_;
 
 
 /** @type {!goog.ui.Slider} @private */
-cn.view.ProgramEditor.prototype.slider_;
+cn.ui.Controls.prototype.slider_;
