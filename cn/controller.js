@@ -9,10 +9,7 @@ goog.provide('cn.controller');
 goog.require('cn.model.Command');
 goog.require('cn.model.Game');
 goog.require('cn.ui.GameUi');
-goog.require('cn.view.Animator');
-goog.require('cn.view.ProgramEditor');
 goog.require('goog.dom');
-goog.require('goog.events');
 goog.require('goog.net.XhrIo');
 
 
@@ -28,12 +25,9 @@ cn.controller.init = function() {
 
 /**
  * @param {!cn.model.Game} game The current game.
- * @param {!cn.view.Animator} animator The animator in which to draw bot and
- *     cargo animations.
- * @param {!cn.view.ProgramEditor} editor The program editor to highlight
- *     registers as they're executed.
+ * @param {!cn.ui.GameUi} ui A pointer to the UI.
  */
-cn.controller.play = function(game, animator, editor) {
+cn.controller.play = function(game, ui) {
   if (game.level.equals(game.goal)) {
     // TODO(joseph): Handle winning differently.
     var stars = game.getStars();
@@ -42,23 +36,23 @@ cn.controller.play = function(game, animator, editor) {
     return;
   }
   var command = game.program.next(game.bot);
-  editor.highlightExecution(game.program);
+  //editor.highlightExecution(game.program);
   if (goog.isDefAndNotNull(command)) {
     switch (command) {
       case cn.model.Command.LEFT:
-        cn.controller.moveLeft(game, animator, editor);
+        cn.controller.moveLeft(game, ui);
         break;
       case cn.model.Command.RIGHT:
-        cn.controller.moveRight(game, animator, editor);
+        cn.controller.moveRight(game, ui);
         break;
       case cn.model.Command.DOWN:
-        cn.controller.moveDown(game, animator, editor);
+        cn.controller.moveDown(game, ui);
         break;
       case cn.model.Command.F0:
       case cn.model.Command.F1:
       case cn.model.Command.F2:
       case cn.model.Command.F3:
-        cn.controller.play(game, animator, editor);
+        cn.controller.play(game, ui);
         break;
       default:
         throw Error('Animation not implemented for "' + command + '"');
@@ -68,82 +62,73 @@ cn.controller.play = function(game, animator, editor) {
 
 
 /**
- * @param {!cn.view.Animator} animator The animator to pause.
+ * @param {!cn.ui.GameUi} ui A pointer to the UI.
  */
-cn.controller.pause = function(animator) {
-  animator.pause();
+cn.controller.pause = function(ui) {
+  ui.animatedCanvas.pause();
 };
 
 
 /**
- * @param {!cn.view.Animator} animator The animator to resume.
+ * @param {!cn.ui.GameUi} ui A pointer to the UI.
  */
-cn.controller.resume = function(animator) {
-  animator.resume();
+cn.controller.resume = function(ui) {
+  ui.animatedCanvas.resume();
 };
 
 
 /**
  * @param {!cn.model.Game} game The current game.
- * @param {!cn.view.Animator} animator The animator in which to draw bot and
- *     cargo animations.
- * @param {!cn.view.ProgramEditor} editor The program editor to highlight
- *     registers as they're executed.
+ * @param {!cn.ui.GameUi} ui A pointer to the UI.
  */
-cn.controller.moveLeft = function(game, animator, editor) {
+cn.controller.moveLeft = function(game, ui) {
   if (game.bot.position == 0) {
     // TODO(joseph): Add a cleaner error notification.
     alert('Cannot move the bot any further left.');
     return;
   }
   var nextStack = game.level.stacks[game.bot.position - 1];
-  animator.attachAnimation(
+  ui.animatedCanvas.attachAnimation(
       function() { return game.bot.getX() > nextStack.getX(); },
       function() { game.bot.translate(-game.bot.speed, 0); },
       function() {
         game.bot.setPosition(nextStack.getX(), game.bot.getY());
         game.bot.position--;
-        cn.controller.play(game, animator, editor);
+        cn.controller.play(game, ui);
       });
 };
 
 
 /**
  * @param {!cn.model.Game} game The current game.
- * @param {!cn.view.Animator} animator The animator in which to draw bot and
- *     cargo animations.
- * @param {!cn.view.ProgramEditor} editor The program editor to highlight
- *     registers as they're executed.
+ * @param {!cn.ui.GameUi} ui A pointer to the UI.
  */
-cn.controller.moveRight = function(game, animator, editor) {
+cn.controller.moveRight = function(game, ui) {
   if (game.bot.position == game.level.stacks.length - 1) {
     // TODO(joseph): Add a cleaner error notification.
     alert('Cannot move the bot any further right.');
     return;
   }
   var nextStack = game.level.stacks[game.bot.position + 1];
-  animator.attachAnimation(
+  ui.animatedCanvas.attachAnimation(
       function() { return game.bot.getX() < nextStack.getX(); },
       function() { game.bot.translate(game.bot.speed, 0); },
       function() {
         game.bot.setPosition(nextStack.getX(), game.bot.getY());
         game.bot.position++;
-        cn.controller.play(game, animator, editor);
+        cn.controller.play(game, ui);
       });
 };
 
 
 /**
  * @param {!cn.model.Game} game The current game.
- * @param {!cn.view.Animator} animator The animator in which to draw bot and
- *     cargo animations.
- * @param {!cn.view.ProgramEditor} editor The program editor to highlight
- *     registers as they're executed.
+ * @param {!cn.ui.GameUi} ui A pointer to the UI.
  */
-cn.controller.moveDown = function(game, animator, editor) {
+cn.controller.moveDown = function(game, ui) {
   var startingY = game.bot.getY();
   var stack = game.level.stacks[game.bot.position];
-  animator.attachAnimation(
+  ui.animatedCanvas.attachAnimation(
       function() {
         if (game.bot.hasCargo() || stack.size() == 0) {
           return game.bot.getY() < stack.getMaxY() - game.bot.height;
@@ -162,26 +147,23 @@ cn.controller.moveDown = function(game, animator, editor) {
             game.bot.hasCargo() || stack.size() == 0 ?
                 stack.getMaxY() - game.bot.height :
                 stack.getMaxY() + game.bot.getY() - game.bot.getInnerY());
-        cn.controller.moveUp(game, animator, editor, startingY);
+        cn.controller.moveUp(game, ui, startingY);
       });
 };
 
 
 /**
  * @param {!cn.model.Game} game The current game.
- * @param {!cn.view.Animator} animator The animator in which to draw bot and
- *     cargo animations.
- * @param {!cn.view.ProgramEditor} editor The program editor to highlight
- *     registers as they're executed.
+ * @param {!cn.ui.GameUi} ui A pointer to the UI.
  * @param {number} endingY The y value to move the bot to.
  */
-cn.controller.moveUp = function(game, animator, editor, endingY) {
-  animator.attachAnimation(
+cn.controller.moveUp = function(game, ui, endingY) {
+  ui.animatedCanvas.attachAnimation(
       function() { return game.bot.getY() > endingY; },
       function() { game.bot.translate(0, -game.bot.speed); },
       function() {
         game.bot.setPosition(game.bot.getX(), endingY);
-        cn.controller.play(game, animator, editor);
+        cn.controller.play(game, ui);
       });
 };
 
@@ -247,10 +229,17 @@ cn.controller.reset = function(game, ui) {
 
 /**
  * @param {!cn.model.Game} game The current game.
+ * @param {!cn.ui.GameUi} ui A pointer to the UI.
  */
-cn.controller.clearProgram = function(game) {
+cn.controller.clearProgram = function(game, ui) {
   game.log.record('cleared registers');
   game.program.clear();
+  // TODO(joseph): Refactor this into program editor.
+  ui.programEditor.forEachRegister(function(register) {
+    register.forEachChild(function(subRegister) {
+      goog.dom.removeChildren(subRegister.getElement());
+    });
+  });
 };
 
 

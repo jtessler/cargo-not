@@ -64,9 +64,9 @@ cn.ui.Controls.prototype.enterDocument = function() {
   // Event handler for the play button.
   this.getHandler().listen(this.playButton_, EventType.ACTION, function() {
     if (this.rewindButton_.isEnabled()) {
-      //cn.controller.resume(animator);
+      cn.controller.resume(this.ui_);
     } else {
-      //cn.controller.play(game, animator, this);
+      cn.controller.play(this.game_, this.ui_);
     }
     this.playButton_.setEnabled(false);
     this.pauseButton_.setEnabled(true);
@@ -76,7 +76,7 @@ cn.ui.Controls.prototype.enterDocument = function() {
 
   // Event handler for the pause button.
   this.getHandler().listen(this.pauseButton_, EventType.ACTION, function() {
-    //cn.controller.pause(animator);
+    cn.controller.pause(this.ui_);
     this.pauseButton_.setEnabled(false);
     this.playButton_.setEnabled(true);
   });
@@ -88,12 +88,7 @@ cn.ui.Controls.prototype.enterDocument = function() {
 
   // Event handler for the reset button.
   this.getHandler().listen(this.resetButton_, EventType.ACTION, function() {
-    /*cn.controller.clearProgram(game);
-    this.forEachRegisterElement_(function(r, c, element) {
-      if (c != 0) {
-        goog.dom.removeChildren(element);
-      }
-    });*/
+    cn.controller.clearProgram(this.game_, this.ui_);
   });
 
   // Event handler for the game speed slider.

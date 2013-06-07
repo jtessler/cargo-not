@@ -157,6 +157,26 @@ cn.ui.ProgramEditor.prototype.getCommandDragDropGroup = function() {
 };
 
 
+/**
+ * @param {function(this: S, !cn.ui.Register, number, number): ?}
+ *     f The function to call for every element. This function takes 3 arguments
+ *     (the register, function index, instruction index). The return value is
+ *     ignored.
+ * @param {S=} opt_obj The object to be used as the value of 'this' within f.
+ * @template S
+ */
+cn.ui.ProgramEditor.prototype.forEachRegister = function(f, opt_obj) {
+  this.forEachChild(function(functionEditor, r) {
+    functionEditor.forEachChild(function(register, c) {
+      // Ignore the large function image 'fake' register.
+      if (c != 0) {
+        f(register, r, c - 1);
+      }
+    }, opt_obj);
+  }, opt_obj);
+};
+
+
 /** @type {!cn.model.Game} @private */
 cn.ui.ProgramEditor.prototype.game_;
 
