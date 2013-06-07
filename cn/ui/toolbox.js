@@ -28,11 +28,33 @@ goog.require('goog.object');
  */
 cn.ui.Toolbox = function(game, ui, opt_domHelper) {
   goog.base(this, cn.constants.TOOLBOX_CLASS_NAME, opt_domHelper);
+  // TODO(joseph): Does this class need the game & UI pointers?
   this.game_ = game;
   this.ui_ = ui;
   this.dragDropGroup_ = new goog.fx.DragDropGroup();
+  // TODO(joseph): Remove this line.
+  this.dragDropGroup_.addTarget(this.dragDropGroup_);
 };
 goog.inherits(cn.ui.Toolbox, cn.ui.ClassComponent);
+
+
+/**
+ * @inheritDoc
+ */
+cn.ui.Toolbox.prototype.enterDocument = function() {
+  goog.base(this, 'enterDocument');
+  this.dragDropGroup_.init();
+
+  var EventType = goog.fx.AbstractDragDrop.EventType;
+  this.getHandler().listen(this.dragDropGroup_, EventType.DRAGSTART,
+      function(e) {
+        goog.style.setOpacity(e.dragSourceItem.element, 0.5);
+      });
+  this.getHandler().listen(this.dragDropGroup_, EventType.DRAGEND,
+      function(e) {
+        goog.style.setOpacity(e.dragSourceItem.element, 1.0);
+      });
+};
 
 
 /** @return {!goog.fx.DragDropGroup} The drag drop group. */
