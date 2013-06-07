@@ -142,6 +142,14 @@ cn.constants.TOOLBOX_CONTAINER_CLASS_NAME =
     goog.getCssName('cn-toolbox-container');
 
 
+/** @type {string} @const */
+cn.constants.PROGRAM_EDITOR_CLASS_NAME = goog.getCssName('cn-program-editor');
+
+
+/** @type {string} @const */
+cn.constants.FUNCTION_EDITOR_CLASS_NAME = goog.getCssName('cn-function-editor');
+
+
 /** @type {Array.<string>} @const */
 cn.constants.FUNCTION_CLASS_NAMES = [
   goog.getCssName('cn-register-f0'),
@@ -149,3 +157,17 @@ cn.constants.FUNCTION_CLASS_NAMES = [
   goog.getCssName('cn-register-f2'),
   goog.getCssName('cn-register-f3')
 ];
+
+
+/** @type {string} @const */
+cn.constants.REGISTER_CLASS_NAME = goog.getCssName('cn-register');
+
+
+/** @type {string} @const */
+cn.constants.CONDITION_REGISTER_CLASS_NAME =
+    goog.getCssName('cn-condition-register');
+
+
+/** @type {string} @const */
+cn.constants.COMMAND_REGISTER_CLASS_NAME =
+    goog.getCssName('cn-command-register');

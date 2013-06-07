@@ -7,6 +7,7 @@
 
 goog.provide('cn.ui.Register');
 
+goog.require('cn.constants');
 goog.require('cn.ui.ClassComponent');
 goog.require('cn.ui.DragDropComponent');
 
@@ -25,16 +26,15 @@ goog.require('cn.ui.DragDropComponent');
  */
 cn.ui.Register = function(
     f, i, conditionDragDropGroup, commandDragDropGroup, opt_domHelper) {
-  // TODO(joseph): Refactor these class names to constants.
-  goog.base(this, goog.getCssName('cn-register'), opt_domHelper);
+  goog.base(this, cn.constants.REGISTER_CLASS_NAME, opt_domHelper);
 
   var conditionRegister = new cn.ui.DragDropComponent(
-      goog.getCssName('cn-condition-register'),
+      cn.constants.CONDITION_REGISTER_CLASS_NAME,
       conditionDragDropGroup,
       {f: f, i: i},
       opt_domHelper);
   var commandRegister = new cn.ui.DragDropComponent(
-      goog.getCssName('cn-command-register'),
+      cn.constants.COMMAND_REGISTER_CLASS_NAME,
       commandDragDropGroup,
       {f: f, i: i},
       opt_domHelper);

@@ -28,14 +28,13 @@ goog.require('goog.array');
 cn.ui.FunctionEditor = function(
     f, instructions, conditionDragDropGroup, commandDragDropGroup,
     opt_domHelper) {
-  // TODO(joseph): Refactor these class names to constants.
-  goog.base(this, goog.getCssName('cn-function-editor'), opt_domHelper);
+  goog.base(this, cn.constants.FUNCTION_EDITOR_CLASS_NAME, opt_domHelper);
 
   // Add a 'fake' register for the large function image.
   this.addChild(
       new cn.ui.ClassComponent(
           [
-            goog.getCssName('cn-register'),
+            cn.constants.REGISTER_CLASS_NAME,
             cn.constants.FUNCTION_CLASS_NAMES[f]
           ],
           opt_domHelper),

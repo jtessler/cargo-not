@@ -6,6 +6,7 @@
 
 goog.provide('cn.ui.ProgramEditor');
 
+goog.require('cn.constants');
 goog.require('cn.ui.ClassComponent');
 goog.require('cn.ui.FunctionEditor');
 goog.require('goog.array');
@@ -25,8 +26,7 @@ goog.require('goog.style');
  * @extends {cn.ui.ClassComponent}
  */
 cn.ui.ProgramEditor = function(game, ui, opt_domHelper) {
-  // TODO(joseph): Refactor these class names to constants.
-  goog.base(this, goog.getCssName('cn-program-editor'), opt_domHelper);
+  goog.base(this, cn.constants.PROGRAM_EDITOR_CLASS_NAME, opt_domHelper);
   this.game_ = game;
   this.ui_ = ui;
   this.conditionDragDropGroup_ = new goog.fx.DragDropGroup();
