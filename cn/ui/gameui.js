@@ -35,8 +35,8 @@ cn.ui.GameUi = function(game, opt_domHelper) {
       cn.constants.GOAL_WIDTH, cn.constants.GOAL_HEIGHT);
   this.animatedCanvas = new cn.ui.AnimatedGameCanvas();
   this.controls = new cn.ui.Controls(game, this);
-  this.conditionToolbox = new cn.ui.ConditionToolbox(game, this);
-  this.commandToolbox = new cn.ui.CommandToolbox(game, this);
+  this.conditionToolbox = new cn.ui.ConditionToolbox();
+  this.commandToolbox = new cn.ui.CommandToolbox();
   //this.programEditor = new cn.ui.ProgramEditor(game, this);
 
   var container = new goog.ui.Component();

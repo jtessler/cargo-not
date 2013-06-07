@@ -16,21 +16,17 @@ goog.require('cn.ui.DragDropComponent');
 goog.require('goog.fx.AbstractDragDrop.EventType');
 goog.require('goog.fx.DragDropGroup');
 goog.require('goog.object');
+goog.require('goog.style');
 
 
 
 /**
- * @param {!cn.model.Game} game The game model to render.
- * @param {!cn.ui.GameUi} ui A pointer to parent game UI.
  * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper.
  * @constructor
  * @extends {cn.ui.ClassComponent}
  */
-cn.ui.Toolbox = function(game, ui, opt_domHelper) {
+cn.ui.Toolbox = function(opt_domHelper) {
   goog.base(this, cn.constants.TOOLBOX_CLASS_NAME, opt_domHelper);
-  // TODO(joseph): Does this class need the game & UI pointers?
-  this.game_ = game;
-  this.ui_ = ui;
   this.dragDropGroup_ = new goog.fx.DragDropGroup();
   // TODO(joseph): Remove this line.
   this.dragDropGroup_.addTarget(this.dragDropGroup_);
@@ -63,28 +59,18 @@ cn.ui.Toolbox.prototype.getDragDropGroup = function() {
 };
 
 
-/** @type {!cn.model.Game} @private */
-cn.ui.Toolbox.prototype.game_;
-
-
-/** @type {!cn.ui.GameUi} @private */
-cn.ui.Toolbox.prototype.ui_;
-
-
 /** @type {!goog.fx.DragDropGroup} @private */
 cn.ui.Toolbox.prototype.dragDropGroup_;
 
 
 
 /**
- * @param {!cn.model.Game} game The game model to render.
- * @param {!cn.ui.GameUi} ui A pointer to parent game UI.
  * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper.
  * @constructor
  * @extends {cn.ui.Toolbox}
  */
-cn.ui.ConditionToolbox = function(game, ui, opt_domHelper) {
-  goog.base(this, game, ui, opt_domHelper);
+cn.ui.ConditionToolbox = function(opt_domHelper) {
+  goog.base(this, opt_domHelper);
   goog.object.forEach(
       cn.model.Condition,
       function(condition, key) {
@@ -106,14 +92,12 @@ goog.inherits(cn.ui.ConditionToolbox, cn.ui.Toolbox);
 
 
 /**
- * @param {!cn.model.Game} game The game model to render.
- * @param {!cn.ui.GameUi} ui A pointer to parent game UI.
  * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper.
  * @constructor
  * @extends {cn.ui.Toolbox}
  */
-cn.ui.CommandToolbox = function(game, ui, opt_domHelper) {
-  goog.base(this, game, ui, opt_domHelper);
+cn.ui.CommandToolbox = function(opt_domHelper) {
+  goog.base(this, opt_domHelper);
   goog.object.forEach(
       cn.model.Command,
       function(command, key) {
