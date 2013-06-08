@@ -77,6 +77,8 @@ cn.ui.ProgramEditor.prototype.enterDocument = function() {
 cn.ui.ProgramEditor.prototype.registerDragDropEvents = function(dragDropGroup) {
   var EventType = goog.fx.AbstractDragDrop.EventType;
 
+  // TODO(joseph): Don't let user drag the actual registers.
+  // TODO(joseph): Don't let user drag while the game is animating.
   this.getHandler().listen(dragDropGroup, EventType.DRAGSTART,
       function(e) {
         var data = e.dragSourceItem.data;
