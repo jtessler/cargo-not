@@ -5,15 +5,20 @@
 
 .cn-register {
   float: left;
-  margin: 0.5px;
+  margin: 2px;
   width: 50px;
   height: 71px;
-  background-size: 100%;
 }
-.cn-register-f0 { background-image: url('png/f0_large.png'); }
-.cn-register-f1 { background-image: url('png/f1_large.png'); }
-.cn-register-f2 { background-image: url('png/f2_large.png'); }
-.cn-register-f3 { background-image: url('png/f3_large.png'); }
+
+@defmixin function-register(URL) {
+  background-size: 100%;
+  background-image: url(URL);
+  margin-right: 5px;
+}
+.cn-register-f0 { @mixin function-register('png/f0_large.png'); }
+.cn-register-f1 { @mixin function-register('png/f1_large.png'); }
+.cn-register-f2 { @mixin function-register('png/f2_large.png'); }
+.cn-register-f3 { @mixin function-register('png/f3_large.png'); }
 
 .cn-command-register .cn-command,
 .cn-condition-register .cn-condition {
