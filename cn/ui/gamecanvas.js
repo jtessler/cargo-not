@@ -13,17 +13,14 @@ goog.require('goog.graphics.CanvasGraphics');
 
 
 /**
- * @param {number=} opt_width The entire game's screen width.
- * @param {number=} opt_height The entire game's screen height.
+ * @param {number} width The entire game's screen width.
+ * @param {number} height The entire game's screen height.
  * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper.
  * @constructor
  * @extends {goog.graphics.CanvasGraphics}
  */
-cn.ui.GameCanvas = function(opt_width, opt_height, opt_domHelper) {
-  goog.base(this,
-      opt_width || cn.constants.GAME_WIDTH,
-      opt_height || cn.constants.GAME_HEIGHT,
-      null, null, opt_domHelper);
+cn.ui.GameCanvas = function(width, height, opt_domHelper) {
+  goog.base(this, width, height, null, null, opt_domHelper);
 };
 goog.inherits(cn.ui.GameCanvas, goog.graphics.CanvasGraphics);
 

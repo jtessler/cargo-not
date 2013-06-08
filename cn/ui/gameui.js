@@ -30,16 +30,15 @@ goog.require('goog.ui.Component');
 cn.ui.GameUi = function(game, opt_domHelper) {
   goog.base(this, cn.constants.GAME_UI_CLASS_NAME, opt_domHelper);
 
-  // TODO(joseph): Add these instance variable definitions.
-  // TODO(joseph): Add opt_domHelper to constructors.
-  this.levelSelector = new cn.ui.LevelSelector(game, this);
+  this.levelSelector = new cn.ui.LevelSelector(game, this, opt_domHelper);
   this.goalCanvas = new cn.ui.GameCanvas(
-      cn.constants.GOAL_WIDTH, cn.constants.GOAL_HEIGHT);
-  this.animatedCanvas = new cn.ui.AnimatedGameCanvas();
-  this.controls = new cn.ui.Controls(game, this);
-  this.conditionToolbox = new cn.ui.ConditionToolbox();
-  this.commandToolbox = new cn.ui.CommandToolbox();
-  this.programEditor = new cn.ui.ProgramEditor(game, this);
+      cn.constants.GOAL_WIDTH, cn.constants.GOAL_HEIGHT, opt_domHelper);
+  this.animatedCanvas = new cn.ui.AnimatedGameCanvas(
+      cn.constants.GAME_WIDTH, cn.constants.GAME_HEIGHT, opt_domHelper);
+  this.controls = new cn.ui.Controls(game, this, opt_domHelper);
+  this.conditionToolbox = new cn.ui.ConditionToolbox(opt_domHelper);
+  this.commandToolbox = new cn.ui.CommandToolbox(opt_domHelper);
+  this.programEditor = new cn.ui.ProgramEditor(game, this, opt_domHelper);
 
   // Wire the drag drop source to target groups.
   this.conditionToolbox.getDragDropGroup().addTarget(
@@ -71,3 +70,31 @@ cn.ui.GameUi.prototype.enterDocument = function() {
   goog.base(this, 'enterDocument');
   goog.style.setUnselectable(this.getElement(), true);
 };
+
+
+/** @type {!cn.ui.LevelSelector} */
+cn.ui.GameUi.prototype.levelSelector;
+
+
+/** @type {!cn.ui.GameCanvas} */
+cn.ui.GameUi.prototype.goalCanvas;
+
+
+/** @type {!cn.ui.AnimatedGameCanvas} */
+cn.ui.GameUi.prototype.animatedCanvas;
+
+
+/** @type {!cn.ui.Controls} */
+cn.ui.GameUi.prototype.controls;
+
+
+/** @type {!cn.ui.Toolbox} */
+cn.ui.GameUi.prototype.conditionToolbox;
+
+
+/** @type {!cn.ui.Toolbox} */
+cn.ui.GameUi.prototype.commandToolbox;
+
+
+/** @type {!cn.ui.ProgramEditor} */
+cn.ui.GameUi.prototype.programEditor;

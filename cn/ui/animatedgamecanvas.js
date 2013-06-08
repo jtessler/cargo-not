@@ -16,15 +16,15 @@ goog.require('goog.fx.anim.Animated');
 
 
 /**
- * @param {number=} opt_width The entire game's screen width.
- * @param {number=} opt_height The entire game's screen height.
+ * @param {number} width The entire game's screen width.
+ * @param {number} height The entire game's screen height.
  * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper.
  * @constructor
  * @extends {cn.ui.GameCanvas}
  * @implements {goog.fx.anim.Animated}
  */
-cn.ui.AnimatedGameCanvas = function(opt_width, opt_height, opt_domHelper) {
-  goog.base(this, opt_width, opt_height, opt_domHelper);
+cn.ui.AnimatedGameCanvas = function(width, height, opt_domHelper) {
+  goog.base(this, width, height, opt_domHelper);
   this.update_ = goog.nullFunction;
   this.isAnimating_ = true;
 };
