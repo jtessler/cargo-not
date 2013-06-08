@@ -80,7 +80,11 @@ cn.ui.ProgramEditor.prototype.registerDragDropEvents = function(dragDropGroup) {
   this.getHandler().listen(dragDropGroup, EventType.DRAGSTART,
       function(e) {
         var data = e.dragSourceItem.data;
-        cn.controller.removeCommand(this.game_, data.f, data.i);
+        if (goog.object.containsKey(data, 'condition')) {
+          cn.controller.removeCondition(this.game_, data.f, data.i);
+        } else {
+          cn.controller.removeCommand(this.game_, data.f, data.i);
+        }
         goog.style.setOpacity(e.dragSourceItem.element, 0.5);
       });
 
