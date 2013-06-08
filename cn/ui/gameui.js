@@ -46,6 +46,8 @@ cn.ui.GameUi = function(game, opt_domHelper) {
   this.commandToolbox.getDragDropGroup().addTarget(
       this.programEditor.getCommandDragDropGroup());
 
+  this.addChild(
+      new cn.ui.ClassComponent(cn.constants.GAME_LOGO_CLASS_NAME), true);
   var container = new goog.ui.Component();
   container.addChild(this.levelSelector, true);
   container.addChild(this.goalCanvas, true);

@@ -80,6 +80,10 @@ cn.constants.GAME_UI_CLASS_NAME = goog.getCssName('cn-game-ui');
 
 
 /** @type {string} @const */
+cn.constants.GAME_LOGO_CLASS_NAME = goog.getCssName('cn-game-logo');
+
+
+/** @type {string} @const */
 cn.constants.GAME_CANVAS_CLASS_NAME = goog.getCssName('cn-game-canvas');
 
 

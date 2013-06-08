@@ -20,3 +20,11 @@ div:after {
   clear: both;
   visibility: hidden;
 }
+
+.cn-game-logo {
+  height: 100px;
+  background-image: url('png/logo_text.png');
+  background-size: 70%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
