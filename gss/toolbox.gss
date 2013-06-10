@@ -2,7 +2,7 @@
   background-color: white;
   display: inline-block;
   margin-top: 15px;
-  padding: 15px;
+  padding: 15px 5px 5px;
 }
 
 .cn-toolbox {
@@ -32,3 +32,18 @@
 .cn-command-f1 { background-image: url('png/f1.png'); }
 .cn-command-f2 { background-image: url('png/f2.png'); }
 .cn-command-f3 { background-image: url('png/f3.png'); }
+
+.cn-hint-button {
+  float: right;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-image: url('png/hint.png');
+  background-size: 100%;
+  background-color: inherit;
+}
+
+.cn-hint-button:hover {
+  opacity: 0.2;
+  /* @alternate */ filter: alpha(opacity=20);
+}

@@ -147,6 +147,10 @@ cn.constants.TOOLBOX_CONTAINER_CLASS_NAME =
 
 
 /** @type {string} @const */
+cn.constants.HINT_BUTTON_CLASS_NAME = goog.getCssName('cn-hint-button');
+
+
+/** @type {string} @const */
 cn.constants.PROGRAM_EDITOR_CLASS_NAME = goog.getCssName('cn-program-editor');
 
 

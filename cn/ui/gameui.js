@@ -14,6 +14,7 @@ goog.require('cn.ui.CommandToolbox');
 goog.require('cn.ui.ConditionToolbox');
 goog.require('cn.ui.Controls');
 goog.require('cn.ui.GameCanvas');
+goog.require('cn.ui.HintButton');
 goog.require('cn.ui.LevelSelector');
 goog.require('cn.ui.ProgramEditor');
 goog.require('goog.style');
@@ -38,6 +39,7 @@ cn.ui.GameUi = function(game, opt_domHelper) {
   this.controls = new cn.ui.Controls(game, this, opt_domHelper);
   this.conditionToolbox = new cn.ui.ConditionToolbox(opt_domHelper);
   this.commandToolbox = new cn.ui.CommandToolbox(opt_domHelper);
+  this.hintButton = new cn.ui.HintButton(game, this, null, opt_domHelper);
   this.programEditor = new cn.ui.ProgramEditor(game, this,
       this.conditionToolbox, this.commandToolbox, opt_domHelper);
 
@@ -53,6 +55,7 @@ cn.ui.GameUi = function(game, opt_domHelper) {
       cn.constants.TOOLBOX_CONTAINER_CLASS_NAME);
   container.addChild(this.conditionToolbox, true);
   container.addChild(this.commandToolbox, true);
+  container.addChild(this.hintButton, true);
   this.addChild(container, true);
   this.addChild(this.programEditor, true);
 };

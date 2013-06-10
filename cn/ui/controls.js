@@ -9,6 +9,7 @@ goog.provide('cn.ui.Controls');
 
 goog.require('cn.constants');
 goog.require('cn.ui.ClassComponent');
+goog.require('goog.ui.Component');
 goog.require('goog.ui.Button');
 goog.require('goog.ui.Slider');
 
@@ -35,7 +36,6 @@ cn.ui.Controls = function(game, ui, opt_domHelper) {
   this.pauseButton_ = newButton('Pause');
   this.rewindButton_ = newButton('Rewind');
   this.resetButton_ = newButton('Reset');
-  this.hintButton_ = newButton('Show Hint');
   this.slider_ = new goog.ui.Slider();
 
   this.pauseButton_.setEnabled(false);
@@ -48,7 +48,6 @@ cn.ui.Controls = function(game, ui, opt_domHelper) {
   this.addChild(this.pauseButton_, true);
   this.addChild(this.rewindButton_, true);
   this.addChild(this.resetButton_, true);
-  //this.addChild(this.hintButton_, true);
   this.addChild(this.slider_, true);
 };
 goog.inherits(cn.ui.Controls, cn.ui.ClassComponent);
@@ -131,10 +130,6 @@ cn.ui.Controls.prototype.rewindButton_;
 
 /** @type {!goog.ui.Button} @private */
 cn.ui.Controls.prototype.resetButton_;
-
-
-/** @type {!goog.ui.Button} @private */
-cn.ui.Controls.prototype.hintButton_;
 
 
 /** @type {!goog.ui.Slider} @private */
