@@ -84,7 +84,16 @@ cn.constants.GAME_LOGO_CLASS_NAME = goog.getCssName('cn-game-logo');
 
 
 /** @type {string} @const */
+cn.constants.HEADING_CLASS_NAME = goog.getCssName('cn-heading');
+
+
+/** @type {string} @const */
 cn.constants.GAME_CANVAS_CLASS_NAME = goog.getCssName('cn-game-canvas');
+
+
+/** @type {string} @const */
+cn.constants.GAME_CANVAS_CONTAINER =
+    goog.getCssName('cn-game-canvas-container');
 
 
 /** @type {string} @const */
@@ -94,6 +103,11 @@ cn.constants.ANIMATED_GAME_CANVAS_CLASS_NAME =
 
 /** @type {string} @const */
 cn.constants.LEVEL_SELECTOR_CLASS_NAME = goog.getCssName('cn-level-selector');
+
+
+/** @type {string} @const */
+cn.constants.LEVEL_SELECTOR_CONTAINER =
+    goog.getCssName('cn-level-selector-container');
 
 
 /** @type {string} @const */
@@ -142,8 +156,11 @@ cn.constants.TOOLBOX_CLASS_NAME = goog.getCssName('cn-toolbox');
 
 
 /** @type {string} @const */
-cn.constants.TOOLBOX_CONTAINER_CLASS_NAME =
-    goog.getCssName('cn-toolbox-container');
+cn.constants.FULL_TOOLBOX_CLASS_NAME = goog.getCssName('cn-full-toolbox');
+
+
+/** @type {string} @const */
+cn.constants.TOOLBOX_CONTAINER = goog.getCssName('cn-toolbox-container');
 
 
 /** @type {string} @const */

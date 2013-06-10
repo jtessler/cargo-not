@@ -9,8 +9,8 @@ goog.provide('cn.ui.Controls');
 
 goog.require('cn.constants');
 goog.require('cn.ui.ClassComponent');
-goog.require('goog.ui.Component');
 goog.require('goog.ui.Button');
+goog.require('goog.ui.Component');
 goog.require('goog.ui.Slider');
 
 

@@ -6,8 +6,8 @@
 
 goog.provide('cn.ui.ClassComponent');
 
-goog.require('goog.dom.classes');
 goog.require('goog.dom.TagName');
+goog.require('goog.dom.classes');
 goog.require('goog.ui.Component');
 
 
@@ -31,7 +31,7 @@ goog.inherits(cn.ui.ClassComponent, goog.ui.Component);
  */
 cn.ui.ClassComponent.prototype.createDom = function() {
   this.decorateInternal(this.getDomHelper().createDom(
-        goog.dom.TagName.DIV, this.classNames_.join(' ')));
+      goog.dom.TagName.DIV, this.classNames_.join(' ')));
 };
 
 

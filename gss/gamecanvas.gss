@@ -1,9 +1,11 @@
-.cn-game-canvas {
+.cn-game-canvas-container {
   float: right;
+}
+
+.cn-game-canvas {
   background-color: #ffffff;
 }
 
 .cn-game-canvas-animated {
-  float: none;
   margin: 25px auto 0 auto;
 }

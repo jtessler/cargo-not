@@ -10,6 +10,7 @@ goog.require('cn.constants');
 goog.require('cn.model.Game');
 goog.require('cn.ui.AnimatedGameCanvas');
 goog.require('cn.ui.ClassComponent');
+goog.require('cn.ui.ClassContainer');
 goog.require('cn.ui.CommandToolbox');
 goog.require('cn.ui.ConditionToolbox');
 goog.require('cn.ui.Controls');
@@ -43,20 +44,27 @@ cn.ui.GameUi = function(game, opt_domHelper) {
   this.programEditor = new cn.ui.ProgramEditor(game, this,
       this.conditionToolbox, this.commandToolbox, opt_domHelper);
 
-  this.addChild(
-      new cn.ui.ClassComponent(cn.constants.GAME_LOGO_CLASS_NAME), true);
-  var container = new goog.ui.Component();
-  container.addChild(this.levelSelector, true);
-  container.addChild(this.goalCanvas, true);
-  this.addChild(container, true);
+  this.addChild(new cn.ui.ClassComponent(
+      cn.constants.GAME_LOGO_CLASS_NAME), true);
+  this.addChild(new cn.ui.ClassContainer([],
+      [
+        new cn.ui.ClassContainer(cn.constants.LEVEL_SELECTOR_CONTAINER,
+            this.levelSelector, 'LEVELS', opt_domHelper),
+        new cn.ui.ClassContainer(cn.constants.GAME_CANVAS_CONTAINER,
+            this.goalCanvas, 'GOAL', opt_domHelper)
+      ],
+      null, opt_domHelper), true);
   this.addChild(this.animatedCanvas, true);
   this.addChild(this.controls, true);
-  container = new cn.ui.ClassComponent(
-      cn.constants.TOOLBOX_CONTAINER_CLASS_NAME);
-  container.addChild(this.conditionToolbox, true);
-  container.addChild(this.commandToolbox, true);
-  container.addChild(this.hintButton, true);
-  this.addChild(container, true);
+  this.addChild(new cn.ui.ClassContainer(cn.constants.TOOLBOX_CONTAINER,
+      new cn.ui.ClassContainer(cn.constants.FULL_TOOLBOX_CLASS_NAME,
+          [
+            this.conditionToolbox,
+            this.commandToolbox,
+            this.hintButton
+          ],
+          null, opt_domHelper),
+      'TOOLBOX', opt_domHelper), true);
   this.addChild(this.programEditor, true);
 };
 goog.inherits(cn.ui.GameUi, cn.ui.ClassComponent);

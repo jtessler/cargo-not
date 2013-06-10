@@ -1,6 +1,8 @@
+.cn-level-selector-container {
+  float: left;
+}
 .cn-level-selector {
   width: auto;
-  float: left;
 }
 
 .goog-tab-bar {
