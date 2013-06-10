@@ -18,6 +18,7 @@ goog.require('goog.net.XhrIo');
  */
 cn.controller.init = function() {
   var game = new cn.model.Game();
+  //game.id = prompt('Enter your UTEID') || 'unknown';
   var ui = new cn.ui.GameUi(game);
   ui.render();
 };
@@ -281,10 +282,10 @@ cn.controller.showHint = function(game, ui) {
  */
 cn.controller.sendLog = function(game) {
   // Don't send meaningless logs.
-  if (game.log.size() > 3) {
+  /*if (game.log.size() > 3) {
     game.log.setId(game.id);
     goog.net.XhrIo.send('/users/joseph/log.php', null, 'POST',
         game.log.serialize(), {'content-type': 'application/json'});
-  }
+  }*/
   game.log.clear();
 };
