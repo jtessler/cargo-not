@@ -77,10 +77,7 @@ cn.ui.ProgramEditor.prototype.enterDocument = function() {
   this.conditionDragGroup_.init();
   this.commandDropGroup_.init();
   this.commandDragGroup_.init();
-  this.registerDragDropEvents(
-      this.conditionDropGroup_, this.conditionDragGroup_);
-  this.registerDragDropEvents(
-      this.commandDropGroup_, this.commandDragGroup_);
+  this.enableDragDrop();
 };
 
 
@@ -88,12 +85,12 @@ cn.ui.ProgramEditor.prototype.enterDocument = function() {
  * Registers all drag drop events.
  * @param {!goog.fx.DragDropGroup} dropGroup The drop group.
  * @param {!goog.fx.DragDropGroup} dragGroup The drag group.
+ * @private
  */
-cn.ui.ProgramEditor.prototype.registerDragDropEvents = function(
+cn.ui.ProgramEditor.prototype.registerDragDropEvents_ = function(
     dropGroup, dragGroup) {
   var EventType = goog.fx.AbstractDragDrop.EventType;
 
-  // TODO(joseph): Don't let user drag while the game is animating.
   this.getHandler().listen(dragGroup, EventType.DRAGSTART,
       function(e) {
         var data = e.dragSourceItem.data;
@@ -233,6 +230,25 @@ cn.ui.ProgramEditor.prototype.forEachRegister = function(f, opt_obj) {
       f(register, r, c);
     }, opt_obj);
   }, opt_obj);
+};
+
+
+/**
+ * Disable all drag drop event handlers.
+ */
+cn.ui.ProgramEditor.prototype.disableDragDrop = function() {
+  this.getHandler().removeAll();
+};
+
+
+/**
+ * Enable all drag drop event handlers.
+ */
+cn.ui.ProgramEditor.prototype.enableDragDrop = function() {
+  this.registerDragDropEvents_(
+      this.conditionDropGroup_, this.conditionDragGroup_);
+  this.registerDragDropEvents_(
+      this.commandDropGroup_, this.commandDragGroup_);
 };
 
 

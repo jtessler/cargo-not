@@ -37,6 +37,7 @@ cn.controller.play = function(game, ui) {
   }
   var command = game.program.next(game.bot);
   ui.programEditor.highlightExecution();
+  ui.programEditor.disableDragDrop();
   if (goog.isDefAndNotNull(command)) {
     switch (command) {
       case cn.model.Command.LEFT:
@@ -224,6 +225,7 @@ cn.controller.reset = function(game, ui) {
   ui.animatedCanvas.drawPathModel(game);
   ui.controls.reset();
   ui.programEditor.unhighlightExecution();
+  ui.programEditor.enableDragDrop();
 };
 
 
