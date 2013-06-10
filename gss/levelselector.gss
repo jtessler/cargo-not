@@ -1,6 +1,7 @@
 .cn-level-selector-container {
   float: left;
 }
+
 .cn-level-selector {
   width: auto;
 }
@@ -12,6 +13,10 @@
   padding: 0 10px;
 }
 
+.goog-tab {
+  @mixin rounded-borders(0);
+}
+
 .goog-tab-bar-horizontal .goog-tab {
   position: relative;
   float: left;
@@ -20,6 +25,7 @@
   padding: 5px 0;
   background-position: center;
   background-repeat: no-repeat;
+  @mixin rounded-borders(5px 5px 0 0);
 }
 
 .goog-tab-bar-vertical {

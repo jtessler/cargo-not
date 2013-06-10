@@ -5,13 +5,12 @@ body {
   color: #58595b;
 }
 
-.cn-game-ui {
-  width: 750px;
-  text-align: center;
-  background-color: #eeeeee;
-  padding: 25px;
-  margin: auto;
+@defmixin rounded-borders(AMOUNT) {
+  border-radius: AMOUNT;
+  /* @alternate */ -moz-border-radius: AMOUNT;
+  /* @alternate */ -webkit-border-radius: AMOUNT;
 }
+canvas, div { @mixin rounded-borders(5px); }
 
 div:after {
   content: ' '; /* Makes the div 'fill' the floating sub-divs. */
@@ -19,6 +18,14 @@ div:after {
   height: 0;
   clear: both;
   visibility: hidden;
+}
+
+.cn-game-ui {
+  width: 750px;
+  text-align: center;
+  background-color: #eeeeee;
+  padding: 25px;
+  margin: auto;
 }
 
 .cn-game-logo {
@@ -33,4 +40,5 @@ div:after {
   font-size: 20px;
   font-weight: bolder;
   margin-bottom: 3px;
+  outline: none;
 }

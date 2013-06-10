@@ -7,7 +7,7 @@
   float: left;
   margin: 2px;
   width: 50px;
-  height: 71px;
+  height: 70px;
 }
 
 @defmixin function-register(URL) {
@@ -30,10 +30,5 @@
   background-size: 100%;
   background-image: url(URL);
 }
-.cn-condition-register {
-  @mixin register('png/drag_top.png', 20px);
-  border-bottom: 1px solid white;
-}
-.cn-command-register {
-  @mixin register('png/drag_bottom.png', 50px);
-}
+.cn-condition-register { @mixin register('png/drag_top.png', 20px); }
+.cn-command-register   { @mixin register('png/drag_bottom.png', 50px); }
