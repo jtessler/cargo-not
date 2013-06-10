@@ -26,6 +26,7 @@
 }
 
 .goog-tab-bar-vertical .goog-tab {
+  height: 11px;
   padding: 5px 15px;
 }
 
