@@ -7,10 +7,6 @@
 goog.provide('cn.constants');
 
 
-/** @define {string} The webserver's root directory. */
-cn.constants.ROOT = '/';
-
-
 /** @type {number} @const */
 cn.constants.GAME_WIDTH = 750;
 
