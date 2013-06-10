@@ -38,13 +38,8 @@ cn.ui.GameUi = function(game, opt_domHelper) {
   this.controls = new cn.ui.Controls(game, this, opt_domHelper);
   this.conditionToolbox = new cn.ui.ConditionToolbox(opt_domHelper);
   this.commandToolbox = new cn.ui.CommandToolbox(opt_domHelper);
-  this.programEditor = new cn.ui.ProgramEditor(game, this, opt_domHelper);
-
-  // Wire the drag drop source to target groups.
-  this.conditionToolbox.getDragDropGroup().addTarget(
-      this.programEditor.getConditionDragDropGroup());
-  this.commandToolbox.getDragDropGroup().addTarget(
-      this.programEditor.getCommandDragDropGroup());
+  this.programEditor = new cn.ui.ProgramEditor(game, this,
+      this.conditionToolbox, this.commandToolbox, opt_domHelper);
 
   this.addChild(
       new cn.ui.ClassComponent(cn.constants.GAME_LOGO_CLASS_NAME), true);

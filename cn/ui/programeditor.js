@@ -21,20 +21,30 @@ goog.require('goog.style');
 /**
  * @param {!cn.model.Game} game The game model to render.
  * @param {!cn.ui.GameUi} ui A pointer to parent game UI.
+ * @param {!cn.ui.Toolbox} conditionToolbox The drag drop source for conditions.
+ * @param {!cn.ui.Toolbox} commandToolbox The drag drop source for commands.
  * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper.
  * @constructor
  * @extends {cn.ui.ClassComponent}
  */
-cn.ui.ProgramEditor = function(game, ui, opt_domHelper) {
+cn.ui.ProgramEditor = function(
+    game, ui, conditionToolbox, commandToolbox, opt_domHelper) {
   goog.base(this, cn.constants.PROGRAM_EDITOR_CLASS_NAME, opt_domHelper);
   this.game_ = game;
   this.ui_ = ui;
-  this.conditionDragDropGroup_ = new goog.fx.DragDropGroup();
-  this.commandDragDropGroup_ = new goog.fx.DragDropGroup();
+  this.conditionDropGroup_ = new goog.fx.DragDropGroup();
+  this.conditionDragGroup_ = new goog.fx.DragDropGroup();
+  this.commandDropGroup_ = new goog.fx.DragDropGroup();
+  this.commandDragGroup_ = new goog.fx.DragDropGroup();
 
-  // Wire each drag drop group to itself as a target.
-  this.conditionDragDropGroup_.addTarget(this.conditionDragDropGroup_);
-  this.commandDragDropGroup_.addTarget(this.commandDragDropGroup_);
+  // Add the registers as a drag drop target for the toolboxes.
+  conditionToolbox.getDragDropGroup().addTarget(this.conditionDropGroup_);
+  commandToolbox.getDragDropGroup().addTarget(this.commandDropGroup_);
+
+  // Add the registers as a drag drop target for the actions already in a
+  // register.
+  this.conditionDragGroup_.addTarget(this.conditionDropGroup_);
+  this.commandDragGroup_.addTarget(this.commandDropGroup_);
 };
 goog.inherits(cn.ui.ProgramEditor, cn.ui.ClassComponent);
 
@@ -50,7 +60,7 @@ cn.ui.ProgramEditor.prototype.init = function() {
         this.addChild(
             new cn.ui.FunctionEditor(
                 f, instructions,
-                this.conditionDragDropGroup_, this.commandDragDropGroup_,
+                this.conditionDropGroup_, this.commandDropGroup_,
                 this.getDomHelper()),
             true);
       },
@@ -63,23 +73,28 @@ cn.ui.ProgramEditor.prototype.init = function() {
  */
 cn.ui.ProgramEditor.prototype.enterDocument = function() {
   goog.base(this, 'enterDocument');
-  this.conditionDragDropGroup_.init();
-  this.commandDragDropGroup_.init();
-  this.registerDragDropEvents(this.conditionDragDropGroup_);
-  this.registerDragDropEvents(this.commandDragDropGroup_);
+  this.conditionDropGroup_.init();
+  this.conditionDragGroup_.init();
+  this.commandDropGroup_.init();
+  this.commandDragGroup_.init();
+  this.registerDragDropEvents(
+      this.conditionDropGroup_, this.conditionDragGroup_);
+  this.registerDragDropEvents(
+      this.commandDropGroup_, this.commandDragGroup_);
 };
 
 
 /**
  * Registers all drag drop events.
- * @param {!goog.fx.DragDropGroup} dragDropGroup The drag drop group.
+ * @param {!goog.fx.DragDropGroup} dropGroup The drop group.
+ * @param {!goog.fx.DragDropGroup} dragGroup The drag group.
  */
-cn.ui.ProgramEditor.prototype.registerDragDropEvents = function(dragDropGroup) {
+cn.ui.ProgramEditor.prototype.registerDragDropEvents = function(
+    dropGroup, dragGroup) {
   var EventType = goog.fx.AbstractDragDrop.EventType;
 
-  // TODO(joseph): Don't let user drag the actual registers.
   // TODO(joseph): Don't let user drag while the game is animating.
-  this.getHandler().listen(dragDropGroup, EventType.DRAGSTART,
+  this.getHandler().listen(dragGroup, EventType.DRAGSTART,
       function(e) {
         var data = e.dragSourceItem.data;
         if (goog.object.containsKey(data, 'condition')) {
@@ -90,7 +105,7 @@ cn.ui.ProgramEditor.prototype.registerDragDropEvents = function(dragDropGroup) {
         goog.style.setOpacity(e.dragSourceItem.element, 0.5);
       });
 
-  this.getHandler().listen(dragDropGroup, EventType.DRAGEND,
+  this.getHandler().listen(dragGroup, EventType.DRAGEND,
       function(e) {
         if (goog.object.containsKey(e.dragSourceItem.data, 'out')) {
           goog.dom.removeNode(e.dragSourceItem.element);
@@ -99,20 +114,20 @@ cn.ui.ProgramEditor.prototype.registerDragDropEvents = function(dragDropGroup) {
         }
       });
 
-  this.getHandler().listen(dragDropGroup, EventType.DRAGOVER,
+  this.getHandler().listen(dropGroup, EventType.DRAGOVER,
       function(e) {
         goog.style.setStyle(e.dropTargetItem.element, 'background-size', '0%');
         goog.object.remove(e.dragSourceItem.data, 'out');
       });
 
-  this.getHandler().listen(dragDropGroup, EventType.DRAGOUT,
+  this.getHandler().listen(dropGroup, EventType.DRAGOUT,
       function(e) {
         goog.style.setStyle(
             e.dropTargetItem.element, 'background-size', '100%');
         goog.object.set(e.dragSourceItem.data, 'out', true);
       });
 
-  this.getHandler().listen(dragDropGroup, EventType.DROP,
+  this.getHandler().listen(dropGroup, EventType.DROP,
       function(e) {
         var source = e.dragSource;
         var element = e.dragSourceItem.element;
@@ -123,11 +138,11 @@ cn.ui.ProgramEditor.prototype.registerDragDropEvents = function(dragDropGroup) {
         if (source === this.ui_.conditionToolbox.getDragDropGroup()) {
           element = e.dragSourceItem.element.cloneNode(true);
           data = goog.object.clone(data);
-          this.conditionDragDropGroup_.addItem(element, data);
+          this.conditionDragGroup_.addItem(element, data);
         } else if (source === this.ui_.commandToolbox.getDragDropGroup()) {
           element = e.dragSourceItem.element.cloneNode(true);
           data = goog.object.clone(data);
-          this.commandDragDropGroup_.addItem(element, data);
+          this.commandDragGroup_.addItem(element, data);
         }
 
         // Update the style and add the element to the register's DOM.
@@ -148,18 +163,6 @@ cn.ui.ProgramEditor.prototype.registerDragDropEvents = function(dragDropGroup) {
         data.f = ptr.f;
         data.i = ptr.i;
       });
-};
-
-
-/** @return {!goog.fx.DragDropGroup} The condition drag drop group. */
-cn.ui.ProgramEditor.prototype.getConditionDragDropGroup = function() {
-  return this.conditionDragDropGroup_;
-};
-
-
-/** @return {!goog.fx.DragDropGroup} The command drag drop group. */
-cn.ui.ProgramEditor.prototype.getCommandDragDropGroup = function() {
-  return this.commandDragDropGroup_;
 };
 
 
@@ -242,8 +245,16 @@ cn.ui.ProgramEditor.prototype.ui_;
 
 
 /** @type {!goog.fx.DragDropGroup} @private */
-cn.ui.ProgramEditor.prototype.conditionDragDropGroup_;
+cn.ui.ProgramEditor.prototype.conditionDropGroup_;
 
 
 /** @type {!goog.fx.DragDropGroup} @private */
-cn.ui.ProgramEditor.prototype.commandDragDropGroup_;
+cn.ui.ProgramEditor.prototype.conditionDragGroup_;
+
+
+/** @type {!goog.fx.DragDropGroup} @private */
+cn.ui.ProgramEditor.prototype.commandDropGroup_;
+
+
+/** @type {!goog.fx.DragDropGroup} @private */
+cn.ui.ProgramEditor.prototype.commandDragGroup_;
