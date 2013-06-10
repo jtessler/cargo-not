@@ -46,7 +46,7 @@ release: css-release
 
 css-release:
 	$(CSS) \
-		--rename CLOSURE \
+		--rename DEBUG \
 		--output-renaming-map-format CLOSURE_COMPILED \
 		--output-renaming-map $(JS_MAP_OUTPUT) \
 
