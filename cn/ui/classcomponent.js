@@ -7,6 +7,7 @@
 goog.provide('cn.ui.ClassComponent');
 
 goog.require('goog.dom.classes');
+goog.require('goog.dom.TagName');
 goog.require('goog.ui.Component');
 
 
@@ -29,16 +30,8 @@ goog.inherits(cn.ui.ClassComponent, goog.ui.Component);
  * @inheritDoc
  */
 cn.ui.ClassComponent.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('div'));
-};
-
-
-/**
- * @inheritDoc
- */
-cn.ui.ClassComponent.prototype.decorateInternal = function(element) {
-  goog.base(this, 'decorateInternal', element);
-  goog.dom.classes.addRemove(element, null, this.classNames_);
+  this.decorateInternal(this.getDomHelper().createDom(
+        goog.dom.TagName.DIV, this.classNames_.join(' ')));
 };
 
 
