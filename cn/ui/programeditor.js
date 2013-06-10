@@ -94,10 +94,12 @@ cn.ui.ProgramEditor.prototype.registerDragDropEvents_ = function(
   this.getHandler().listen(dragGroup, EventType.DRAGSTART,
       function(e) {
         var data = e.dragSourceItem.data;
-        if (goog.object.containsKey(data, 'condition')) {
+        if (goog.isDefAndNotNull(data.condition)) {
           cn.controller.removeCondition(this.game_, data.f, data.i);
-        } else {
+        } else if (goog.isDefAndNotNull(data.command)) {
           cn.controller.removeCommand(this.game_, data.f, data.i);
+        } else {
+          throw Error('invalid data in register.');
         }
         goog.style.setOpacity(e.dragSourceItem.element, 0.5);
       });
@@ -150,12 +152,12 @@ cn.ui.ProgramEditor.prototype.registerDragDropEvents_ = function(
         e.dropTargetItem.element.appendChild(element);
 
         // Update the actual program model.
-        if (goog.object.containsKey(e.dragSourceItem.data, 'condition')) {
-          cn.controller.setCondition(
-              this.game_, ptr.f, ptr.i, e.dragSourceItem.data.condition);
+        if (goog.isDefAndNotNull(data.condition)) {
+          cn.controller.setCondition(this.game_, ptr.f, ptr.i, data.condition);
+        } else if (goog.isDefAndNotNull(data.command)) {
+          cn.controller.setCommand(this.game_, ptr.f, ptr.i, data.command);
         } else {
-          cn.controller.setCommand(
-              this.game_, ptr.f, ptr.i, e.dragSourceItem.data.command);
+          throw Error('invalid data in register.');
         }
         data.f = ptr.f;
         data.i = ptr.i;
