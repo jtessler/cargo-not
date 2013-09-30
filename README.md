@@ -8,7 +8,6 @@ Requirements
 ------------
 * Java
 * Python
-* Subversion
 * [Google Closure][closure] (see below)
 * [Closure Stylesheets][closure-css] (see below)
 
