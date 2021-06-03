@@ -8,9 +8,10 @@ INDEX_OUTPUT = index.html
 # Closure Library variables.
 LIB_URL = https://github.com/google/closure-library.git
 LIB_PATH = closure/library
+LIB_TAG = v20160106
 
 # Closure Compiler variables.
-CC_URL = http://dl.google.com/closure-compiler/compiler-latest.zip
+CC_URL = https://dl.google.com/closure-compiler/compiler-20151216.zip
 CC_PATH = closure/compiler
 CC_JAR = $(CC_PATH)/compiler.jar
 
@@ -27,7 +28,7 @@ CC = python $(LIB_PATH)/closure/bin/build/closurebuilder.py \
 		--compiler_flags "--js=$(LIB_PATH)/closure/goog/deps.js"
 
 # Closure Stylesheets variables.
-CSS_URL = https://closure-stylesheets.googlecode.com/files/closure-stylesheets-20111230.jar
+CSS_URL = https://github.com/google/closure-stylesheets/releases/download/v1.5.0/closure-stylesheets.jar
 CSS_JAR = closure/closure-stylesheets.jar
 
 # Closure Stylesheets arguments.
@@ -73,8 +74,7 @@ closure: closure-library closure-compiler closure-stylesheets
 
 closure-library:
 	@test -d $(LIB_PATH)/.git || rm -rf $(LIB_PATH) # Delete any non-git version.
-	@test -d $(LIB_PATH) || git clone $(LIB_URL) $(LIB_PATH)
-	@cd $(LIB_PATH) && git pull
+	@test -d $(LIB_PATH) || git clone -b $(LIB_TAG) $(LIB_URL) $(LIB_PATH)
 
 closure-compiler:
 	wget $(CC_URL) -O /tmp/cc.zip
